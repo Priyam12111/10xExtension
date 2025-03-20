@@ -1,0 +1,74 @@
+<div class="main">
+  <div id="dropdown-container">
+    <div class="modal-body" style="height: 80%">
+      <div class="gmas-sign googleSheetPad">
+        <div class="gooShetAftet">
+          <img
+            src="https://drkcrypt.github.io/Dropmenu/assets/images/google-sheet-icon.svg"
+            alt="10xmailer"
+            jslog="138226; u014N:xr6bB; 53:WzAsMF0."
+            style="width: 60px"
+          />
+        </div>
+        <h3 class="mb-2">Choose a Google Sheet below.</h3>
+
+        <!-- Close Button -->
+        <button id="close-btn" class="close-btn">
+          <img
+            src="https://static.thenounproject.com/png/953232-200.png"
+            width="30px"
+          />
+        </button>
+
+        <div id="dropdown" class="dropdown">
+          <span id="dropdown-placeholder">Select Spreadsheet</span>
+          <input
+            type="search"
+            id="dropdown-search"
+            placeholder="Search sheets..."
+          />
+        </div>
+        <ul id="dropdown-list" class="hidden"></ul>
+
+        <div id="sheet-dropdown" class="dropdown hidden">
+          <span id="sheet-dropdown-placeholder">Sheet Name</span>
+          <input
+            type="search"
+            id="sheet-dropdown-search"
+            placeholder="Search sheets..."
+            autocomplete="off"
+          />
+        </div>
+        <ul id="sheet-dropdown-list" class="hidden"></ul>
+        <div class="checkSheet">
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="keepemails"
+            />
+            <label class="form-check-label" for="keepemails">
+              Keep duplicate emails
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="reportdatacheckbox"
+              checked=""
+            />
+            <label class="form-check-label" for="reportdatalabel">
+              Update Sheet with reporting data
+            </label>
+          </div>
+        </div>
+        <div id="SpreadsheetSave" class="save-btn buttonPopoSec hidden">
+          <a href="#">Connect To Spreadsheet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "10xsend",
+  "version": "3.2.2",
+  "description": "An advanced Chrome extension for scheduling emails and managing follow-ups efficiently",
+  "permissions": ["activeTab", "scripting", "identity"],
+  "oauth2": {
+    "client_id": "1028647389622-ae8028g4n8det2fcd32q8qlq4368oqc0.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.metadata.readonly",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.compose",
+      "https://www.googleapis.com/auth/spreadsheets"
+    ]
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "action": {
+    "default_popup": "assets/html/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "css": ["assets/css/custom.css", "assets/css/Cmail.css"],
+      "js": [
+        "scripts/connectSheet.js",
+        "scripts/content.js",
+        "scripts/sendMail.js",
+        "scripts/autoSuggest.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/html/dropmenu.html", "assets/html/sheetlist.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "assets/images/icon.png",
+    "48": "assets/images/icon.png",
+    "128": "assets/images/icon.png"
+  }
+}

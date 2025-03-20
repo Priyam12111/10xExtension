@@ -1,0 +1,3039 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css"
+      integrity="sha512-/k658G6UsCvbkGRB3vPXpsPHgWeduJwiWGPCGS14IQw3xpr63AEMdA8nMYG2gmYkXitQxDTn6iiK/2fD4T87qA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="custom.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Dropup Menu</title>
+    <style>
+      #sendrich {
+        display: flex;
+      }
+      .folloupBut{
+        display: flex;
+        gap: 2px;
+      }
+      .folloupBut div{
+        cursor: pointer;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <style>
+      .gMassSec .modal-content {
+        border-radius: 8px;
+        border: none;
+      }
+      .plusIcon,CreateDraft {
+        cursor: pointer;
+      }
+      .gMassSec .modal-header {
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        border-radius: 8px 8px 0 0;
+        padding: 20px;
+        border: none;
+      }
+
+      .gMassSec .modal-body {
+        padding-top: 0;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .sendTestSec {
+        border-bottom: 1px solid #e4b5ff;
+        padding: 16px 0;
+      }
+
+      .sendTestSec h6 {
+        font-size: 14px;
+        color: #323338;
+        font-weight: 600;
+      }
+
+      .searhFlex {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+
+        z-index: auto;
+      }
+
+      .sendTestSec .emailSearch {
+        border: 1px solid #d0d4e4;
+        border-radius: 4px;
+        padding: 8px;
+      }
+
+      .sendTestSec .sendTestdrop {
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 16px;
+        border: none;
+      }
+
+      .searhFlex .multiSelect {
+        width: 100%;
+      }
+
+      .searhFlex .select2-container {
+        width: 100% !important;
+      }
+
+      .searhFlex .select2-dropdown {
+        z-index: 9999 !important;
+      }
+
+      .searhFlex .select2-container--default .select2-selection--multiple {
+        border: 1px solid #d0d4e4;
+        outline: 0;
+        padding: 1px 8px;
+        border-radius: 4px;
+      }
+
+      .searhFlex
+        .select2-container--default.select2-container--focus
+        .select2-selection--multiple {
+        border: 1px solid #d0d4e4;
+      }
+
+      .searhFlex
+        .select2-container--default
+        .select2-selection--multiple
+        .select2-selection__choice {
+        background-color: #fff;
+        border: 1px solid #dddfe3;
+        padding: 2px 4px 2px 4px;
+        border-radius: 100px;
+        margin-top: 0;
+        direction: rtl;
+        margin: 7px 2px;
+        line-height: 17px;
+      }
+
+      .searhFlex
+        .select2-container--default
+        .select2-selection--multiple
+        .select2-selection__choice__display {
+        cursor: default;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 12px;
+      }
+
+      .searhFlex
+        .select2-container--default
+        .select2-selection--multiple
+        .select2-selection__choice__remove {
+        border: 1px solid #4a4a4a;
+        border-radius: 100px;
+        color: #4a4a4a;
+        position: unset;
+        margin-left: 8px;
+        padding: 0 0;
+        width: 14px;
+        height: 14px;
+        padding: 0;
+        line-height: 9px;
+      }
+
+      .searhFlex
+        .select2-container--default
+        .select2-selection--multiple
+        .select2-selection__choice__remove {
+        font-size: 16px;
+      }
+
+      .searhFlex
+        .select2-container--default
+        .select2-selection--multiple
+        .select2-selection__choice__remove:hover {
+        border-color: #f70000;
+        color: #f70000;
+        background-color: #fff;
+      }
+
+      .select2-results__option {
+        padding: 3px 8px;
+        font-size: 12px !important;
+      }
+
+      .select2-container--default .select2-results__option--selected {
+        background-color: #fff;
+      }
+
+      .select2-container--default
+        .select2-results__option--highlighted.select2-results__option--selectable {
+        background-color: #d5d5d5;
+        color: #000;
+      }
+
+      .searhFlex
+        .select2-container
+        .select2-search--inline
+        .select2-search__field {
+        margin-top: 0;
+        margin-left: 6px;
+        height: 25px;
+      }
+
+      .searhFlex .select2-container .select2-selection--multiple {
+        min-height: 40px;
+      }
+
+      .radioBtnDroup label {
+        font-size: 14px;
+      }
+
+      .radioBtnDroup .dropdown-menu {
+        padding: 0 6px;
+      }
+
+      .radioBtnDroup .dropdown-item {
+        padding: 6px 12px;
+      }
+
+      .checkBoxlist {
+        border-top: 1px solid #d0d4e4;
+      }
+
+      .radioBtnDroup .form-check-input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 0;
+      }
+
+      .radioBtnDroup .form-check-input:checked {
+        background-color: #9e01f9;
+        border-color: #9e01f9;
+      }
+
+      .radioBtnDroup .form-check-input[type="radio"] {
+        width: 14px;
+        height: 14px;
+        margin-top: 0;
+      }
+
+      .radioBtnDroup .form-check-input[type="radio"]:checked {
+        background-color: #9e01f9;
+        border: 2px solid #ffffff;
+        margin-top: 0;
+        box-shadow: 0 0 0 1px #9e01f9;
+        width: 13px;
+        height: 13px;
+      }
+
+      .radioBtnDroup .form-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .radioBtnDroup .form-check-input:checked[type="radio"] {
+        --bs-form-check-bg-image: none;
+      }
+
+      .radioBtnDroup .dropdown-item.active,
+      .radioBtnDroup .dropdown-item:active {
+        color: unset;
+        text-decoration: none;
+        background-color: unset;
+      }
+
+      .droupSec {
+        border: 1px solid #d0d4e4;
+        border-radius: 4px;
+        padding: 3px 8px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        height: 40px;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+      }
+
+      .droupSec span .mdi-menu-down::before {
+        font-size: 25px;
+      }
+
+      .droupSec input {
+        border: none;
+        width: 100%;
+        font-size: 14px;
+        color: #323338;
+      }
+
+      .droupSec .searchIcon {
+        color: #323338;
+        margin-right: 4px;
+      }
+
+      .droupOpenSec {
+        background-color: rgb(255, 255, 255);
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        height: auto;
+        max-height: 300px;
+        min-height: 150px;
+        overflow: scroll;
+        z-index: 40;
+        width: 50%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .droupOpenSec::-webkit-scrollbar {
+        display: none;
+      }
+
+      #listsecOpenMessageS1{
+        position: absolute;
+        top: 396px;
+        left: 53px;
+      }
+      #listsecOpenMessageS2 {
+        position: absolute;
+        top: 762px;
+        left: 61px;
+      }
+      #listsecOpenMessageS3 {
+        position: absolute;
+        top: 1125px;
+        left: 65px;
+      }
+      #listsecOpenMessageS4 {
+        position: absolute;
+        top: 1485px;
+        left: 65px;
+      }
+      #listsecOpenMessageS5 {
+        position: absolute;
+        top: 1850px;
+        left: 65px;
+      }
+      .widhSetup {
+        z-index: 2;
+        width: 93%;
+      }
+
+      .listWidIcons {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .listWidIcons li a {
+        color: unset;
+        text-decoration: none;
+      }
+
+      .listWidIcons li:hover {
+        background-color: #efefefa1;
+      }
+
+      .iconsListUp {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .numpink {
+        color: #9e01f9 !important;
+        background-color: #f4e2ff;
+        border: 1px solid #e4b5ff;
+        padding: 1px 6px;
+        border-radius: 4px;
+        height: auto;
+        width: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      #listsecOpenOne,
+      #listsecOpenTwo,
+      #listsecOpenMessage
+      {
+        display: none;
+      }
+
+      .droPosisiontwo {
+        position: relative;
+      }
+
+      #listsecOpenTwo,
+      #listsecOpenOne,
+      #listsecOpenDays,
+      #listsecOpenMessage {
+        position: absolute;
+      }
+
+      .perWidth {
+        width: 100%;
+      }
+
+      #listsecOpenTwo,
+      #listsecOpenOne,
+      #listsecOpenMessage {
+        display: none;
+      }
+
+      #listsecOpenTwo.visible,
+      #listsecOpenOne.visible,
+      #listsecOpenDays.visible,
+      #listsecOpenMessage.visible {
+        display: block;
+      }
+
+      .unsubSec a {
+        color: #9e01f9 !important;
+        font-size: 12px;
+        text-decoration: none;
+      }
+
+      .coloPurLink {
+        width: 152px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .settingsec {
+        margin-top: 20px;
+      }
+
+      .settingsec h5 {
+        font-size: 16px;
+        color: #323338;
+        margin: 0;
+        font-weight: bold;
+      }
+
+      .grayBg {
+        border: 1px solid #e4b5ff;
+        padding: 16px;
+        background-color: #f8f8f8;
+        border-radius: 4px;
+        margin: 16px auto;
+      }
+
+      .tackheadSc {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto 4px;
+        padding-bottom: 12px;
+        cursor: pointer;
+      }
+
+      .tackheadSc h5 {
+        font-size: 16px;
+        color: #323338;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .tackShowBtn {
+        margin: 0px auto;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .tackShowBtn .pinkbtnall {
+        border: 1px solid #9e01f9;
+        border-radius: 4px;
+        background-color: #faf1ff;
+        color: #9e01f9;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 4px 6px;
+        cursor: context-menu;
+        height: 34px;
+      }
+
+      .tackCheckLable {
+        display: flex;
+        gap: 2px 24px;
+        flex-wrap: wrap;
+      }
+
+      .tackCheckLable .form-check-input[type="radio"] {
+        width: 15px;
+        height: 15px;
+        margin-top: 0;
+        border: 3px solid transparent;
+      }
+
+      .tackCheckLable .form-check-input[type="checkbox"] {
+        width: 28px;
+        height: 28px;
+        margin-top: 0;
+      }
+
+      .tackCheckLable .form-check-input:checked {
+        background-color: #9e01f9;
+        border-color: #9e01f9;
+        margin-top: 0;
+      }
+
+      .tackCheckLable .form-check-input[type="radio"]:checked {
+        background-color: #9e01f9;
+        border: 3px solid #ffffff;
+        margin-top: 0;
+        box-shadow: 0 0 0 2px #9e01f9;
+        height: 15px;
+        width: 15px;
+        appearance: none;
+      }
+
+      .tackCheckLable .form-check-input:checked[type="radio"] {
+        --bs-form-check-bg-image: none;
+      }
+
+      .tackCheckLable .form-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .tackCheckLable .form-check label {
+        font-size: 14px;
+        color: #323338;
+        font-weight: 500;
+      }
+
+      .satgeSec h5 {
+        color: #323338;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .stageDroupsec a {
+        border: 0.2px solid #d0d4e496;
+        background-color: #fff;
+        color: #4a4a4a;
+        font-size: 12px;
+      }
+
+      .stageDroupsec a.show {
+        border-color: #d0d4e4 !important;
+        background-color: #fff !important;
+        color: #4a4a4a !important;
+      }
+
+      .stageDroupsec a:active {
+        border-color: #d0d4e4 !important;
+        background-color: #fff !important;
+        color: #4a4a4a !important;
+      }
+
+      .stageDroupsec a:hover {
+        border-color: #d0d4e4 !important;
+        background-color: #fff !important;
+        color: #4a4a4a !important;
+      }
+
+      .stageNumberinput {
+        border: 1px solid #d0d4e4;
+        background-color: #fff;
+        color: #4a4a4a;
+        font-size: 12px;
+        padding: 0px 12px;
+        border-radius: 4px;
+        height: 32px;
+        width: 60px;
+      }
+
+      .satgeSec .form-check-input {
+        width: 23px;
+        height: 23px;
+      }
+
+      .daysTitle {
+        font-size: 12px;
+        color: #9e01f9;
+      }
+
+      .timesec {
+        margin: 8px 11px 16px;
+      }
+
+      .timesec .inputTimeSec {
+        border: 1px solid #d0d4e4;
+        background-color: #fff;
+        color: #4a4a4a;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      .stagetextarea {
+        border: 1px solid #d0d4e4;
+        background-color: #fff;
+        color: #4a4a4a;
+        font-size: 12px;
+        padding: 12px;
+        border-radius: 4px;
+        width: 100%;
+        transition: all 0.6s ease-out;
+
+      }
+      .disabletextarea {
+        background-color: #f0f0f0; 
+        color: #888; 
+        border: 1px solid #ccc;
+        cursor: not-allowed; 
+        pointer-events: none;
+        transition: all 0.6s ease-in;
+      }
+      .setmargn {
+        margin: 12px 22px 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      .setmargn-org {
+        margin: 12px 22px 12px;
+
+        display: flex;
+        flex-direction: row;
+      }
+      .messageDiv {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 343px;
+      }
+
+      .messageDiv .droupSec {
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .refresIcon,
+      .editIcon,
+      .viewfollowup {
+        border: 1px solid #d0d4e4;
+        background-color: #fff;
+        color: #4a4a4a;
+        font-size: 10px;
+        padding: 8px;
+        border-radius: 4px;
+      }
+
+      .refresIcon a {
+        color: unset;
+        text-decoration: none;
+      }
+
+      .stageTwoBorder hr {
+        border-color: #d0d4e4;
+        opacity: unset;
+      }
+
+      #listsecOpenMessage {
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+      }
+
+      .schdulMain {
+        display: flex;
+        grid-template-columns: auto auto;
+        gap: 50px;
+      }
+
+      .schdulMain h5 {
+        width: 7%;
+      }
+
+      .schduSec {
+        width: 100%;
+        max-width: 350px;
+        min-width: 350px;
+      }
+
+      .schduSec .sendTestdrop {
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .dateTimeSec input {
+        border: 0.2px solid #d0d4e496;
+        background-color: #fff;
+        width: 100%;
+        padding: 6px;
+        font-size: 12px;
+        border-radius: 4px;
+        margin: 12px auto;
+        color: #4a4a4a;
+      }
+
+      .schduSec .droupSec {
+        border: 0.2px solid #d0d4e496;
+        background-color: #fff;
+        width: 100%;
+        padding: 6px;
+        font-size: 12px;
+        border-radius: 4px;
+        margin: 12px auto;
+        position: relative;
+        position: sticky;
+        top: -3px;
+      }
+
+      .droPosisionDays {
+        position: relative;
+      }
+
+      .mesagePosi {
+        position: relative;
+        width: 300px;
+      }
+
+      #listsecOpenDays {
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        top: 33px;
+        margin-top: 18px;
+      }
+
+      .radioBtnDroup.dropdown-menu.show {
+        display: block;
+
+        box-shadow: 0 1px 5px 1px #0d6efd1c;
+        padding: 0 !important;
+        border-color: #00000017;
+      }
+
+      .verifySec {
+        display: flex;
+        gap: 50px;
+      }
+
+      .verifSecMai {
+        display: block;
+        margin: 9px auto;
+      }
+
+      .verifySec h5 {
+        width: 20%;
+      }
+
+      .prevsecMain label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #323338;
+        margin: 0 auto 4px;
+      }
+
+      .prevsecMain input {
+        border: 1px solid #d0d4e4;
+        border-radius: 4px;
+        padding: 12px;
+        width: 100%;
+        background-color: #fff;
+        font-size: 12px;
+      }
+
+      .prevsecMain {
+        margin: 12px auto;
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      textarea:focus {
+        outline: none;
+      }
+
+      .contendivNone {
+        display: none;
+      }
+
+      #openbtnone,
+      #openbtntwo,
+      #openbtnthree,
+      #openbtnfour,
+      #openbtnfive {
+        border-top: 1px solid #d0d4e4;
+        padding-top: 12px;
+      }
+
+      .tackheadSc span .mdi-menu-down::before {
+        content: "\F035D";
+        transform: rotate(270deg);
+        font-size: 25px;
+      }
+
+      .tackheadSc span .mdi-menu-down.rotate::before {
+        transform: rotate(360deg);
+      }
+
+      .unsubSec {
+        padding: 6px 0;
+      }
+
+      .maxwidthset {
+        margin-top: -6px;
+      }
+
+      .maxwidthset .stageNumberinput {
+        width: 120px;
+      }
+
+      .signGmasWidth.modal-content {
+        width: 584px;
+      }
+
+      .signGmasWidth .modal-header {
+        padding: 10px;
+      }
+
+      .gmas-sign {
+        text-align: center;
+        margin: 70px auto 60px;
+      }
+
+      .gmas-sign h3 {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 33px auto 60px;
+      }
+
+      .gmas-sign .signGoogLink {
+        font-size: 16px;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .googleSignsec {
+        background-color: #1a73e8;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+        padding: 6px 12px;
+      }
+
+      .gooShetAftet {
+        position: relative;
+      }
+
+      .gooShetAftet::after {
+        content: "";
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        width: 165px;
+        height: 44px;
+        display: inline-block;
+        border-radius: 100%;
+        position: absolute;
+        bottom: 0;
+        right: 34%;
+        filter: blur(60px);
+      }
+
+      .gooShetAftet img {
+        position: relative;
+        z-index: 2;
+      }
+
+      .googleSheetPad {
+        margin: 28px auto 48px;
+      }
+
+      .buttonPopoSec a {
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      .buttonPopoSec {
+        margin: 30px auto 0;
+      }
+
+      .googleShPosi {
+        position: relative;
+      }
+
+      #openSheet,
+      #openspreadsheets,
+      #opensentfollowup {
+        display: none;
+      }
+
+      #openSheet,
+      #openspreadsheets,
+      #opensentfollowup {
+        position: absolute;
+      }
+
+      #openSheet.visible,
+      #openspreadsheets.visible,
+      #opensentfollowup.visible {
+        display: block;
+      }
+
+      .openSheetOne {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        max-height: 150px;
+        z-index: 2;
+      }
+
+      .sheetListContent {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .pinkDateSec {
+        border: 1px solid #e4b5ff;
+        background-color: #f4e2ff;
+        color: #9e01f9;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+
+      .openSheetOne .listWidIcons li {
+        cursor: pointer;
+      }
+
+      .selectSheetShow {
+        border: 1px solid #d0d4e4;
+        border-radius: 4px;
+        padding: 13px 12px;
+        width: 100%;
+        background-color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px auto;
+      }
+
+      .selectSheetShow h6 {
+        font-size: 16px;
+        color: #4a4a4a;
+        margin: 0;
+      }
+
+      .greendateSec {
+        color: #23a566;
+        border: 1px solid #8ed1b1;
+        background-color: #e1fff1;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .followFlex {
+        display: flex;
+        align-items: center;
+      }
+
+      .mainGmail {
+        width: 500px;
+        height: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin: 10px auto;
+        box-shadow: 0 0 3px 2px #d7d7d7;
+        border-radius: 8px;
+      }
+
+      .gMassContMain {
+        width: 500px;
+        background-color: #fff;
+        box-shadow: 1px 0 3px 2px #d7d7d7;
+        border-radius: 8px;
+      }
+
+      .gMassContMain .modal-body {
+        padding: 0 16px 2px;
+      }
+
+      .copyContent {
+        margin-right: 12px;
+      }
+
+      .labWhite {
+        white-space: nowrap;
+      }
+
+      select.norepselect {
+        width: 140px;
+        height: 32px;
+        font-size: 12px;
+        color: #4a4a4a;
+        border: 1px solid #d0d4e4;
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 0px 12px;
+        position: relative;
+      }
+
+      select.norepselect:focus {
+        outline: none;
+      }
+
+      .iconArrowSelect {
+        position: relative;
+      }
+
+      .iconArrowSelect span.arowimgsec {
+        position: absolute;
+        right: 8px;
+        top: 4px;
+      }
+
+      .set120 .norepselect {
+        width: 120px;
+      }
+
+      .verfmargin {
+        margin-left: -2px;
+      }
+/* 
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-button {
+        background: #ccc;
+      }
+      ::-webkit-scrollbar-track-piece {
+        background: #888;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #eee;
+      } */
+
+      #signGmass {
+        position: absolute;
+        z-index: 12;
+        background: #0000008c;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-dialog {
+        width: fit-content;
+        height: fit-content;
+        background: white;
+        border-radius: 10px;
+      }
+
+      #dropdown-container {
+        position: relative;
+        width: 65vw;
+        margin: auto;
+        margin-top: 60px;
+      }
+
+      #dropdown {
+        padding: 10px;
+        border: 1px solid black;
+        border-radius: 8px;
+        background-color: white;
+        cursor: pointer;
+        position: relative;
+        bottom: 45px;
+      }
+
+      #dropdown-placeholder {
+        color: grey;
+      }
+
+      #dropdown-search {
+        display: none;
+        width: calc(100% - 20px);
+        padding: 5px;
+        border: none;
+        outline: none;
+      }
+      #dropdown-list {
+        position: absolute;
+        top: 270px;
+        max-height: 120px;
+        height: 120px;
+        width: 100%;
+        background: white;
+        border-radius: 8px;
+        overflow-y: auto;
+        margin: 0;
+        padding: 8px 0;
+        list-style: none;
+        bottom: 45px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 15;
+      }
+
+      #dropdown-list li {
+        padding: 10px;
+        cursor: pointer;
+        z-index: 15;
+      }
+
+      #dropdown-list li:hover {
+        background-color: #f0f0f0;
+      }
+
+      .hidden {
+        display: none;
+      }
+      .main {
+        height: 75vh;
+        background: white;
+        width: 70vw;
+        border-radius: 20px;
+      }
+      .header {
+        text-align: center;
+      }
+
+      .settime {
+        display: block;
+        font-size: 13px !important;
+        width: 26px;
+        text-align: center;
+      }
+      input[type="text"] + .gmass-calendar-icon {
+        cursor: pointer;
+        position: relative;
+        top: 10px;
+        width: 32px;
+        height: 16px;
+        display: inline-block;
+        margin-left: -33px;
+        margin-top: 1px;
+      }
+      .stagetextarea {
+        margin-left: 20px;
+      }
+      :root {
+        --primary-color: #493838;
+        --secondary-color: #f9f9f9;
+        --tertiary-color: #ddd;
+        --quaternary-color: #bebcbc;
+      }
+      * {
+        font-family: "Figtree", serif;
+        font-size: max(
+          14px,
+          12px
+        ) !important; /* Ensures font size doesn't go below 12px */
+      }
+
+      body {
+        margin: 0px;
+        background: transparent;
+        overflow: hidden;
+      }
+
+      input,
+      select {
+        height: 30px;
+      }
+      input[type="checkbox"] {
+        flex-shrink: 0;
+        width: 25px;
+        height: 25px;
+        margin-top: 0.25em;
+        vertical-align: top;
+        appearance: none;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #eee;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+      }
+
+      input[type="checkbox"]:checked {
+        border-color: purple;
+        background: purple
+          url("https://cdn.gmass.us/Extension2019Images/fa-check.png") center
+          center no-repeat !important;
+        background-size: 12px auto !important;
+      }
+      .tackCheckLable {
+        display: flex;
+        gap: 2px 24px;
+        flex-wrap: wrap;
+      }
+      .satgeSec h5 {
+        color: #323338;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 1px;
+      }
+      .tackCheckLable .form-check {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 9px;
+      }
+      .form-check {
+        display: block;
+        min-height: 1.5rem;
+        margin-bottom: 0.125rem;
+      }
+      .timesec {
+        display: none;
+        margin: 8px 40px 16px;
+        transition: display 0.5s ease-in-out;
+      }
+      .setmargn {
+        margin: 12px 22px 12px;
+      }
+      .buttonshowpice {
+        display: flex;
+        gap: 10px;
+      }
+      .buttonshowpice button {
+        border: 1px solid #9e01f9;
+        border-radius: 4px;
+        background-color: #faf1ff;
+        color: #9e01f9;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 4px 6px;
+        cursor: context-menu;
+        height: 45px;
+      }
+
+      .g_accordian_title {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+      }
+      .g_accordian_title:before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        right: 13px;
+        height: 10px;
+        width: 10px;
+        background: #f6f6f6 url(/Extension2019Images/fa-angle-down.png) center
+          center no-repeat !important;
+        background-size: 10px auto !important;
+        transform: rotate(90deg);
+      }
+      .g_accordian_content {
+        display: none;
+        padding: 10px;
+      }
+
+      .g_accordian_content.active {
+        display: block;
+      }
+
+      .g_accordian_title img {
+        width: 20px;
+        margin-right: 8px;
+      }
+
+      .g2_send_test,
+      .change-template {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+
+      .g2_send_test input,
+      .g2_send_test button,
+      .change-template button {
+        width: 100%;
+        margin-top: 8px;
+      }
+
+      .g2_send_test input,
+      .g2_send_test button,
+      .change-template button {
+        width: 100%;
+      }
+
+      .g2_send_test input,
+      .g2_send_test button,
+      .change-template button {
+        width: 100%;
+      }
+
+      .g_accordian_content {
+        padding: 10px;
+      }
+
+      body {
+        background-color: transparent;
+        font-size: 16px;
+        font-family: "Open Sans", sans-serif;
+      }
+      .gU.Up {
+        display: flex;
+      }
+
+      div#cmail-dropup {
+        display: block;
+        background-color: var(--secondary-color);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px;
+        border: 1px solid var(--tertiary-color);
+        border-radius: 5px;
+        font-family: "Google-sans", sans-serif;
+        min-height: 360px;
+        max-height: 600px;
+        width: 462px;
+        height: 500px;
+        overflow-y: auto;
+        box-sizing: border-box;
+        z-index: 10000;
+        margin-left: 10px;
+      }
+
+      .dropUpBody {
+        padding: 10px;
+      }
+
+      .template {
+        background: white;
+        flex-direction: column;
+        width: 500px;
+        margin: auto;
+        display: flex;
+        height: 400px;
+        margin-top: 15vh;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+      .template .form-content {
+        width: 70%;
+        padding: 20px;
+      }
+
+      .g2_settings_accordions {
+        font-size: 16px;
+        margin-top: 15px;
+        font-weight: 600;
+        border-top: 0.1px solid #0000004f;
+        padding: 10px;
+      }
+
+      .g2_tracking.g_accordian {
+        border: 1px solid #bebcbc;
+        background-color: #f6f6f6;
+        border-radius: 4px;
+        min-height: 38px;
+        position: relative;
+        max-width: 538px;
+        margin: 0px 1px 10px;
+      }
+
+      .g_accordian_title {
+        font-size: 13px;
+        color: rgb(43, 44, 46);
+        font-weight: bold;
+        padding: 10px 13px;
+        cursor: pointer;
+      }
+
+      .g_accordian_content {
+        padding: 10px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-right: 10px;
+        font-size: 14px;
+      }
+
+      .g_accordian {
+        border: 1px solid #bebcbc;
+        background-color: #f6f6f6;
+        border-radius: 4px;
+        min-height: 38px;
+        position: relative;
+        max-width: 538px;
+        margin: 0px 9px 5px;
+      }
+
+      .g_accordian {
+        margin-bottom: 10px;
+      }
+
+      .change-template,
+      .g2_tracking,
+      .g2_action {
+        margin: 15px 0;
+      }
+
+      span {
+        font-size: 16px;
+      }
+
+      .g2_checkbox {
+        display: initial;
+        line-height: 35px;
+        width: 28px;
+        height: 28px;
+        margin-top: 0;
+        padding-right: 10px;
+      }
+      input:checked {
+        background-color: #9e01f9;
+        border-color: #9e01f9;
+      }
+
+      input#days {
+        width: 10px;
+        font-size: 14px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .labelText {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #323338;
+        font-weight: 600;
+      }
+      .modal-header {
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        border-radius: 8px 8px 0 0;
+        padding: 20px;
+        border: none;
+      }
+      .modal-header {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        padding: var(--bs-modal-header-padding);
+        border-bottom: var(--bs-modal-header-border-width) solid
+          var(--bs-modal-header-border-color);
+        border-top-left-radius: var(--bs-modal-inner-border-radius);
+        border-top-right-radius: var(--bs-modal-inner-border-radius);
+      }
+
+      #test-send {
+        background: linear-gradient(
+          0deg,
+          rgba(29, 33, 48, 1) 0%,
+          rgba(96, 16, 154, 1) 35%,
+          rgba(161, 0, 255, 1) 100%
+        );
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 16px;
+        border: none;
+        width: 30%;
+        cursor: pointer;
+      }
+      .email-settings-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px; /* Adjust spacing as needed */
+      }
+
+      .label {
+        font-size: 1rem;
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .email-limit {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+      }
+
+      .pause-settings {
+        display: flex;
+        align-items: center;
+        margin-top: 4px;
+        gap: 10px;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+      }
+
+      .checkbox-text {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      input[type="text"] {
+        padding: 4px 8px;
+        font-size: 0.9rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 50px;
+      }
+
+      select {
+        padding: 4px 8px;
+        font-size: 0.9rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .send-test-section {
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      /* Flex Layout */
+      .search-flex {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      /* Dropdown Styling */
+      .dropdown-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .dropdown-width {
+        width: 200px;
+      }
+
+      .dropdown-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+      }
+
+      .dropdown-header span {
+        font-size: 0.9rem;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        width: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        display: none; /* Hidden by default */
+      }
+
+      .dropdown-content.active {
+        display: block; /* Displayed when active */
+      }
+
+      /* Search Bar Inside Dropdown */
+      .dropdown-search {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+
+      .search-icon {
+        font-size: 1rem;
+        color: #888;
+      }
+
+      .dropdown-search input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .dropdown-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      /* Dropdown Content */
+      .dropdown-content {
+        display: none;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 5px;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      /* Dropdown Search */
+      .dropdown-search {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .dropdown-search .search-icon {
+        color: #888;
+        margin-right: 10px;
+      }
+
+      .dropdown-search input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      /* Dropdown List */
+      .dropdown-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .dropdown-list li {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+
+      .dropdown-list li:hover {
+        background-color: #f0f0f0;
+      }
+
+      /* Unsubscribe Section */
+      .unsubscribe-section {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .purple-link {
+        color: purple;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .purple-link:hover {
+        text-decoration: underline;
+      }
+
+      /* Copy Content Icon */
+      .copy-content a img {
+        cursor: pointer;
+        display: block;
+      }
+
+      .droPosisionDays {
+        position: relative;
+      }
+      .droupSec {
+        border: 1px solid #d0d4e4;
+        border-radius: 4px;
+        padding: 3px 8px;
+        width: 94%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        height: 40px;
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        margin: 12px 0px;
+      }
+
+      .droupSec span .mdi-menu-down::before {
+        font-size: 25px;
+      }
+
+      .droupSec input {
+        border: none;
+        width: 100%;
+        font-size: 14px;
+        color: #323338;
+      }
+
+      .droupSec .searchIcon {
+        color: #323338;
+        margin-right: 4px;
+      }
+
+      .listWidIcons li {
+        font-size: 14px;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #d0d4e4;
+        cursor: pointer;
+      }
+
+      .droupSec input {
+        border: none;
+        width: 100%;
+        font-size: 14px;
+        color: #323338;
+      }
+      .droupOpenSec .droupSec {
+        border: 0.2px solid #d0d4e496;
+        background-color: #fff;
+        width: 100%;
+        padding: 6px;
+        font-size: 12px;
+        border-radius: 4px;
+        margin: 12px auto;
+        position: relative;
+        position: sticky;
+        top: -3px;
+      }
+      input[type="Number"] {
+        display: flex;
+        width: 25px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        padding: 0px 8px;
+      }
+    </style>
+    <div id="cmail-dropup">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="gMasspopSec"></h1>
+      </div>
+      <div class="dropUpBody">
+        <div class="g2_send_test">
+          <span class="labelText">Send Test Email:</span>
+          <div style="display: flex; gap: 16px">
+            <input
+              style="width: 70%"
+              type="text"
+              id="test-input"
+              value="priyamtomar012@gmail.com"
+            />
+            <button style="width: 30%" id="test-send">Send</button>
+          </div>
+        </div>
+        <!-- <hr /> -->
+        <!-- <div class="change-template">
+          <span style="margin: 12px" class="labelText">Choose Templates:</span>
+          <button id="configure-button">Template</button>
+        </div> -->
+
+        <hr />
+        <div class="send-test-section">
+          <h6 class="section-title" style="margin-top: 5px">Personalize</h6>
+          <div class="search-flex">
+            <!-- Dropdown for Past Emails -->
+            <div class="dropdown-container dropdown-width">
+              <div class="dropdown-header personalize-dropdown">
+                <span>Select Fields</span>
+                <a href="#" id="refreshBtn">
+                  <span>
+                    <i class="mdi mdi-refresh"></i>
+                  </span>
+                </a>
+              </div>
+              <!-- Dropdown Content -->
+              <div class="dropdown-content" id="listsecOpenTwo">
+                <div class="dropdown-search">
+                  <span class="search-icon"
+                    ><i class="mdi mdi-magnify"></i
+                  ></span>
+                  <input type="text" placeholder="Search" />
+                </div>
+                <ul class="dropdown-list personalize-list"></ul>
+              </div>
+            </div>
+
+            <!-- Unsubscribe Link Section -->
+            <div class="dropdown-container dropdown-width">
+              <div class="dropdown-header">
+                <div class="unsubscribe-section">
+                  <label class="g2_checkbox" style="display: flex;gap: 10px;">
+                    <input
+                      type="checkbox"
+                      name="unsub_mark"
+                      id="unsubMarker"
+                      checked
+                      data-oval="unsub_mark"
+                      class="purple-link"
+                    />
+                    <span>Unsubscribe</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Copy Content Icon -->
+            <div class="copy-content">
+              <a href="#">
+                <img
+                  src="https://drkcrypt.github.io/Dropmenu/assets/images/content-copy.svg"
+                  alt="Copy Icon"
+                  width="18"
+                  height="18"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="g2_settings_accordions">Settings:</div>
+        <div class="g2_tracking g_accordian" style="padding: 5px">
+          <div class="g_accordian_title">
+            <img
+              src="https://drkcrypt.github.io/Dropmenu/assets/images/tracking.svg"
+              width="20"
+              height="20"
+            />
+            <span> Tracking </span>
+            <span><i class="mdi mdi-menu-down"></i></span>
+          </div>
+          <div
+            class="buttonshowpice"
+            style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+          >
+            <button class="OpenShowPiece">Open</button>
+            <button class="ClickShowPiece">Click</button>
+          </div>
+          <div class="g_accordian_content">
+            <hr />
+            <div class="g_hide_on_collapse">
+              <label class="g2_checkbox">
+                <input
+                  type="checkbox"
+                  name="OpenTracking"
+                  id="iyEIROpenTracking"
+                  data-oval="opens"
+                  checked
+                />
+                <span>Opens</span>
+              </label>
+              <label class="g2_checkbox">
+                <input
+                  type="checkbox"
+                  name="OpenClick"
+                  id="iyEIROpenClick"
+                  checked
+                  data-oval="Click"
+                />
+                <span>Click</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="g2_tracking g_accordian" style="padding: 5px">
+          <div class="g_accordian_title">
+            <img
+              src="https://drkcrypt.github.io/Dropmenu/assets/images/auto-follow.svg"
+              width="20"
+              height="20"
+            />
+            <span> Auto Follow Up </span>
+            <span><i class="mdi mdi-menu-down"></i></span>
+          </div>
+          <div
+            class="buttonshowpice"
+            style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+          >
+            <button class="showP hidden">Stage 1</button>
+            <button class="showP hidden">Stage 2</button>
+            <button class="showP hidden">Stage 3</button>
+            <button class="showP hidden">Stage 4</button>
+            <button class="showP hidden">Stage 5</button>
+          </div>
+          <div class="g_accordian_content">
+            <div class="g_hide_on_collapse">
+              <hr />
+              <div
+                class="tackCheckLable"
+                style="max-width: 400px; width: 398px"
+              >
+                <div class="satgeSec" style="width: 100%">
+                  <h5>Stage 1</h5>
+                  <div
+                    class="form-check"
+                    style="width: 50px; padding-top: 10px"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="stage1"
+                    />
+                    <label class="form-check-label" for="stage1"> If </label>
+                    <div class="iconArrowSelect">
+                      <select name="No Reply" id="No Reply" class="norepselect">
+                        <option value="No Reply">No Reply</option>
+                        <option value="No Open">No Open</option>
+                        <option value="No Click">No Click</option>
+                        <option value="No Reply or Click">
+                          No Reply or Click
+                        </option>
+                      </select>
+                    </div>
+
+                    <label class="form-check-label" for="stage1"> after </label>
+                    <input
+                      type="number"
+                      name="quantity"
+                      min="1"
+                      max="1000"
+                      placeholder="0"
+                      class="stageNumberinputS1"
+                    />
+                    <span>days</span>
+                    <a href="#" class="settime">Set time</a>
+                  </div>
+                  <div class="timesec timeS1">
+                    <div class="form-check hidden">
+                      <label class="form-check-label" for="stage1"> at </label>
+                      <input
+                        class="inputTimeSec"
+                        type="time"
+                        id="daysS1"
+                        value="00:00"
+                      />
+                    </div>
+
+                    <div class="form-check setmargn-org">
+                      <input
+                        class="form-check-input sendoriginal"
+                        type="radio"
+                        name="sendoris1"
+                      />
+                      <label
+                        class="form-check-label"
+                        id="sendoriginalS1"
+                        name="sendoris1"
+                      >
+                        Send text above original
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <textarea
+                        id="w3reviewS1"
+                        name="w3review"
+                        rows="4"
+                        cols="50"
+                        placeholder="Just making sure you saw this."
+                        class="stagetextarea disabletextarea"
+                        disabled
+                      ></textarea>
+                    </div>
+                    <div class="form-check setmargn" style="display: flex">
+                      <div style="display: flex; gap: 10px; margin: 5px">
+                        <input
+                          class="form-check-input sendoris1"
+                          type="radio"
+                          name="sendoris1"
+                          id="sendrich"
+                          checked
+                        />
+                        <label
+                          class="form-check-label"
+                          id="sendrich"
+                          name="sendoris1"
+                        >
+                          Send rich-text email in same thread &nbsp;
+                          <span class="plusIcon"
+                            ><img
+                              src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                              alt=""
+                              width="28"
+                              height="28"
+                              class="CreateDrafts"
+                            />
+                          </span>
+                        </label>
+                      </div>
+                      <div class="droPosision mesagePosi">
+                        <div class="messageDiv">
+                          <div class="droupSec slectMessage">
+                            <span>Select Message</span>
+                            <!-- <input type="" placeholder=""> -->
+                            <span><i class="mdi mdi-menu-down"></i></span>
+                          </div>
+                          <div class="folloupBut">
+                            <div class="refresIcon" role="button">
+                              <a href="#">
+                                <img
+                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                  alt=""
+                                  width="14"
+                                  height="14"
+                                />
+                              </a>
+                            </div>
+
+                            <div class="editIcon" role="button">
+                              <img
+                                src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg"
+                                alt=""
+                                width="14"
+                                height="14"
+                              />
+                            </div>
+                            <div class="viewfollowup" role="button">
+                              <img
+                                src="https://www.svgrepo.com/show/12044/eye.svg"
+                                alt=""
+                                width="14"
+                                height="14"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        </div>
+                        <!-- = Dropdown = -->
+                        <div
+                          class="droupOpenSec ms-4 hidden"
+                          id="listsecOpenMessageS1"
+                        >
+                          <div class="droupSec">
+                            <span class="searchIcon"
+                              ><i class="mdi mdi-magnify"></i
+                            ></span>
+                            <input type="text" placeholder="Search" />
+                          </div>
+                          <ul class="listWidIcons listmesaageshow"></ul>
+                        </div>
+                        <!-- == -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="S2 hidden">
+                <hr />
+                <div
+                  class="tackCheckLable"
+                  style="max-width: 400px; width: 398px"
+                >
+                  <div class="satgeSec" style="width: 100%">
+                    <h5>Stage 2</h5>
+                    <div
+                      class="form-check"
+                      style="width: 50px; padding-top: 10px"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="stage2"
+                      />
+                      <label class="form-check-label" for="stage2"> If </label>
+                      <div class="iconArrowSelect">
+                        <select name="No Reply" id="No Reply" class="norepselect">
+                          <option value="No Reply">No Reply</option>
+                          <option value="No Open">No Open</option>
+                          <option value="No Click">No Click</option>
+                          <option value="No Reply or Click">
+                            No Reply or Click
+                          </option>
+                        </select>
+                      </div>
+
+                      <label class="form-check-label" for="stage2"> after </label>
+                      <input
+                        type="number"
+                        name="quantity"
+                        min="1"
+                        max="1000"
+                        placeholder="0"
+                        class="stageNumberinputS2"
+                      />
+                      <span>days</span>
+                      <a href="#" class="settime">Set time</a>
+                    </div>
+                    <div class="timesec timeS2">
+                      <div class="form-check hidden">
+                        <label class="form-check-label" for="stage2"> at </label>
+                        <input
+                          class="inputTimeSec"
+                          type="time"
+                          id="daysS2"
+                          value="00:00"
+                        />
+                      </div>
+
+                      <div class="form-check setmargn-org">
+                        <input
+                          class="form-check-input sendoriginal"
+                          type="radio"
+                          name="sendoris2"
+                        />
+                        <label
+                          class="form-check-label"
+                          id="sendoriginalS2"
+                          name="sendoris2"
+                        >
+                          Send text above original
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <textarea
+                          id="w3reviewS2"
+                          name="w3review"
+                          rows="4"
+                          cols="50"
+                          placeholder="Maybe a friendly nudge or a witty remark?"
+                          class="stagetextarea disabletextarea"
+                          disabled
+                        ></textarea>
+                      </div>
+                      <div class="form-check setmargn">
+                        <div style="display: flex; gap: 10px; margin: 5px">
+                          <input
+                            class="form-check-input sendoris2"
+                            type="radio"
+                            name="sendoris2"
+                            id="sendrich"
+                            checked=""
+                          />
+                          <label
+                            class="form-check-label"
+                            id="sendrich"
+                            name="sendoris2"
+                          >
+                            Send rich-text email in same thread &nbsp;
+                            <span class="plusIcon"
+                              ><img
+                                src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                alt=""
+                                width="28"
+                                height="28"
+                                class="CreateDrafts"
+
+                              />
+                            </span>
+                          </label>
+                        </div>
+                        <div class="droPosision mesagePosi">
+                          <div class="messageDiv">
+                            <div class="droupSec slectMessage">
+                              <span>Select Message</span>
+                              <!-- <input type="" placeholder=""> -->
+                              <span><i class="mdi mdi-menu-down"></i></span>
+                            </div>
+                            <div class="folloupBut">
+                              <div class="refresIcon" role="button">
+                                <a href="#">
+                                  <img
+                                    src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </a>
+                              </div>
+  
+                              <div class="editIcon" role="button">
+                                <img
+                                  src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg"
+                                  alt=""
+                                  width="14"
+                                  height="14"
+                                />
+                              </div>
+                              <div class="viewfollowup" role="button">
+                                <img
+                                  src="https://www.svgrepo.com/show/12044/eye.svg"
+                                  alt=""
+                                  width="14"
+                                  height="14"
+                                />
+                              </div>
+                            </div>
+                          </div>
+  
+                          </div>
+                          <!-- = Dropdown = -->
+                          <div
+                            class="droupOpenSec ms-4 hidden"
+                            id="listsecOpenMessageS2"
+                          >
+                            <div class="droupSec">
+                              <span class="searchIcon"
+                                ><i class="mdi mdi-magnify"></i
+                              ></span>
+                              <input type="text" placeholder="Search" />
+                            </div>
+                            <ul class="listWidIcons listmesaageshow"></ul>
+                          </div>
+                          <!-- == -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="S3 hidden">
+                  <hr />
+                
+                  <div
+                    class="tackCheckLable"
+                    style="max-width: 400px; width: 398px"
+                  >
+                    <div class="satgeSec" style="width: 100%">
+                      <h5>Stage 3</h5>
+                      <div
+                        class="form-check"
+                        style="width: 50px; padding-top: 10px"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="stage3"
+                        />
+                        <label class="form-check-label"> If </label>
+                        <div class="iconArrowSelect">
+                          <select name="No Reply" id="No Reply" class="norepselect">
+                            <option value="No Reply">No Reply</option>
+                            <option value="No Open">No Open</option>
+                            <option value="No Click">No Click</option>
+                            <option value="No Reply or Click">
+                              No Reply or Click
+                            </option>
+                          </select>
+                        </div>
+  
+                        <label class="form-check-label" for="stage3"> after </label>
+                        <input
+                          type="number"
+                          name="quantity"
+                          min="1"
+                          max="1000"
+                          placeholder="0"
+                          class="stageNumberinputS3"
+                        />
+                        <span>days</span>
+                        <a href="#" class="settime">Set time</a>
+                      </div>
+                      <div class="timesec timeS3">
+                        <div class="form-check hidden">
+                          <label class="form-check-label" for="stage3"> at </label>
+                          <input
+                            class="inputTimeSec"
+                            type="time"
+                            id="daysS3"
+                            value="00:00"
+                          />
+                        </div>
+  
+                        <div class="form-check setmargn-org">
+                          <input
+                            class="form-check-input sendoriginal"
+                            type="radio"
+                            name="sendoris3"
+                            checked=""
+                          />
+                          <label
+                            class="form-check-label"
+                            id="sendoriginalS3"
+                            name="sendoris3"
+                          >
+                            Send text above original
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <textarea
+                            id="w3reviewS3"
+                            name="w3review"
+                            rows="4"
+                            cols="50"
+                            placeholder="A gentle reminder to:"
+                            class="stagetextarea disabletextarea"
+                            disabled
+                          ></textarea>
+                        </div>
+                        <div class="form-check setmargn">
+                          <div style="display: flex; gap: 10px; margin: 5px">
+                            <input
+                              class="form-check-input sendoris3"
+                              type="radio"
+                              name="sendoris3"
+                              id="sendrich"
+                              checked=""
+                            />
+                            <label
+                              class="form-check-label"
+                              id="sendrich"
+                              name="sendoris3"
+                            >
+                              Send rich-text email in same thread &nbsp;
+                              <span class="plusIcon"
+                                ><img
+                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  alt=""
+                                  width="28"
+                                  height="28"
+                                  class="CreateDrafts"
+                                />
+                              </span>
+                            </label>
+                          </div>
+                          <div class="droPosision mesagePosi">
+                            <div class="messageDiv">
+                              <div class="droupSec slectMessage">
+                                <span>Select Message</span>
+                                <!-- <input type="" placeholder=""> -->
+                                <span><i class="mdi mdi-menu-down"></i></span>
+                              </div>
+                              <div class="folloupBut">
+                                <div class="refresIcon" role="button">
+                                  <a href="#">
+                                    <img
+                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      alt=""
+                                      width="14"
+                                      height="14"
+                                    />
+                                  </a>
+                                </div>
+    
+                                <div class="editIcon" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                                <div class="viewfollowup" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/12044/eye.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+    
+                            </div>
+                            <!-- = Dropdown = -->
+                            <div
+                              class="droupOpenSec ms-4 hidden"
+                              id="listsecOpenMessageS3"
+                            >
+                              <div class="droupSec">
+                                <span class="searchIcon"
+                                  ><i class="mdi mdi-magnify"></i
+                                ></span>
+                                <input type="text" placeholder="Search" />
+                              </div>
+                              <ul class="listWidIcons listmesaageshow"></ul>
+                            </div>
+                            <!-- == -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="S4 hidden">
+                  <hr />
+                
+                  <div
+                    class="tackCheckLable"
+                    style="max-width: 400px; width: 398px"
+                  >
+                    <div class="satgeSec" style="width: 100%">
+                      <h5>Stage 4</h5>
+                      <div
+                        class="form-check"
+                        style="width: 50px; padding-top: 10px"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="stage4"
+                        />
+                        <label class="form-check-label"> If </label>
+                        <div class="iconArrowSelect">
+                          <select name="No Reply" id="No Reply" class="norepselect">
+                            <option value="No Reply">No Reply</option>
+                            <option value="No Open">No Open</option>
+                            <option value="No Click">No Click</option>
+                            <option value="No Reply or Click">
+                              No Reply or Click
+                            </option>
+                          </select>
+                        </div>
+  
+                        <label class="form-check-label" for="stage4"> after </label>
+                        <input
+                          type="number"
+                          name="quantity"
+                          min="1"
+                          max="1000"
+                          placeholder="0"
+                          class="stageNumberinputS4"
+                        />
+                        <span>days</span>
+                        <a href="#" class="settime">Set time</a>
+                      </div>
+                      <div class="timesec timeS4">
+                        <div class="form-check hidden">
+                          <label class="form-check-label" for="stage4"> at </label>
+                          <input
+                            class="inputTimeSec"
+                            type="time"
+                            id="daysS4"
+                            value="00:00"
+                          />
+                        </div>
+  
+                        <div class="form-check setmargn-org">
+                          <input
+                            class="form-check-input sendoriginal"
+                            type="radio"
+                            name="sendoris4"
+                            checked=""
+                          />
+                          <label
+                            class="form-check-label"
+                            id="sendoriginalS4"
+                            name="sendoris4"
+                          >
+                            Send text above original
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <textarea
+                            id="w3reviewS4"
+                            name="w3review"
+                            rows="4"
+                            cols="50"
+                            placeholder="Write a follow-up message that will make them smile:"
+                            class="stagetextarea disabletextarea"
+                            disabled
+                          ></textarea>
+                        </div>
+                        <div class="form-check setmargn">
+                          <div style="display: flex; gap: 10px; margin: 5px">
+                            <input
+                              class="form-check-input sendoris4"
+                              type="radio"
+                              name="sendoris4"
+                              id="sendrich"
+                              checked=""
+                            />
+                            <label
+                              class="form-check-label"
+                              id="sendrich"
+                              name="sendoris4"
+                            >
+                              Send rich-text email in same thread &nbsp;
+                              <span class="plusIcon"
+                                ><img
+                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  alt=""
+                                  width="28"
+                                  height="28"
+                                  class="CreateDrafts"
+                                />
+                              </span>
+                            </label>
+                          </div>
+                          <div class="droPosision mesagePosi">
+                            <div class="messageDiv">
+                              <div class="droupSec slectMessage">
+                                <span>Select Message</span>
+                                <!-- <input type="" placeholder=""> -->
+                                <span><i class="mdi mdi-menu-down"></i></span>
+                              </div>
+                              <div class="folloupBut">
+                                <div class="refresIcon" role="button">
+                                  <a href="#">
+                                    <img
+                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      alt=""
+                                      width="14"
+                                      height="14"
+                                    />
+                                  </a>
+                                </div>
+    
+                                <div class="editIcon" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                                <div class="viewfollowup" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/12044/eye.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+    
+                            </div>
+                            <!-- = Dropdown = -->
+                            <div
+                              class="droupOpenSec ms-4 hidden"
+                              id="listsecOpenMessageS4"
+                            >
+                              <div class="droupSec">
+                                <span class="searchIcon"
+                                  ><i class="mdi mdi-magnify"></i
+                                ></span>
+                                <input type="text" placeholder="Search" />
+                              </div>
+                              <ul class="listWidIcons listmesaageshow"></ul>
+                            </div>
+                            <!-- == -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="S5 hidden">
+                  <hr />
+                
+                  <div
+                    class="tackCheckLable"
+                    style="max-width: 400px; width: 398px"
+                  >
+                    <div class="satgeSec" style="width: 100%">
+                      <h5>Stage 5</h5>
+                      <div
+                        class="form-check"
+                        style="width: 50px; padding-top: 10px"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id="stage5"
+                        />
+                        <label class="form-check-label"> If </label>
+                        <div class="iconArrowSelect">
+                          <select name="No Reply" id="No Reply" class="norepselect">
+                            <option value="No Reply">No Reply</option>
+                            <option value="No Open">No Open</option>
+                            <option value="No Click">No Click</option>
+                            <option value="No Reply or Click">
+                              No Reply or Click
+                            </option>
+                          </select>
+                        </div>
+  
+                        <label class="form-check-label" for="stage5"> after </label>
+                        <input
+                          type="number"
+                          name="quantity"
+                          min="1"
+                          max="1000"
+                          placeholder="0"
+                          class="stageNumberinputS5"
+                        />
+                        <span>days</span>
+                        <a href="#" class="settime">Set time</a>
+                      </div>
+                      <div class="timesec timeS5">
+                        <div class="form-check hidden">
+                          <label class="form-check-label" for="stage5"> at </label>
+                          <input
+                            class="inputTimeSec"
+                            type="time"
+                            id="daysS5"
+                            value="00:00"
+                          />
+                        </div>
+  
+                        <div class="form-check setmargn-org">
+                          <input
+                            class="form-check-input sendoriginal"
+                            type="radio"
+                            name="sendoris5"
+                            checked=""
+                          />
+                          <label
+                            class="form-check-label"
+                            id="sendoriginalS5"
+                            name="sendoris5"
+                          >
+                            Send text above original
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <textarea
+                            id="w3reviewS5"
+                            name="w3review"
+                            rows="4"
+                            cols="50"
+                            placeholder="A friendly follow-up:"
+                            class="stagetextarea disabletextarea"
+                            disabled
+                          ></textarea>
+                        </div>
+                        <div class="form-check setmargn">
+                          <div style="display: flex; gap: 10px; margin: 5px">
+                            <input
+                              class="form-check-input sendoris5"
+                              type="radio"
+                              name="sendoris5"
+                              id="sendrich"
+                              checked=""
+                            />
+                            <label
+                              class="form-check-label"
+                              id="sendrich"
+                              name="sendoris5"
+                            >
+                              Send rich-text email in same thread &nbsp;
+                              <span class="plusIcon"
+                                ><img
+                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  alt=""
+                                  width="28"
+                                  height="28"
+                                  class="CreateDrafts"
+                                />
+                              </span>
+                            </label>
+                          </div>
+                          <div class="droPosision mesagePosi">
+                            <div class="messageDiv">
+                              <div class="droupSec slectMessage">
+                                <span>Select Message</span>
+                                <!-- <input type="" placeholder=""> -->
+                                <span><i class="mdi mdi-menu-down"></i></span>
+                              </div>
+                              <div class="folloupBut">
+                                <div class="refresIcon" role="button">
+                                  <a href="#">
+                                    <img
+                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      alt=""
+                                      width="14"
+                                      height="14"
+                                    />
+                                  </a>
+                                </div>
+    
+                                <div class="editIcon" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                                <div class="viewfollowup" role="button">
+                                  <img
+                                    src="https://www.svgrepo.com/show/12044/eye.svg"
+                                    alt=""
+                                    width="14"
+                                    height="14"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+    
+                            </div>
+                            <!-- = Dropdown = -->
+                            <div
+                              class="droupOpenSec ms-4 hidden"
+                              id="listsecOpenMessageS5"
+                            >
+                              <div class="droupSec">
+                                <span class="searchIcon"
+                                  ><i class="mdi mdi-magnify"></i
+                                ></span>
+                                <input type="text" placeholder="Search" />
+                              </div>
+                              <ul class="listWidIcons listmesaageshow"></ul>
+                            </div>
+                            <!-- == -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+              </div>
+              <div class="g2_tracking g_accordian" style="padding: 5px">
+                <div class="g_accordian_title">
+                  <img
+                    src="https://drkcrypt.github.io/Dropmenu/assets/images/schedule.svg"
+                  />
+                  <span>
+                    <span style="padding: 3px">Schedule</span>
+                  </span>
+                  <span id="zjDCLmainspread" style="font-weight: normal"></span>
+                </div>
+                <div
+                  class="buttonshowpice"
+                  style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+                >
+                  <button class="daysShowPice hidden">Send days</button>
+                  <button class="pauseShowPice hidden">Pause between emails</button>
+                </div>
+                <div class="g_accordian_content">
+                  <hr />
+                  <div style="display: flex">
+                    <h5 class="g_col_label" style="float: none">Time:</h5>
+                    <div style="margin-left: 25px">
+                      <select id="EUYaSGMassDateDropdown" style="margin-bottom: 5px">
+                        <option selected="" disabled="" hidden="" value=""></option>
+                        <option value="Now" selected="">Now</option>
+                        <option value="FiveMinutes" [fiveminutes]="">
+                          In 5 minutes
+                        </option>
+                        <option value="OneHour" [onehour]="">In 1 hour</option>
+                        <option value="ThreeHours" [threehours]="">In 3 hours</option>
+                        <option value="TomorrowMor" [tomrrowmor]="">
+                          Tomorrow morning at 8am
+                        </option>
+                        <option value="TomorrowAft" [tomorrowaft]="">
+                          Tomorrow afternoon at 1pm
+                        </option>
+                        <option value="TomorrowEve" [tomorroweve]="">
+                          Tomorrow evening at 7pm
+                        </option>
+                        <option value="Custom" [custom]="">Custom date/time</option>
+                      </select>
+                      <div class="gmass-expand-field hidden">
+                        <input
+                          size="30"
+                          type="datetime-local"
+                          placeholder="DD/MM/YYYY, hh:mm am/pm"
+                          id="EUYaSGMassDateTime"
+                          value=""
+                          data-oval="schedule set"
+                          disabled=""
+                          style="width: 85%"
+                        />
+      
+                        <!-- <input class="gmass-calendar-icon" style="height: 30px" type="datetime-local"></input>
+                         -->
+                      </div>
+                      <div
+                        style="margin-top: 5px; display: none"
+                        id="EUYaSSkipWeekendsDiv"
+                        class="not-inline-reply-form"
+                      >
+                        <label class="g2_checkbox">
+                          <input
+                            type="checkbox"
+                            name="SkipWeekends"
+                            id="EUYaSSkipWeekends"
+                            [skipweekendson]=""
+                            data-oval="skip weekends"
+                          />
+                          <span>Skip weekends</span>
+                        </label>
+                      </div>
+                      <div style="margin-top: 5px" class="not-inline-reply-form">
+                        <label class="g2_checkbox">
+                          <input
+                            type="checkbox"
+                            name="SkipHolidays"
+                            id="EUYaSSkipHolidays"
+                            [skipholidayson]=""
+                            data-oval="skip holidays"
+                          />
+                          <span>Skip holidays</span>
+                        </label>
+                      </div>
+                      <div style="margin-top: 5px" class="not-inline-reply-form">
+                        <label class="g2_checkbox">
+                          <input
+                            type="checkbox"
+                            [senddayson]=""
+                            style="position: relative"
+                            name="SendDaysOn"
+                            value="true"
+                            id="EUYaSSendDaysOn"
+                            data-oval="send days"
+                          />
+                          <span>Choose specific days</span>
+                        </label>
+                        <div class="droPosisionDays">
+                          <div>
+                            <div class="droupSec senddays hidden">
+                              <span>Select sending days</span>
+                              <!-- <input type="" placeholder=""> -->
+                              <span><i class="mdi mdi-menu-down"></i></span>
+                            </div>
+                          </div>
+                          <!-- = Dropdown = -->
+                          <div
+                            class="droupOpenSec hidden"
+                            id="listsecOpenDays"
+                            style="width: 100%"
+                          >
+                            <ul class="listWidIcons listdaysShow">
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="0"
+                                    id="monday"
+                                  />
+                                  <label class="form-check-label" for="monday">
+                                    Monday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="1"
+                                    id="tuesday"
+                                  />
+                                  <label class="form-check-label" for="tuesday">
+                                    Tuesday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="2"
+                                    id="wednesday"
+                                  />
+                                  <label class="form-check-label" for="wednesday">
+                                    Wednesday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="3"
+                                    id="thursday"
+                                  />
+                                  <label class="form-check-label" for="thursday">
+                                    Thursday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="4"
+                                    id="friday"
+                                  />
+                                  <label class="form-check-label" for="friday">
+                                    Friday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="5"
+                                    id="saturday"
+                                  />
+                                  <label class="form-check-label" for="saturday">
+                                    Saturday
+                                  </label>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="6"
+                                    id="sunday"
+                                  />
+                                  <label class="form-check-label" for="sunday">
+                                    Sunday
+                                  </label>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <!-- == -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="email-settings-container">
+                    <h5 class="label">Speed:</h5>
+                    <div class="settings-content">
+                      <div class="email-limit">
+                        <label for="bqpifMaxEmails">
+                          <span>Send</span>
+                          <input
+                            type="text"
+                            placeholder="Max"
+                            size="4"
+                            id="bqpifMaxEmails"
+                            name="MaxEmails"
+                            value=""
+                            data-oval="daily limit"
+                          />
+                          <span>Emails/day</span>
+                        </label>
+                      </div>
+                      <div class="pause-settings">
+                        <label class="checkbox-label">
+                          <input
+                            type="checkbox"
+                            id="bqpifDelayCheckbox"
+                            name="DelayCheckbox"
+                            data-oval="pause between emails"
+                          />
+                          <span class="checkbox-text">
+                            Pause
+                            <select id="bqpifPauseSeconds" name="PauseSeconds">
+                              <option value="1">5-10 seconds</option>
+                              <option value="2">10-60 seconds</option>
+                              <option value="3">1-5 minutes</option>
+                              <option value="5">5-10 minutes</option>
+                            </select>
+                            between emails
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </body>
+</html>
