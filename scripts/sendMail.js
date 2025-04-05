@@ -7,7 +7,7 @@ function fetchDataFromSheet() {
   const sender = sessionStorage.getItem("sender");
   const sheetName = sessionStorage.getItem("range") || "Sheet1";
   const range = `${sheetName}!A:Z`;
-  const endpoint = `http://localhost:8080/api/sheet-data`;
+  const endpoint = `https://10xsend.in/api/sheet-data`;
   if (!spreadsheetId) {
     sheetList.classList.remove("hidden");
     return;
@@ -160,7 +160,7 @@ async function sendMails() {
     const sender = sessionStorage.getItem("sender");
     const subject = document.querySelector(".aoT").value + " - " + sender;
     const uploadId = await fetch(
-      `http://localhost:8080/api/latest_id?subject=${subject}`
+      `https://10xsend.in/api/latest_id?subject=${subject}`
     )
       .then((res) => res.text())
       .then((id) => JSON.parse(id).Latest_id + 1);
@@ -265,7 +265,7 @@ async function sendEmailRequest(sender, uploadId, subject, body, track) {
     }, {}),
   }));
 
-  return fetch("http://localhost:8080/api/send-mails", {
+  return fetch("https://10xsend.in/api/send-mails", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -378,7 +378,7 @@ function uploadMailData(
   if (headers.length > 0) {
     create_headers(headers);
   }
-  return fetch("http://localhost:8080/api/upload", {
+  return fetch("https://10xsend.in/api/upload", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -452,12 +452,10 @@ function sendTestMail(testEmail) {
   const Testbody =
     document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW").innerHTML ||
     "Testing Mail Body";
-  const uploadId = fetch(
-    `http://localhost:8080/api/latest_id?subject=${subject}`
-  )
+  const uploadId = fetch(`https://10xsend.in/api/latest_id?subject=${subject}`)
     .then((res) => res.text())
     .then((id) => JSON.parse(id).Latest_id + 1);
-  fetch("http://localhost:8080/api/send-mails", {
+  fetch("https://10xsend.in/api/send-mails", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

@@ -52,7 +52,7 @@ function createSendButton() {
 }
 
 const createDraft = async (identifier) => {
-  const url = "http://localhost:8080/api/create_draft";
+  const url = "https://10xsend.in/api/create_draft";
   const subject = document.querySelectorAll(".aoT");
   const emailBody = window.document.querySelectorAll(
     ".Am.aiL.Al.editable.LW-avf.tS-tW"
@@ -255,9 +255,7 @@ function fetchDrafts(
   reload = false
 ) {
   fetch(
-    `http://localhost:8080/api/drafts?sender=${sessionStorage.getItem(
-      "sender"
-    )}`,
+    `https://10xsend.in/api/drafts?sender=${sessionStorage.getItem("sender")}`,
     {
       method: "GET",
       headers: {
@@ -750,7 +748,7 @@ function emailFunctionalities(document) {
   copyunsub.addEventListener("click", () => {
     createMsgBox("Copied to clipboard");
     navigator.clipboard.writeText(
-      "http://localhost:8080/api/unsubscribe?Email=#&userID=#"
+      "https://10xsend.in/api/unsubscribe?Email=#&userID=#"
     );
   });
   const setFollowUpTime = (index, value) => {
