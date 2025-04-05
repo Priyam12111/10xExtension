@@ -19,7 +19,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 function authenticateWithGoogle(sender) {
   const clientId =
     "1028647389622-ae8028g4n8det2fcd32q8qlq4368oqc0.apps.googleusercontent.com";
-  const redirectUri = "https://10xsend.in/api/oauth/callback";
+  const redirectUri = "http://localhost:8080/api/oauth/callback";
 
   const scopes = [
     "https://www.googleapis.com/auth/drive.metadata.readonly",

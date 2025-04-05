@@ -87,13 +87,13 @@ async function fetchAndDisplaySheetNames() {
   let sheetNameResponseData;
   try {
     console.log(
-      "https://10xsend.in/api/get-sheet-names?sender=" +
+      "http://localhost:8080/api/get-sheet-names?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")) +
         "&spreadsheetId=" +
         sessionStorage.getItem("spreadsheetId")
     );
     const sheetNameResponse = await fetch(
-      "https://10xsend.in/api/get-sheet-names?sender=" +
+      "http://localhost:8080/api/get-sheet-names?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")) +
         "&spreadsheetId=" +
         sessionStorage.getItem("spreadsheetId")
@@ -117,7 +117,7 @@ async function fetchAndDisplaySheetNames() {
 async function sheetListJs() {
   try {
     const response = await fetch(
-      "https://10xsend.in/api/list-sheets?sender=" +
+      "http://localhost:8080/api/list-sheets?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")),
       {
         method: "GET",
@@ -144,7 +144,7 @@ async function sheetListJs() {
 
 function create_headers(newHeaders) {
   fetch(
-    `https://10xsend.in/api/create-headers?sender=${encodeURIComponent(
+    `http://localhost:8080/api/create-headers?sender=${encodeURIComponent(
       sessionStorage.getItem("sender")
     )}&range=${encodeURIComponent(
       sessionStorage.getItem("range")
@@ -389,7 +389,8 @@ async function CheckSignedIn() {
   try {
     const sender = sessionStorage.getItem("sender");
     const response = await fetch(
-      "https://10xsend.in/api/isUserSigned?user=" + encodeURIComponent(sender),
+      "http://localhost:8080/api/isUserSigned?user=" +
+        encodeURIComponent(sender),
       {
         method: "GET",
         headers: {
@@ -422,7 +423,9 @@ const sheetObserver = new MutationObserver(() => {
     const buttonContainer = document.createElement("div");
     const sheetButton = document.createElement("div");
     const report = document.createElement("a");
-    report.href = `https://10xsend.in/api/:${sessionStorage.getItem("sender")}`;
+    report.href = `http://localhost:8080/api/:${sessionStorage.getItem(
+      "sender"
+    )}`;
     report.target = "_blank"; // Open link in a new tab
     report.id = "reportdata";
 

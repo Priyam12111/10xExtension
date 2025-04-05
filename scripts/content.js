@@ -13,7 +13,9 @@ function createSendButton() {
       Composebox[Composebox.length - 1].value == "developer@10x.com" ||
       Composebox[0].value == "developer@10x.in"
     ) {
-      createDraft();
+      if (createDraft(" (Auto Followup)")) {
+        createMsgBox("Draft Created Successfully");
+      }
       setTimeout(() => {
         const deleteBtn = document.querySelectorAll(".og.T-I-J3");
         deleteBtn[deleteBtn.length - 1].click();
@@ -34,6 +36,12 @@ function createSendButton() {
           }
         );
       }, 20000);
+      const subject = document.querySelector(".aoT").value;
+      console.log(subject);
+
+      if (subject) {
+        createDraft(" (Template)");
+      }
       setTimeout(() => {
         const deleteBtn = document.querySelectorAll(".og.T-I-J3");
         deleteBtn[deleteBtn.length - 1].click();
@@ -43,45 +51,42 @@ function createSendButton() {
   return sendButton;
 }
 
-function createDraft() {
-  const createDraft = async () => {
-    const url = "https://10xsend.in/api/create_draft";
-    const subject = document.querySelectorAll(".aoT");
-    const emailBody = window.document.querySelectorAll(
-      ".Am.aiL.Al.editable.LW-avf.tS-tW"
-    );
-    const draftData = {
-      sender: sessionStorage.getItem("sender"),
-      recipient: "developer@10x.com",
-      subject: subject[subject.length - 1]?.value + " True" || "",
-      body: emailBody[emailBody.length - 1]?.innerHTML || "",
-    };
-
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(draftData),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Draft created successfully:", result);
-        createMsgBox("Draft Created Successfully");
-      } else {
-        const error = await response.json();
-        console.error("Error creating draft:", error);
-      }
-    } catch (err) {
-      console.error("Network or unexpected error:", err);
-    }
+const createDraft = async (identifier) => {
+  const url = "http://localhost:8080/api/create_draft";
+  const subject = document.querySelectorAll(".aoT");
+  const emailBody = window.document.querySelectorAll(
+    ".Am.aiL.Al.editable.LW-avf.tS-tW"
+  );
+  const draftData = {
+    sender: sessionStorage.getItem("sender"),
+    recipient: "developer@10x.com",
+    subject: subject[subject.length - 1]?.value + identifier || "",
+    body: emailBody[emailBody.length - 1]?.innerHTML || "",
   };
 
-  createDraft();
-}
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(draftData),
+    });
 
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Draft Saved Successfully", result);
+      return true;
+    } else {
+      const error = await response.json();
+      console.log("Error creating draft:", error);
+      return false;
+    }
+  } catch (err) {
+    console.error("Network or unexpected error:", err);
+  }
+  return false;
+};
 function createButton(id) {
   const button = document.createElement("button");
   const dropupMenu = document.createElement("div");
@@ -250,7 +255,9 @@ function fetchDrafts(
   reload = false
 ) {
   fetch(
-    `https://10xsend.in/api/drafts?sender=${sessionStorage.getItem("sender")}`,
+    `http://localhost:8080/api/drafts?sender=${sessionStorage.getItem(
+      "sender"
+    )}`,
     {
       method: "GET",
       headers: {
@@ -278,10 +285,10 @@ function fetchDrafts(
         if (listmesaageshow.childNodes.length === 0 || reload) {
           draftsToShow.forEach((draft) => {
             const draftLi = document.createElement("li");
-            const subject = draft.subject.replace("True", "");
+            const subject = draft.subject.replace("(Auto Followup)", "");
 
             draftLi.setAttribute("data-body", draft.body);
-            if (draft.subject.includes("True")) {
+            if (draft.subject.includes("(Auto Followup)")) {
               draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
               `;
@@ -743,7 +750,7 @@ function emailFunctionalities(document) {
   copyunsub.addEventListener("click", () => {
     createMsgBox("Copied to clipboard");
     navigator.clipboard.writeText(
-      "https://10xsend.in/api/unsubscribe?Email=#&userID=#"
+      "http://localhost:8080/api/unsubscribe?Email=#&userID=#"
     );
   });
   const setFollowUpTime = (index, value) => {
