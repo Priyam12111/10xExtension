@@ -57,10 +57,16 @@ const createDraft = async (identifier) => {
   const emailBody = window.document.querySelectorAll(
     ".Am.aiL.Al.editable.LW-avf.tS-tW"
   );
+  let final_subject = subject[subject.length - 1]?.value;
+  if (final_subject.includes(identifier)) {
+    final_subject = final_subject.replace(identifier, "");
+  } else {
+    final_subject += identifier;
+  }
   const draftData = {
     sender: sessionStorage.getItem("sender"),
     recipient: "developer@10x.com",
-    subject: subject[subject.length - 1]?.value + identifier || "",
+    subject: final_subject || "",
     body: emailBody[emailBody.length - 1]?.innerHTML || "",
   };
 
