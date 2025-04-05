@@ -14,6 +14,10 @@ function createSendButton() {
       Composebox[0].value == "developer@10x.in"
     ) {
       createDraft();
+      setTimeout(() => {
+        const deleteBtn = document.querySelectorAll(".og.T-I-J3");
+        deleteBtn[deleteBtn.length - 1].click();
+      }, 1000);
     } else {
       sendMails();
       setTimeout(() => {
@@ -30,11 +34,11 @@ function createSendButton() {
           }
         );
       }, 20000);
+      setTimeout(() => {
+        const deleteBtn = document.querySelectorAll(".og.T-I-J3");
+        deleteBtn[deleteBtn.length - 1].click();
+      }, 5000);
     }
-    setTimeout(() => {
-      const deleteBtn = document.querySelectorAll(".og.T-I-J3");
-      deleteBtn[deleteBtn.length - 1].click();
-    }, 5000);
   });
   return sendButton;
 }
@@ -157,64 +161,6 @@ function toggleDropupMenu(dropupMenu) {
   dropupMenu.style.display =
     dropupMenu.style.display === "none" ? "block" : "none";
 }
-
-// function createEmailForm() {
-//   const container = document.createElement("div");
-//   container.style.display = "none";
-
-//   const containerContent = document.createElement("div");
-//   containerContent.style.display = "none";
-//   containerContent.innerHTML = `
-//     <div class="form-container containerContent">
-//       <div class="template">
-//         <button id="close-button" aria-label="Close">×</button>
-//         <div class="form-content">
-//           <input
-//             type="text"
-//             id="email-subject"
-//             placeholder="Subject"
-//             aria-label="Email Subject"
-//           />
-//           <textarea
-//             id="email-body"
-//             placeholder="Email Body"
-//             aria-label="Email Body"
-//           ></textarea>
-//           <button id="save-button">Save</button>
-//         </div>
-//       </div>
-//     </div>
-//   `;
-
-//   container.appendChild(containerContent);
-//   document.body.appendChild(container);
-
-//   document.addEventListener("keydown", (event) => {
-//     if (event.key === "Escape") {
-//       const trackingElement = document.querySelector("#iyEIROpenTracking");
-//       const followUpElement = document.querySelector("#followup");
-
-//       console.log(!trackingElement);
-//       if (!trackingElement) {
-//         sessionStorage.setItem("tracking", false);
-//       }
-//       if (!followUpElement) {
-//         sessionStorage.setItem("followup", 0);
-//       }
-//       try {
-//         container.style.display = "none";
-//         containerContent.style.display = "none";
-//       } catch (e) {
-//         console.error("Error handling Escape key:", e);
-//       }
-//     }
-//   });
-
-//   const saveButton = document.getElementById("save-button");
-//   saveButton.addEventListener("click", () => saveEmailForm(containerContent));
-
-//   return { containerbox: container, containerContentbox: containerContent };
-// }
 
 function saveEmailForm(containerContent) {
   const emailSubjectInput = document.getElementById("email-subject");
