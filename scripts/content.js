@@ -147,16 +147,8 @@ function fetchAndInjectDropupMenu(dropupMenu) {
 
       iframe.onload = () => {
         const doc = iframe.contentWindow.document;
-        try {
-          dropupJs(doc);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-        try {
-          emailFunctionalities(doc);
-        } catch (error) {
-          console.error("Error:", error);
-        }
+        dropupJs(doc);
+        emailFunctionalities(doc);
       };
     })
     .catch((error) => {
@@ -282,7 +274,7 @@ function fetchDrafts(
           }
         });
 
-        const draftsToShow = uniqueDrafts.slice(0, 5);
+        const draftsToShow = uniqueDrafts.slice(0, 50);
         const emailBody = document.querySelectorAll(".email-body")[index];
         const emailHeader = document.querySelectorAll(".email-header")[index];
         listmesaageshow.innerHTML = "";
@@ -432,7 +424,7 @@ function populateVariablesList(dropdownContent, variables) {
   if (uniqueVariables.length > 0) {
     uniqueVariables.forEach((key) => {
       const listItem = document.createElement("li");
-      listItem.innerHTML = `<span>${key}</span>`;
+      listItem.innerHTML = `<input type="radio" name="personalize" checked=""></input><span>${key}</span>`;
       Fields.appendChild(listItem);
       listItem.addEventListener("click", () => {
         navigator.clipboard.writeText(`{${key}}`);
@@ -502,6 +494,22 @@ function setupAccordionToggle(accordionTitles) {
     });
   });
 }
+
+function toggleTracking(document) {
+  try {
+    const trackingShowPiece = document.querySelectorAll(".trackingShowPiece");
+    const SettingBtn = document.querySelector(".SettingSecBtn");
+
+    trackingShowPiece.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log(item);
+        SettingBtn.classList.toggle("show");
+      });
+    });
+  } catch (e) {}
+}
+
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
   const SendDaysOn = document.querySelector("#EUYaSSendDaysOn");
@@ -517,39 +525,36 @@ function dropupJs(document) {
   const testInput = document.getElementById("test-input");
   const dropdownHeader = document.querySelector(".dropdown-header");
   const dropdownContent = document.querySelector(".dropdown-content");
-  const variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
   const createDrafts = document.querySelectorAll(".CreateDrafts");
   const listMessageShow = document.querySelectorAll(".listmesaageshow");
   const selectMessage = Array.from(document.querySelectorAll(".slectMessage"));
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
-  const refreshBtn = document.querySelector("#refreshBtn");
+  toggleTracking(document);
 
-  if (refreshBtn) {
-    refreshBtn.addEventListener("click", () => {
-      if (dropdownContent) {
-        populateVariablesList(dropdownContent, variables);
-      }
-    });
-  }
-
-  if (skipHolidays) {
-    skipHolidays.addEventListener("change", () => {
-      sessionStorage.setItem("skipHolidays", skipHolidays.checked);
-    });
-  }
-  if (createDrafts) {
-    createDrafts.forEach((draft) => {
-      draft.addEventListener("click", () => composeDraft());
-    });
-  }
+  try {
+    if (skipHolidays) {
+      skipHolidays.addEventListener("change", () => {
+        sessionStorage.setItem("skipHolidays", skipHolidays.checked);
+      });
+    }
+  } catch (e) {}
+  try {
+    if (createDrafts) {
+      createDrafts.forEach((draft) => {
+        draft.addEventListener("click", () => composeDraft());
+      });
+    }
+  } catch (e) {}
 
   draftButtons(document, listMessageShow, selectMessage, droUpOpenSec);
   showDraft(listMessageShow, selectMessage, droUpOpenSec);
 
   setupDaysDropdown(triggerdays, dropdowndays, itemsdays);
-  if (dropdownHeader && dropdownContent) {
-    setupDropdown(dropdownHeader, dropdownContent);
-  }
+  try {
+    if (dropdownHeader && dropdownContent) {
+      setupDropdown(dropdownHeader, dropdownContent);
+    }
+  } catch (e) {}
 
   setupAccordionToggle(accordionTitles);
   viewFollowup(document);
@@ -730,14 +735,21 @@ function emailFunctionalities(document) {
   const MailConditions = document.querySelectorAll(".norepselect");
   const stagetextarea = document.querySelectorAll(".stagetextarea");
   const valuesArray = Array(stagetextarea.length).fill("");
-  const unsubMarker = document.querySelector("#unsubMarker")?.checked || false;
-  sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarker));
+  const unsubMarker = document.querySelector("#unsubMarker");
+
   const stages = [];
   const times = [];
   const stageContainers = [];
   const stageInputs = [];
   const stagebody = [];
 
+  unsubMarker.addEventListener("change", () => {
+    const unsubMarkerState = unsubMarker.checked;
+    sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarkerState));
+  });
+  const unsubMarkerState =
+    JSON.parse(sessionStorage.getItem("unsubMarker")) || false;
+  unsubMarker.checked = unsubMarkerState;
   for (let i = 1; i <= 5; i++) {
     stages.push(`stage${i}`);
     times.push(`.timeS${i}`);
@@ -751,12 +763,7 @@ function emailFunctionalities(document) {
   } catch (error) {
     console.log("Error locking original boxes:", error);
   }
-  copyunsub.addEventListener("click", () => {
-    createMsgBox("Copied to clipboard");
-    navigator.clipboard.writeText(
-      "https://10xsend.in/api/unsubscribe?Email=#&userID=#"
-    );
-  });
+
   const setFollowUpTime = (index, value) => {
     const followuptime = JSON.parse(
       sessionStorage.getItem("followuptime") || '["", "", "", "", ""]'

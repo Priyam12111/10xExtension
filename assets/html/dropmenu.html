@@ -18,7 +18,13 @@
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
     />
-
+    <!-- og:Meta Title -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/themes/base/jquery-ui.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Dropup Menu</title>
     <style>
       #sendrich {
@@ -33,6 +39,1051 @@
       }
 
     </style>
+
+    <!-- NEW CSS -->
+     <style>
+      .tenXSec {
+          background-color: rgb(241, 243, 244);
+          padding: 14px;
+          border: 1px solid rgb(208, 213, 221);
+          box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 10px;
+          width: 502px;
+          height: 100%;
+          min-height: 90vh;
+          border-radius: 20px;
+      }
+
+      /* start logo sec  */
+      .logoSecTen {
+          align-items: center;
+          gap: 12px;
+      }
+
+      .logoSecTen h6 {
+          font-size: 16px;
+          font-weight: 400;
+          color: #000000;
+          margin: 0;
+          font-family: "Sen", sans-serif;
+      }
+
+      .logoSecTen span {
+          font-weight: 700;
+      }
+
+      .minusIcon {
+          height: 2px;
+          width: 12.5px;
+          background-color: #000000;
+          margin-right: 20px;
+          cursor: pointer;
+      }
+
+      .headerTenX {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+
+      /* End logo sec  */
+      /* start Campaign Name sec   */
+      /* .texXInputs {
+          margin: 16px auto;
+      } */
+
+      .innerContentTen {
+          margin: 16px auto;
+      }
+
+      .innerContentTen .texXInputs label {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+          font-family: 'Roboto';
+          margin-bottom: 11px;
+      }
+
+      .innerContentTen .texXInputs input {
+          border: 1px solid #D0D4E4;
+          font-size: 14px;
+          font-weight: 400;
+          background-color: #fff;
+          color: #86888A;
+          padding: 15px 10px;
+          height: 46px;
+          border-radius: 8px;
+      }
+
+      .innerContentTen .texXInputs input:focus {
+          box-shadow: unset;
+      }
+
+      /* End Campaign Name sec   */
+      /* Start Test Mail */
+      .textMail {
+          padding: 16px 20px;
+          background-color: #fff;
+          border-radius: 18px;
+          border: 1px solid #D0D4E4;
+          /* height: 91px; */
+          height: 100%;
+      }
+
+      .textMail input {
+          font-size: 14px;
+          font-weight: 400;
+          color: #4A4A4A;
+          padding: 5px 0;
+          line-height: 16px;
+          border: none;
+          margin-bottom: 5px;
+      }
+
+      .textMail input:focus {
+          box-shadow: unset;
+      }
+
+      .textMail .textUser p {
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0;
+          color: #000000;
+      }
+
+      .textMail .textUser {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          box-shadow: 0 1px 4px #00000040;
+          height: 33px;
+          padding: 4px;
+          border-radius: 100px;
+          width: auto;
+          justify-content: space-between;
+          background-color: #fff;
+      }
+
+      .textMail .textUser span {
+          height: 25px;
+          width: 25px;
+          box-shadow: 0 1px 2px #00000040;
+          border-radius: 100px;
+          object-fit: cover;
+          background-size: cover;
+          border: 1px solid #FFFFFF;
+          margin-right: 5px;
+      }
+
+      .textMail .textUser span img {
+          height: 25px;
+          width: 25px;
+          border-radius: 100px;
+          object-fit: cover;
+          background-size: cover;
+      }
+
+      .userMainText {
+          display: flex;
+          flex-wrap: wrap;
+          text-align: center;
+          gap: 6px;
+          position: relative;
+          top: 0;
+          left: 0;
+      }
+
+      /* End Test Mail */
+      .tenXBtn {
+          font-size: 14px !important;
+          font-weight: 700 !important;
+          padding: 12px 22px !important;
+          height: 40px;
+          line-height: 1 !important;
+          border-radius: 100px !important;
+      }
+
+
+      /* Start Personalize Droup down  */
+      .perTenSelect {
+          position: relative;
+      }
+
+      .perTenSelect .dropdown-toggle {
+          width: 100%;
+          font-size: 14px;
+          font-weight: 400;
+          background-color: #fff;
+          padding: 12px 20px;
+          color: #000000;
+          border: none;
+          height: 40px;
+          line-height: 1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 8px;
+          cursor: pointer;
+      }
+
+      .perTenSelect .dropdown-toggle::after {
+          content: unset;
+      }
+
+      .perTenSelect .dpIconSec {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+      }
+
+      .perTenSelect .dropdown-menu {
+          display: none;
+          position: absolute;
+          width: 100%;
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 13px 10px #00000040;
+          margin-top: 5px;
+          padding: 13px 16px;
+          border: 1px solid #D0D4E4;
+      }
+
+      .perTenSelect .dropdown-menu label {
+          display: flex;
+          align-items: center;
+          padding: 0;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 400;
+          margin: 0 auto 16px;
+          color: #4A4A4A;
+          line-height: 1;
+      }
+
+      .perTenSelect .dropdown-menu input {
+          margin-right: 13px;
+          height: 20px;
+          width: 20px;
+      }
+
+      /* End Personalize Droup down  */
+      /* start Unsubscribe link */
+      .unSubLinSec {
+          background-color: #fff;
+          border-radius: 8px;
+          padding: 16px 20px;
+          padding: 13px 20px;
+          margin: 8px auto 15px;
+          min-height: 49px;
+      }
+
+      .unSubLinSec .unSubText {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          flex-wrap: wrap;
+      }
+
+      .unSubLinSec .unSubText a {
+          font-size: 14px;
+          font-weight: 400;
+          color: #1A73E8;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+      }
+
+      .unSubLinSec .unSubText span {
+          font-size: 12px;
+          font-weight: 400;
+          color: #4A4A4A;
+          font-style: italic;
+      }
+
+      .unToggle-switch {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+      }
+
+      .unToggle-switch .switch {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 22px;
+      }
+
+      .unToggle-switch .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+      }
+
+      .unToggle-switch .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #E5E8EB;
+          transition: .4s;
+          border-radius: 34px;
+          border: 1px solid #D0D5DD;
+          width: 40px;
+          height: 25px;
+      }
+
+      .unToggle-switch .slider:before {
+          position: absolute;
+          content: "";
+          height: 13px;
+          width: 13px;
+          left: 7px;
+          bottom: 5px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+          box-shadow: 0 1px 1px #00000040;
+      }
+
+      .unToggle-switch input:checked+.slider {
+          background-color: #007bff;
+      }
+
+      .unToggle-switch input:checked+.slider:before {
+          transform: translateX(12px);
+      }
+
+      /* End Unsubscribe link */
+      .emailPerSec h6 {
+          font-size: 14px;
+          color: #000000;
+          font-weight: 700;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 12px 24px;
+      }
+
+      /* Start Tracking & Analytics  */
+      .trackingTenSec {
+          border: 1px solid #D0D4E4;
+          background-color: #fff;
+          border-radius: 8px;
+          padding: 16px 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+      }
+
+      .trackingTenSec h6 {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+      }
+
+      .trackinBtns {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+      }
+
+      .trackinBtns span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #FF7A33;
+          padding: 4px 8px;
+          background-color: #FFCDAD5E;
+          border-radius: 4px;
+          min-height: 22px;
+          text-align: center;
+          line-height: 1;
+      }
+
+      .trackingSettSec.dropdown .dropdown-toggle {
+          background-color: unset !important;
+          border: none !important;
+          padding: 0 !important;
+      }
+
+      .trackingSettSec.dropdown .dropdown-toggle::after {
+          content: unset;
+      }
+
+      /* Start Tracking & Analytics  */
+
+      /* Start three button content  */
+      .tenXButtonsSec .accordion-item {
+          background-color: unset;
+          border: none;
+      }
+
+      .tenXButtonsSec .accordion-body {
+          padding: 0;
+      }
+
+      .accordion-button {
+          border: 1px solid #D0D4E4;
+          border-radius: 8px !important;
+          margin: 8px auto;
+          padding: 12px 24px;
+          font-size: 14px;
+          font-weight: 500;
+          height: 40px;
+          align-items: center;
+          gap: 12px;
+          background-color: #fff;
+      }
+
+      .accordion-button:not(.collapsed) {
+          background-color: #fff;
+          color: unset;
+      }
+
+      .accordion-button:focus {
+          box-shadow: unset;
+      }
+
+      .accordion-flush>.accordion-item>.accordion-collapse {
+          background-color: #fff;
+      }
+
+      .accordion-button:not(.collapsed) .collapse.show {
+          border-bottom: 0;
+          margin-bottom: 0;
+
+      }
+
+      /* .tenXButtonsSec .accordion-button::after {
+          content: unset;
+      }
+
+      .tenXButtonsSec .accordion-button::before {
+          content: "\F142";
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          Preferred icon size
+          display: inline-block;
+      }
+
+      */
+      .accordion-button.collapsed {
+          border: 1px solid #D0D4E4;
+          border-radius: 8px !important;
+          padding: 12px 24px;
+      }
+      .accordion-button {
+          border-bottom: 1px solid transparent;
+          border-radius: 8px 8px 0 0 !important;
+          margin: 8px auto 0;
+          padding: 12px 24px 0;
+          font-size: 14px;
+          font-weight: 500;
+          height: 40px;
+          align-items: center;
+          gap: 12px;
+          background-color: #fff;
+      }
+      /* End three button content  */
+
+
+      .autoFollUpSec {
+          padding: 17px 22px;
+      }
+
+      .autoFollUpSec p {
+          font-size: 14px;
+          font-weight: 400;
+          color: #767676;
+          margin: 0;
+      }
+
+      .boderBpad {
+          border-bottom: 1px solid #D0D4E4;
+          padding-bottom: 17px;
+      }
+
+      .autoFollUpSec h6 {
+          font-size: 14px;
+          font-weight: 400;
+          color: #1A73E8;
+          margin-bottom: 16px;
+      }
+      .autoFollUpSec label.lableHeading {
+          font-size: 14px;
+          font-weight: 400;
+          color: #4A4A4A;
+          margin-bottom: 11px;
+      }
+
+      .autoFolDivider {
+          height: 1px;
+          width: 100%;
+          background-color: #E5E8EB;
+          margin: 2px auto 13px;
+      }
+
+      .autoFollStage {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+          margin: 0 auto 13px;
+      }
+
+      .autoFollStage span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+      }
+
+      .autoFollStage select {
+          font-size: 14px;
+          font-weight: 400;
+          border: 1px solid #D0D4E4;
+          color: #4A4A4A;
+          width: 100px;
+          height: 30px;
+          line-height: 1;
+      }
+
+      .autoFollStage select:focus {
+          box-shadow: unset;
+      }
+
+      .autoFollStage input {
+          font-size: 14px;
+          font-weight: 400;
+          border: 1px solid #D0D4E4;
+          color: #4A4A4A;
+          width: 54px;
+          height: 30px;
+          line-height: 1;
+          padding: 7px 10px;
+      }
+
+      .autoFollStage input:focus {
+          box-shadow: unset;
+      }
+
+      /* =========== */
+      .norepAuto.dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      .norepAuto .stagedropdown-btn {
+          background-color: white;
+          border: 1px solid #D0D4E4;
+          padding: 7px 10px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 400;
+          height: 30px;
+          line-height: 1;
+          color: #4A4A4A;
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+      }
+
+      .norepAuto .stagedropdown-btn::after {
+          content: "";
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 6px solid #333;
+          position: relative;
+          top: 0;
+          right: 0;
+      }
+
+      .norepAuto .dropdown-menu {
+          display: none;
+          position: absolute;
+          background: white;
+          border: 1px solid #D0D4E4;
+          border-radius: 8px;
+          box-shadow: 0px 10px 13px #00000040;
+          min-width: 173px;
+          padding: 0;
+          margin-top: 2px;
+          z-index: 1000;
+      }
+
+      .norepAuto .dropdown-menu label {
+          display: flex;
+          align-items: center;
+          padding: 0;
+          cursor: pointer;
+          gap: 16px;
+          margin: 0;
+          padding: 10px 13px;
+          font-size: 14px;
+          font-weight: 400;
+      }
+
+      .norepAuto .dropdown-menu input {
+          margin-right: 0;
+          height: 25px;
+          width: 25px;
+          border: 1px solid #D0D5DD;
+          padding: 0;
+      }
+
+      .norepAuto .dropdown-menu label:hover {
+          background-color: #f0f0f0;
+          border-radius: 4px;
+      }
+
+      /* ============ */
+
+
+      .form-check-input[type=radio] {
+          border-radius: 50%;
+          background-color: #E5E8EB;
+          border-color: #D0D5DD;
+      }
+
+      .form-check-input:checked {
+          background-color: #0d6efd;
+          border-color: #0d6efd;
+      }
+
+      /* ============ */
+
+
+
+
+
+
+
+
+      /* Start Auto Followup Stage  */
+
+      .autoFolloStageSec.dropdown-container {
+          /* width: 350px; */
+          width: 100%;
+          position: relative;
+          margin: 0 auto 17px;
+      }
+
+      .autoFolloStageSec .dropdown-header {
+          border: 1px solid #D0D4E4;
+          border-radius: 8px;
+          padding: 12px 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: white;
+          cursor: pointer;
+      }
+
+      .autoFolloStageSec .dropdown-header span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+      }
+
+      .autoFolloStageSec .arrow {
+          font-size: 14px;
+          transition: transform 0.2s;
+      }
+
+      .autoFolloStageSec .arrow.open {
+          transform: rotate(180deg);
+      }
+
+      .autoFolloStageSec .dropdown-list {
+          display: none;
+          margin-top: 2px;
+          border-radius: 8px;
+          box-shadow: 0 10px 13px #00000040;
+          border: 1px solid #D0D4E4;
+          padding: 12px 16px;
+          background-color: white;
+          position: absolute;
+          width: 100%;
+          z-index: 100;
+      }
+
+      .autoFolloStageSec .dropdown-list.active {
+          display: block;
+      }
+
+      .autoFolloStageSec .search-box {
+          position: relative;
+          margin-bottom: 10px;
+      }
+
+      .autoFolloStageSec .search-box input {
+          width: 100%;
+          padding: 10px 10px 10px 32px;
+          border-radius: 8px;
+          border: 1px solid #D0D4E4;
+          outline: none;
+          font-size: 14px;
+          font-weight: 400;
+      }
+
+      .autoFolloStageSec .search-icon {
+          position: absolute;
+          left: 14px;
+          top: 45%;
+          transform: translateY(-50%);
+          pointer-events: none;
+          color: #888;
+      }
+
+      .autoFolloStageSec .dropdown-items {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          max-height: 200px;
+          overflow-y: auto;
+      }
+
+      .autoFolloStageSec .dropdown-items li {
+          padding: 8px;
+          cursor: pointer;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 400;
+      }
+
+      .autoFolloStageSec .dropdown-items li:hover {
+          background-color: #f0f0f0;
+          color: #1A73E8;
+      }
+
+      .autoFolloStageSec .dropdown-items li.selected {
+          background-color: #f0f0f0;
+          font-weight: bold;
+          color: #007bff;
+      }
+
+      .lidelFlex {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+
+      .lidelFlex .eyeDelIcons {
+          display: none;
+      }
+
+      .lidelFlex .eyeDelIcons a:last-child {
+          margin-left: 17px;
+      }
+
+      .autoFolloStageSec .dropdown-items li:hover .eyeDelIcons {
+          display: block;
+      }
+
+      /* End Auto Followup Stage  */
+
+
+
+      .autoStageBtn {
+          text-align: center;
+          margin: 26px auto 30px;
+      }
+
+      .autoStageBtn button {
+          font-size: 14px;
+          font-weight: 400;
+          color: #fff;
+          padding: 6px 14px;
+          height: 28px;
+          line-height: 1;
+          border-radius: 100px;
+      }
+
+      /* start set time sec */
+
+
+
+      .craetePlusTimeBtn {
+          padding: 5px 8px !important;
+          font-size: 14px !important;
+          font-weight: 400 !important;
+          color: #1A73E8 !important;
+          background-color: #1A73E81A !important;
+          border: 1px solid #1A73E8 !important;
+          border-radius: 100px !important;
+          display: flex !important;
+          align-items: center !important;
+          gap: 13px !important;
+      }
+
+      .setTimeSec.time-picker-wrapper {
+          position: relative;
+          max-width: 100px;
+      }
+
+      .timePickSec .time-input {
+          width: 100%;
+          padding: 7px 10px;
+          border: 1px solid #D0D4E4;
+          border-radius: 8px;
+          font-size: 14px;
+          cursor: pointer;
+          font-weight: 400;
+          height: 30px;
+          line-height: 1;
+      }
+
+      .timePickSec .time-input:focus {
+          outline: unset;
+      }
+
+      .timePickSec .inputTimeIcons {
+          display: flex;
+          position: relative;
+      }
+
+      .timePickSec .inputTimeIcons img {
+          position: absolute;
+          top: 7px;
+          right: 8px;
+          width: 16px;
+          height: 16px;
+      }
+
+      .timePickSec .time-picker {
+          display: none;
+          position: absolute;
+          top: 33px;
+          left: 0;
+          background: #fff;
+          border-radius: 18px;
+          padding: 30px 37px;
+          box-shadow: 0 4px 13px rgba(0, 0, 0, 0.25);
+          text-align: center;
+          z-index: 999;
+          border: 1px solid #D0D5DD;
+          width: 260px;
+      }
+
+      .timePickSec .time-picker.show {
+          display: block;
+      }
+
+      .timePickSec .setTimeText {
+          font-size: 13px;
+          font-weight: 400;
+          color: #192020;
+          margin-bottom: 16px;
+      }
+
+      .timePickSec .time-display {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 32px;
+          margin: 16px auto;
+          gap: 8px;
+      }
+
+      .timePickSec .highlight,
+      .timePickSec .gragyBgTime {
+          border-radius: 6px;
+          padding: 10px 12px;
+          font-size: 24px;
+          font-weight: 500;
+          width: 58px;
+          height: 48px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .timePickSec .highlight {
+          background-color: #0076FE1F;
+          color: #1A73E8;
+      }
+
+      .timePickSec .gragyBgTime {
+          background-color: #21212114;
+          color: #000;
+      }
+
+      .timePickSec .colunTime {
+          font-size: 28px;
+          line-height: 1;
+      }
+
+      .timePickSec .timeAmPmSec {
+          display: flex;
+          flex-direction: column;
+          border: 2px solid #DADCE0;
+          border-radius: 6px;
+          margin-left: 0;
+          line-height: 1;
+      }
+
+      .timePickSec .selTimePMAm {
+          color: #00000099;
+          font-weight: 600;
+          padding: 4px;
+          text-align: center;
+          cursor: pointer;
+          border-bottom: 1px solid #DADCE0;
+      }
+
+      .timePickSec .selTimePMAm:last-child {
+          border-bottom: none;
+      }
+
+      .timePickSec .activebluetext {
+          background-color: #0076FE1F;
+          color: #1A73E8 !important;
+          border-radius: 6px;
+      }
+
+      .timePickSec .clock {
+          width: 200px;
+          height: 200px;
+          margin: 0 auto 20px;
+          background: #21212114;
+          border-radius: 50%;
+          position: relative;
+      }
+
+      .timePickSec .hand {
+          position: absolute;
+          width: 2px;
+          height: 80px;
+          background: #1976d2;
+          top: 20px;
+          left: 99px;
+          transform-origin: bottom;
+      }
+
+      .timePickSec .center-dot {
+          width: 12px;
+          height: 12px;
+          background: #1976d2;
+          border-radius: 50%;
+          position: absolute;
+          top: 94px;
+          left: 94px;
+      }
+
+      .timePickSec .hour-marker {
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          cursor: pointer;
+      }
+
+      .timePickSec .hour-marker.selected {
+          background: #1976d2;
+          color: white;
+      }
+
+      .timePickSec .buttons {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 10px;
+          font-weight: bold;
+      }
+
+      .timePickSec .buttons span {
+          cursor: pointer;
+          font-size: 18px;
+          color: #4A4A4A;
+          font-weight: 500;
+      }
+
+      /* End set time sec */
+      /* ======= */
+      .chosEmailSec {
+          margin: 45px auto 20px;
+      }
+
+      .chosEmailSec .headMailChose {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+          margin-bottom: 13px;
+      }
+
+      .chosEmailSec .form-check {
+          display: flex;
+          align-items: center;
+          gap: 13px;
+      }
+
+      .chosEmailSec .form-check-label {
+          font-size: 14px;
+          font-weight: 400;
+          color: #000000;
+          margin: 3px auto 0;
+      }
+
+      .chosEmailSec .d-flex {
+          gap: 47px;
+      }
+      /* ========= */
+      .schedSec button.customDateBtn{
+          border-radius: 8px;
+          height: 35px;
+          padding: 10px 14px;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1;
+          background-color: #1A73E8;
+      }
+      .schedSec {
+          justify-content: space-between;
+          margin-bottom: 0;
+      }
+      .schedSec .stagedropdown-btn{
+          width: 100%;
+          min-width: 267px;
+          max-width: 267px;
+          height: 35px;
+          justify-content: space-between;
+      }
+
+      .schedSec .chosEmailSec {
+          margin: 25px auto 10px !important;
+      }
+      .schedSec .autoFollStage input.form-control{
+          width: 85px;
+      }
+
+      .form-check-label span {
+        
+          font-size: 12px;
+          color: #4A4A4A;
+          font-style: italic;
+      }
+
+      .form-check-label{
+        display: flex;
+        flex-direction: column;
+      }
+      .form-check-input:checked[type=checkbox] {
+        --bs-form-check-bg-image: none !important;
+      }
+     </style>
   </head>
 
   <body>
@@ -221,36 +1272,6 @@
         padding: 6px 12px;
       }
 
-      .checkBoxlist {
-        border-top: 1px solid #d0d4e4;
-      }
-
-      .radioBtnDroup .form-check-input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        margin-top: 0;
-      }
-
-      .radioBtnDroup .form-check-input:checked {
-        background-color: #9e01f9;
-        border-color: #9e01f9;
-      }
-
-      .radioBtnDroup .form-check-input[type="radio"] {
-        width: 14px;
-        height: 14px;
-        margin-top: 0;
-      }
-
-      .radioBtnDroup .form-check-input[type="radio"]:checked {
-        background-color: #9e01f9;
-        border: 2px solid #ffffff;
-        margin-top: 0;
-        box-shadow: 0 0 0 1px #9e01f9;
-        width: 13px;
-        height: 13px;
-      }
-
       .radioBtnDroup .form-check {
         display: flex;
         align-items: center;
@@ -281,10 +1302,6 @@
         position: sticky;
         top: 0;
         background-color: #fff;
-      }
-
-      .droupSec span .mdi-menu-down::before {
-        font-size: 25px;
       }
 
       .droupSec input {
@@ -798,11 +1815,6 @@
         padding-top: 12px;
       }
 
-      .tackheadSc span .mdi-menu-down::before {
-        content: "\F035D";
-        transform: rotate(270deg);
-        font-size: 25px;
-      }
 
       .tackheadSc span .mdi-menu-down.rotate::before {
         transform: rotate(360deg);
@@ -1174,16 +2186,9 @@
       }
       :root {
         --primary-color: #493838;
-        --secondary-color: #f9f9f9;
+        --secondary-color: rgb(241, 243, 244);
         --tertiary-color: #ddd;
         --quaternary-color: #bebcbc;
-      }
-      * {
-        font-family: "Figtree", serif;
-        font-size: max(
-          14px,
-          12px
-        ) !important; /* Ensures font size doesn't go below 12px */
       }
 
       body {
@@ -1210,13 +2215,6 @@
         transition: 0.2s ease-in-out;
       }
 
-      input[type="checkbox"]:checked {
-        border-color: purple;
-        background: purple
-          url("https://cdn.gmass.us/Extension2019Images/fa-check.png") center
-          center no-repeat !important;
-        background-size: 12px auto !important;
-      }
       .tackCheckLable {
         display: flex;
         gap: 2px 24px;
@@ -1247,29 +2245,8 @@
       .setmargn {
         margin: 12px 22px 12px;
       }
-      .buttonshowpice {
-        display: flex;
-        gap: 10px;
-      }
-      .buttonshowpice button {
-        border: 1px solid #9e01f9;
-        border-radius: 4px;
-        background-color: #faf1ff;
-        color: #9e01f9;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        margin: 4px 6px;
-        cursor: context-menu;
-        height: 45px;
-      }
 
-      .g_accordian_title {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        color: var(--primary-color);
-      }
+      
       .g_accordian_title:before {
         content: "";
         position: absolute;
@@ -1291,10 +2268,6 @@
         display: block;
       }
 
-      .g_accordian_title img {
-        width: 20px;
-        margin-right: 8px;
-      }
 
       .g2_send_test,
       .change-template {
@@ -1338,19 +2311,20 @@
 
       div#cmail-dropup {
         display: block;
-        background-color: var(--secondary-color);
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px;
         border: 1px solid var(--tertiary-color);
-        border-radius: 5px;
         font-family: "Google-sans", sans-serif;
-        min-height: 360px;
-        max-height: 600px;
-        width: 462px;
-        height: 500px;
-        overflow-y: auto;
         box-sizing: border-box;
         z-index: 10000;
         margin-left: 10px;
+        background-color: rgb(241, 243, 244);
+        padding: 14px;
+        box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 10px;
+        width: 502px;
+        height: 100%;
+        min-height: 90vh;
+        border-radius: 20px;
+        max-height: 95vh;
+        overflow: hidden auto;
       }
 
       .dropUpBody {
@@ -1392,23 +2366,7 @@
         padding: 10px;
       }
 
-      .g2_tracking.g_accordian {
-        border: 1px solid #bebcbc;
-        background-color: #f6f6f6;
-        border-radius: 4px;
-        min-height: 38px;
-        position: relative;
-        max-width: 538px;
-        margin: 0px 1px 10px;
-      }
 
-      .g_accordian_title {
-        font-size: 13px;
-        color: rgb(43, 44, 46);
-        font-weight: bold;
-        padding: 10px 13px;
-        cursor: pointer;
-      }
 
       .g_accordian_content {
         padding: 10px;
@@ -1416,30 +2374,6 @@
         overflow-x: hidden;
         margin-right: 10px;
         font-size: 14px;
-      }
-
-      .g_accordian {
-        border: 1px solid #bebcbc;
-        background-color: #f6f6f6;
-        border-radius: 4px;
-        min-height: 38px;
-        position: relative;
-        max-width: 538px;
-        margin: 0px 9px 5px;
-      }
-
-      .g_accordian {
-        margin-bottom: 10px;
-      }
-
-      .change-template,
-      .g2_tracking,
-      .g2_action {
-        margin: 15px 0;
-      }
-
-      span {
-        font-size: 16px;
       }
 
       .g2_checkbox {
@@ -1494,20 +2428,6 @@
         border-top-right-radius: var(--bs-modal-inner-border-radius);
       }
 
-      #test-send {
-        background: linear-gradient(
-          0deg,
-          rgba(29, 33, 48, 1) 0%,
-          rgba(96, 16, 154, 1) 35%,
-          rgba(161, 0, 255, 1) 100%
-        );
-        color: #fff;
-        font-size: 14px;
-        padding: 10px 16px;
-        border: none;
-        width: 30%;
-        cursor: pointer;
-      }
       .email-settings-container {
         display: flex;
         align-items: flex-start;
@@ -1546,13 +2466,6 @@
         gap: 5px;
       }
 
-      input[type="text"] {
-        padding: 4px 8px;
-        font-size: 0.9rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 50px;
-      }
 
       select {
         padding: 4px 8px;
@@ -1561,11 +2474,6 @@
         border-radius: 4px;
         background-color: #fff;
         cursor: pointer;
-      }
-
-      .send-test-section {
-        padding: 10px;
-        font-family: Arial, sans-serif;
       }
 
       .section-title {
@@ -1609,7 +2517,6 @@
 
       .dropdown-content {
         position: absolute;
-        top: 100%;
         left: 0;
         z-index: 10;
         width: 100%;
@@ -1751,10 +2658,6 @@
         margin: 12px 0px;
       }
 
-      .droupSec span .mdi-menu-down::before {
-        font-size: 25px;
-      }
-
       .droupSec input {
         border: none;
         width: 100%;
@@ -1807,107 +2710,174 @@
       }
     </style>
     <div id="cmail-dropup">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="gMasspopSec"></h1>
-      </div>
-      <div class="dropUpBody">
-        <div class="g2_send_test">
-          <span class="labelText">Send Test Email:</span>
-          <div style="display: flex; gap: 16px">
-            <input
-              style="width: 70%"
-              type="text"
-              id="test-input"
-              value="priyamtomar012@gmail.com"
-            />
-            <button style="width: 30%" id="test-send">Send</button>
-          </div>
+      <div class="headerTenX">
+        <div class="d-flex logoSecTen">
+            <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/ten-x-logo.svg" class="img-fluid" alt="">
+            <h6><span>10xSend</span>-Smart Email Outreach</h6>
         </div>
-        <!-- <hr /> -->
+        <div class="d-flex align-items-center">
+            <div class="minusIcon"></div>
+            <div style="cursor: pointer;"><img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/close-button.svg" class="img-fluid"
+                    alt=""></div>
+        </div>
+        
+    </div>
+      <div class="dropUpBody">
+        
+        <div class="innerContentTen">
+          <div class="texXInputs">
+              <label for="campaign-name" class="form-label">Campaign Name</label>
+              <input type="text" class="form-control" id="campaign-name" placeholder="Enter campaign name">
+          </div>
+      </div>
+      <div class="innerContentTen">
+        <div class="g2_send_test textMail">
+          <span class="labelText ">Test mail</span>
+          <div class="textUser">
+            <div class="d-flex gap-1">
+                <span><img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/ten-x-logo.svg" class="my-2" alt=""></span>
+                <input
+                type="text"
+                id="test-input"
+                value="priyamtomar012@gmail.com"
+              />
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="text-center">
+        <button  class="btn btn-primary tenXBtn" id="test-send">Send Test</button>
+      </div>
+    </div>
+        <!--  -->
         <!-- <div class="change-template">
           <span style="margin: 12px" class="labelText">Choose Templates:</span>
           <button id="configure-button">Template</button>
         </div> -->
 
-        <hr />
-        <div class="send-test-section">
-          <h6 class="section-title" style="margin-top: 5px">Personalize</h6>
-          <div class="search-flex">
-            <!-- Dropdown for Past Emails -->
-            <div class="dropdown-container dropdown-width">
-              <div class="dropdown-header personalize-dropdown">
-                <span>Select Fields</span>
-                <a href="#" id="refreshBtn">
-                  <span>
-                    <i class="mdi mdi-refresh"></i>
-                  </span>
-                </a>
-              </div>
-              <!-- Dropdown Content -->
-              <div class="dropdown-content" id="listsecOpenTwo">
-                <div class="dropdown-search">
-                  <span class="search-icon"
-                    ><i class="mdi mdi-magnify"></i
-                  ></span>
-                  <input type="text" placeholder="Search" />
-                </div>
-                <ul class="dropdown-list personalize-list"></ul>
-              </div>
-            </div>
-
-            <!-- Unsubscribe Link Section -->
-            <div class="dropdown-container dropdown-width">
-              <div class="dropdown-header">
-                <div class="unsubscribe-section">
-                  <label class="g2_checkbox" style="display: flex;gap: 10px;">
-                    <input
-                      type="checkbox"
-                      name="unsub_mark"
-                      id="unsubMarker"
-                      checked
-                      data-oval="unsub_mark"
-                      class="purple-link"
-                    />
-                    <span>Unsubscribe</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Copy Content Icon -->
-            <div class="copy-content">
-              <a href="#">
-                <img
-                  src="https://drkcrypt.github.io/Dropmenu/assets/images/content-copy.svg"
-                  alt="Copy Icon"
-                  width="18"
-                  height="18"
-                />
-              </a>
-            </div>
+        <div class="send-test-section perTenSelect dropdown innerContentTen mb-0">
+          <button class="dropdown-toggle dropdown-header personalize-dropdown" id="refreshBtn">Personalize <div class="dpIconSec">Select
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0.508179L5.00001 5.49191L10 0.508179H0Z" fill="#323338" />
+            </svg>
+          </button>
+          <!-- Dropdown Content -->
+          <div class="dropdown-content dropdown-menu" id="listsecOpenTwo">
+            <ul class="dropdown-list personalize-list"></ul>
           </div>
         </div>
-
-        <div class="g2_settings_accordions">Settings:</div>
-        <div class="g2_tracking g_accordian" style="padding: 5px">
+        <div class="unSubLinSec innerContentTen">
+          <div class="d-flex align-items-center justify-content-between flex-wrap">
+              <div class="unSubText">
+                  <a href="#"><svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                              d="M12.384 12.9467C11.4463 13.8844 9.85061 13.8844 8.91294 12.9467L8.03014 12.0639C7.76981 11.8035 7.34767 11.8035 7.08734 12.0639C6.82701 12.3242 6.82701 12.7464 7.08734 13.0067L7.97007 13.8895C9.42847 15.3479 11.8683 15.3479 13.3267 13.8895L13.3898 13.8265C14.8482 12.3681 14.8482 9.92816 13.3899 8.46976L12.5071 7.58696C12.2467 7.32662 11.8246 7.32662 11.5643 7.58696C11.3039 7.84729 11.3039 8.26942 11.5643 8.52976L12.447 9.41256C13.3847 10.3502 13.3847 11.9459 12.4471 12.8836L12.384 12.9467Z"
+                              fill="#1A73E8" />
+                          <path
+                              d="M4.43595 9.41303C4.6963 9.15269 4.69631 8.73056 4.43596 8.47023L3.55319 7.58743C2.6155 6.64976 2.61548 5.05409 3.55312 4.11643L3.61618 4.05336C4.55388 3.11569 6.1496 3.11563 7.08728 4.05329L7.97008 4.93609C8.23041 5.19643 8.65255 5.19643 8.91288 4.93609C9.17321 4.67576 9.17321 4.25363 8.91288 3.99329L8.03008 3.11049C6.57173 1.65209 4.13189 1.65209 2.67349 3.11043L2.61043 3.17349C1.15203 4.63189 1.15197 7.07183 2.61037 8.53023L3.49314 9.41303C3.75349 9.67336 4.1756 9.67336 4.43595 9.41303Z"
+                              fill="#1A73E8" />
+                          <path
+                              d="M4.87733 12.566C4.61698 12.8263 4.19487 12.8263 3.93452 12.566C3.67417 12.3056 3.67417 11.8835 3.93452 11.6232L11.1228 4.43485C11.3832 4.17452 11.8053 4.17452 12.0656 4.43485C12.326 4.69518 12.326 5.11732 12.0656 5.37765L4.87733 12.566Z"
+                              fill="#1A73E8" />
+                      </svg>Unsubscribe Link</a>
+                  <span>Added</span>
+              </div>
+              <div class="unToggle-switch">
+                  <label class="switch">
+                      <input type="checkbox" id="unsubMarker">>
+                      <span class="slider"></span>
+                  </label>
+              </div>
+          </div>
+      </div>
+      
+        <div class="emailPerSec">
+          <h6><svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                      d="M8.50003 11.5641C7.89401 11.5641 7.3016 11.3844 6.79771 11.0477C6.29382 10.711 5.90109 10.2324 5.66918 9.67255C5.43726 9.11266 5.37659 8.49658 5.49481 7.9022C5.61304 7.30783 5.90487 6.76186 6.33339 6.33334C6.76191 5.90482 7.30788 5.61299 7.90226 5.49476C8.49663 5.37653 9.11272 5.43721 9.67261 5.66912C10.2325 5.90104 10.711 6.29377 11.0477 6.79766C11.3844 7.30154 11.5641 7.89396 11.5641 8.49998C11.5629 9.31223 11.2396 10.0909 10.6653 10.6652C10.0909 11.2396 9.31229 11.5628 8.50003 11.5641ZM14.5757 9.24929C14.6425 8.75198 14.6425 8.24797 14.5757 7.75066L15.9359 6.36179C16.0147 6.28002 16.065 6.17513 16.0796 6.06256C16.0942 5.95 16.0723 5.83572 16.0171 5.73657L14.6234 3.38838C14.5659 3.29017 14.478 3.21333 14.373 3.16942C14.2679 3.12552 14.1515 3.11694 14.0412 3.14498L12.1607 3.62225C11.7553 3.31742 11.3146 3.06262 10.8482 2.86338L10.3709 1.01634C10.339 0.906664 10.2726 0.810235 10.1814 0.741428C10.0902 0.672621 9.97925 0.635122 9.86503 0.634521H7.14935C7.03513 0.635122 6.92416 0.672621 6.83299 0.741428C6.74183 0.810235 6.67534 0.906664 6.64344 1.01634L6.11367 2.85384C5.64572 3.05303 5.20345 3.30782 4.79639 3.6127L2.91594 3.13543C2.80561 3.10819 2.68945 3.11714 2.5846 3.16097C2.47975 3.2048 2.39178 3.28118 2.33367 3.37884L1.00685 5.73657C0.946991 5.8328 0.920195 5.94594 0.930533 6.05879C0.940871 6.17165 0.987777 6.27804 1.06412 6.36179L2.40526 7.75066C2.33844 8.24797 2.33844 8.75198 2.40526 9.24929L1.06412 10.6382C0.985402 10.7199 0.935029 10.8248 0.920422 10.9374C0.905814 11.0499 0.927746 11.1642 0.982984 11.2634L2.37662 13.6116C2.43417 13.7098 2.52208 13.7866 2.6271 13.8305C2.73212 13.8744 2.84857 13.883 2.95889 13.855L4.83935 13.3777C5.24373 13.6828 5.68465 13.9361 6.15185 14.1318L6.68162 15.9836C6.71071 16.0895 6.77254 16.1834 6.85827 16.252C6.944 16.3206 7.04923 16.3603 7.15889 16.3654H9.86503C9.98476 16.3758 10.1044 16.3443 10.2036 16.2765C10.3028 16.2086 10.3754 16.1085 10.4091 15.9932L10.9389 14.1413C11.4061 13.9456 11.847 13.6923 12.2514 13.3872L14.1318 13.8645C14.2313 13.8769 14.3323 13.8606 14.4228 13.8175C14.5133 13.7744 14.5895 13.7062 14.6425 13.6211L15.998 11.2777C16.0601 11.1822 16.0896 11.0692 16.0818 10.9555C16.0741 10.8419 16.0296 10.7338 15.955 10.6477L14.5757 9.24929Z"
+                      fill="black" />
+              </svg>
+              Email Preferences</h6>
+        </div>
+        <div class="g2_tracking g_accordian trackingTenSec">
+          
           <div class="g_accordian_title">
-            <img
-              src="https://drkcrypt.github.io/Dropmenu/assets/images/tracking.svg"
-              width="20"
-              height="20"
-            />
-            <span> Tracking </span>
-            <span><i class="mdi mdi-menu-down"></i></span>
+            <h6>
+              <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                      d="M0.716881 6C0.556152 6 0.392553 5.93783 0.257655 5.81023C-0.0465814 5.5223 -0.0867635 5.00533 0.16581 4.6585L1.88504 2.30597C2.65711 1.24913 3.12207 0.614375 3.90563 0.614375C4.68918 0.614375 5.15415 1.2524 5.92622 2.30597C6.56626 3.17958 6.96522 3.5853 7.14317 3.72272C7.32112 3.59512 7.68563 3.09451 8.01282 2.64625L9.73205 0.293724C9.98462 -0.0531025 10.4381 -0.0989091 10.7423 0.189022C11.0466 0.476954 11.0868 0.993921 10.8342 1.34075L9.11784 3.69328C8.34576 4.75012 7.8808 5.38487 7.09724 5.38487C6.68968 5.38487 6.13287 5.13948 4.82695 3.35299C4.46531 2.85893 4.05775 2.29943 3.9085 2.25035C3.75925 2.29943 3.35169 2.85893 2.99005 3.35299L1.27082 5.70552C1.12731 5.89857 0.923532 6 0.716881 6Z"
+                      fill="black" />
+              </svg>
+              Tracking & Analytics
+            </h6>
           </div>
           <div
-            class="buttonshowpice"
-            style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+            class="trackinBtns"
           >
-            <button class="OpenShowPiece">Open</button>
-            <button class="ClickShowPiece">Click</button>
+            <span class="OpenShowPiece">Monitor Opens</span>
+            <span class="ClickShowPiece">Track Clicks</span>
+          </div>
+          <div class="trackingSettSec dropdown">
+            <a class="btn btn-secondary dropdown-toggle trackingShowPiece " href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8.50003 11.5641C7.89401 11.5641 7.3016 11.3844 6.79771 11.0477C6.29382 10.711 5.90109 10.2324 5.66918 9.67255C5.43726 9.11266 5.37659 8.49658 5.49481 7.9022C5.61304 7.30783 5.90487 6.76186 6.33339 6.33334C6.76191 5.90482 7.30788 5.61299 7.90226 5.49476C8.49663 5.37653 9.11272 5.43721 9.67261 5.66912C10.2325 5.90104 10.711 6.29377 11.0477 6.79766C11.3844 7.30154 11.5641 7.89396 11.5641 8.49998C11.5629 9.31223 11.2396 10.0909 10.6653 10.6652C10.0909 11.2396 9.31229 11.5628 8.50003 11.5641ZM14.5757 9.24929C14.6425 8.75198 14.6425 8.24797 14.5757 7.75066L15.9359 6.36179C16.0147 6.28002 16.065 6.17513 16.0796 6.06256C16.0942 5.95 16.0723 5.83572 16.0171 5.73657L14.6234 3.38838C14.5659 3.29017 14.478 3.21333 14.373 3.16942C14.2679 3.12552 14.1515 3.11694 14.0412 3.14498L12.1607 3.62225C11.7553 3.31742 11.3146 3.06262 10.8482 2.86338L10.3709 1.01634C10.339 0.906664 10.2726 0.810235 10.1814 0.741428C10.0902 0.672621 9.97925 0.635122 9.86503 0.634521H7.14935C7.03513 0.635122 6.92416 0.672621 6.83299 0.741428C6.74183 0.810235 6.67534 0.906664 6.64344 1.01634L6.11367 2.85384C5.64572 3.05303 5.20345 3.30782 4.79639 3.6127L2.91594 3.13543C2.80561 3.10819 2.68945 3.11714 2.5846 3.16097C2.47975 3.2048 2.39178 3.28118 2.33367 3.37884L1.00685 5.73657C0.946991 5.8328 0.920195 5.94594 0.930533 6.05879C0.940871 6.17165 0.987777 6.27804 1.06412 6.36179L2.40526 7.75066C2.33844 8.24797 2.33844 8.75198 2.40526 9.24929L1.06412 10.6382C0.985402 10.7199 0.935029 10.8248 0.920422 10.9374C0.905814 11.0499 0.927746 11.1642 0.982984 11.2634L2.37662 13.6116C2.43417 13.7098 2.52208 13.7866 2.6271 13.8305C2.73212 13.8744 2.84857 13.883 2.95889 13.855L4.83935 13.3777C5.24373 13.6828 5.68465 13.9361 6.15185 14.1318L6.68162 15.9836C6.71071 16.0895 6.77254 16.1834 6.85827 16.252C6.944 16.3206 7.04923 16.3603 7.15889 16.3654H9.86503C9.98476 16.3758 10.1044 16.3443 10.2036 16.2765C10.3028 16.2086 10.3754 16.1085 10.4091 15.9932L10.9389 14.1413C11.4061 13.9456 11.847 13.6923 12.2514 13.3872L14.1318 13.8645C14.2313 13.8769 14.3323 13.8606 14.4228 13.8175C14.5133 13.7744 14.5895 13.7062 14.6425 13.6211L15.998 11.2777C16.0601 11.1822 16.0896 11.0692 16.0818 10.9555C16.0741 10.8419 16.0296 10.7338 15.955 10.6477L14.5757 9.24929Z"
+                        fill="black" />
+                </svg>
+            </a>
+            <ul class="dropdown-menu radioBtnDroup SettingSecBtn" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(0px, 27.2px, 0px);" data-popper-placement="bottom-end">
+              <li class="checkBoxlist">
+                  <a class="dropdown-item">
+                      <div>
+                          <label class="d-flex  checkBoxAllSec checkLabelSecText" id="monitorSec">
+                              <span class="sabsnw1">
+                                  <input class="form-check-input ms-0" type="checkbox"  id="iyEIROpenTracking" name="iyEIROpenTracking" checked>
+                                  <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="
+                                          top: 5px;
+                                          position: relative;
+                                          right: 25px;
+                                      ">
+                                      <path d="M14.6453 1.13281C14.1736 0.661133 13.4089 0.661133 12.9373 1.13281L4.76636 9.30664L2.05933 6.59961C1.58765 6.12793 0.822998 6.12793 0.351318 6.59961C-0.120361 7.07129 -0.120361 7.83594 0.351318 8.30762L3.91089 11.8672C4.30054 12.2568 4.90405 12.333 5.37866 12.0547C5.39624 12.043 5.41382 12.0342 5.42847 12.0225C5.49585 11.9785 5.5603 11.9258 5.6189 11.8672L14.6453 2.84082C15.1169 2.36914 15.1169 1.60449 14.6453 1.13281Z" fill="white"></path>
+                                  </svg>
+                              </span>
+                              <div class="form-check-label">
+                                  Monitor Opens <span>Analyze engagement with links</span>
+                              </div>
+                          </label>
+                      </div>
+                  </a>
+              </li>
+              <li class="checkBoxlist">
+                  <a class="dropdown-item">
+                      <div class="">
+                          <label class="d-flex checkBoxAllSec checkLabelSecText" id="monitorSec">
+                              <span class="sabsnw1">
+                                  <input class="form-check-input ms-0" type="checkbox" id="iyEIROpenClick" name="iyEIROpenClick" checked>
+                                  <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg" style="
+                                          top: 5px;
+                                          position: relative;
+                                          right: 25px;
+                                      ">
+                                      <path d="M14.6453 1.13281C14.1736 0.661133 13.4089 0.661133 12.9373 1.13281L4.76636 9.30664L2.05933 6.59961C1.58765 6.12793 0.822998 6.12793 0.351318 6.59961C-0.120361 7.07129 -0.120361 7.83594 0.351318 8.30762L3.91089 11.8672C4.30054 12.2568 4.90405 12.333 5.37866 12.0547C5.39624 12.043 5.41382 12.0342 5.42847 12.0225C5.49585 11.9785 5.5603 11.9258 5.6189 11.8672L14.6453 2.84082C15.1169 2.36914 15.1169 1.60449 14.6453 1.13281Z" fill="white"></path>
+                                  </svg>
+                              </span>
+                              <div class="form-check-label">
+                                  Track Clicks <span>Analyze engagement with links</span>
+                              </div>
+                          </label>
+                      </div>
+                  </a>
+              </li>
+            </ul>
           </div>
           <div class="g_accordian_content">
-            <hr />
+            
             <div class="g_hide_on_collapse">
               <label class="g2_checkbox">
                 <input
@@ -1917,7 +2887,7 @@
                   data-oval="opens"
                   checked
                 />
-                <span>Opens</span>
+                <span>Monitor Opens</span>
               </label>
               <label class="g2_checkbox">
                 <input
@@ -1927,25 +2897,25 @@
                   checked
                   data-oval="Click"
                 />
-                <span>Click</span>
+                <span>Track Clicks</span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="g2_tracking g_accordian" style="padding: 5px">
+        <div class="g2_tracking g_accordian">
           <div class="g_accordian_title">
-            <img
-              src="https://drkcrypt.github.io/Dropmenu/assets/images/auto-follow.svg"
-              width="20"
-              height="20"
-            />
-            <span> Auto Follow Up </span>
-            <span><i class="mdi mdi-menu-down"></i></span>
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#tenX-collapseOne" aria-expanded="false"
+                  aria-controls="tenX-collapseOne">
+                  <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/automated-icon.svg" class="img-fluid" alt="">
+                  Automated Follow-Ups
+              </button>
+            </h2>
           </div>
           <div
-            class="buttonshowpice"
-            style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+            class="buttonshowpice trackinBtns"
           >
             <button class="showP hidden">Stage 1</button>
             <button class="showP hidden">Stage 2</button>
@@ -1955,7 +2925,7 @@
           </div>
           <div class="g_accordian_content">
             <div class="g_hide_on_collapse">
-              <hr />
+              
               <div
                 class="tackCheckLable"
                 style="max-width: 400px; width: 398px"
@@ -2049,7 +3019,7 @@
                           Send rich-text email in same thread &nbsp;
                           <span class="plusIcon"
                             ><img
-                              src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                              src="https://drkcrypt.github.io/Dropmenu./images/plus-icon.svg"
                               alt=""
                               width="28"
                               height="28"
@@ -2069,7 +3039,7 @@
                             <div class="refresIcon" role="button">
                               <a href="#">
                                 <img
-                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                  src="https://drkcrypt.github.io/Dropmenu./images/refresh-icon.svg"
                                   alt=""
                                   width="14"
                                   height="14"
@@ -2117,7 +3087,7 @@
                 </div>
               </div>
               <div class="S2 hidden">
-                <hr />
+                
                 <div
                   class="tackCheckLable"
                   style="max-width: 400px; width: 398px"
@@ -2211,7 +3181,7 @@
                             Send rich-text email in same thread &nbsp;
                             <span class="plusIcon"
                               ><img
-                                src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                src="https://drkcrypt.github.io/Dropmenu./images/plus-icon.svg"
                                 alt=""
                                 width="28"
                                 height="28"
@@ -2232,7 +3202,7 @@
                               <div class="refresIcon" role="button">
                                 <a href="#">
                                   <img
-                                    src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                    src="https://drkcrypt.github.io/Dropmenu./images/refresh-icon.svg"
                                     alt=""
                                     width="14"
                                     height="14"
@@ -2280,7 +3250,7 @@
                   </div>
                 </div>
                 <div class="S3 hidden">
-                  <hr />
+                  
                 
                   <div
                     class="tackCheckLable"
@@ -2376,7 +3346,7 @@
                               Send rich-text email in same thread &nbsp;
                               <span class="plusIcon"
                                 ><img
-                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  src="https://drkcrypt.github.io/Dropmenu./images/plus-icon.svg"
                                   alt=""
                                   width="28"
                                   height="28"
@@ -2396,7 +3366,7 @@
                                 <div class="refresIcon" role="button">
                                   <a href="#">
                                     <img
-                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      src="https://drkcrypt.github.io/Dropmenu./images/refresh-icon.svg"
                                       alt=""
                                       width="14"
                                       height="14"
@@ -2444,7 +3414,7 @@
                     </div>
                   </div>
                 <div class="S4 hidden">
-                  <hr />
+                  
                 
                   <div
                     class="tackCheckLable"
@@ -2540,7 +3510,7 @@
                               Send rich-text email in same thread &nbsp;
                               <span class="plusIcon"
                                 ><img
-                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  src="https://drkcrypt.github.io/Dropmenu./images/plus-icon.svg"
                                   alt=""
                                   width="28"
                                   height="28"
@@ -2560,7 +3530,7 @@
                                 <div class="refresIcon" role="button">
                                   <a href="#">
                                     <img
-                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      src="https://drkcrypt.github.io/Dropmenu./images/refresh-icon.svg"
                                       alt=""
                                       width="14"
                                       height="14"
@@ -2608,7 +3578,7 @@
                     </div>
                   </div>
                 <div class="S5 hidden">
-                  <hr />
+                  
                 
                   <div
                     class="tackCheckLable"
@@ -2704,7 +3674,7 @@
                               Send rich-text email in same thread &nbsp;
                               <span class="plusIcon"
                                 ><img
-                                  src="https://drkcrypt.github.io/Dropmenu/assets/images/plus-icon.svg"
+                                  src="https://drkcrypt.github.io/Dropmenu./images/plus-icon.svg"
                                   alt=""
                                   width="28"
                                   height="28"
@@ -2724,7 +3694,7 @@
                                 <div class="refresIcon" role="button">
                                   <a href="#">
                                     <img
-                                      src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg"
+                                      src="https://drkcrypt.github.io/Dropmenu./images/refresh-icon.svg"
                                       alt=""
                                       width="14"
                                       height="14"
@@ -2774,25 +3744,26 @@
               </div>
 
               </div>
-              <div class="g2_tracking g_accordian" style="padding: 5px">
+              <div class="g2_tracking g_accordian">
                 <div class="g_accordian_title">
-                  <img
-                    src="https://drkcrypt.github.io/Dropmenu/assets/images/schedule.svg"
-                  />
-                  <span>
-                    <span style="padding: 3px">Schedule</span>
-                  </span>
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#tenX-collapseTwo" aria-expanded="false"
+                        aria-controls="tenX-collapseTwo">
+                        <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/scheduling-icon.svg" class="img-fluid" alt="">
+                        Scheduling Options
+                    </button>
+                </h2>
                   <span id="zjDCLmainspread" style="font-weight: normal"></span>
                 </div>
                 <div
-                  class="buttonshowpice"
-                  style="border-top: 1px solid #d0d4e4; padding-top: 12px"
+                  class="buttonshowpice trackinBtns"
                 >
-                  <button class="daysShowPice hidden">Send days</button>
-                  <button class="pauseShowPice hidden">Pause between emails</button>
+                  <span class="daysShowPice hidden">Send days</span>
+                  <span class="pauseShowPice hidden">Pause between emails</span>
                 </div>
                 <div class="g_accordian_content">
-                  <hr />
+                  
                   <div style="display: flex">
                     <h5 class="g_col_label" style="float: none">Time:</h5>
                     <div style="margin-left: 25px">
@@ -2984,7 +3955,7 @@
                       </div>
                     </div>
                   </div>
-                  <hr />
+                  
                   <div class="email-settings-container">
                     <h5 class="label">Speed:</h5>
                     <div class="settings-content">
@@ -3027,6 +3998,62 @@
                   </div>
                 </div>
               </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#tenX-collapseThree" aria-expanded="false"
+                        aria-controls="tenX-collapseThree">
+                        <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/reschedule-icon.svg" class="img-fluid" alt="">
+                        Reschedule Campaign
+                    </button>
+                </h2>
+                <div id="tenX-collapseThree" class="accordion-collapse collapse"
+                    data-bs-parent="#tenxaccordionFlush">
+                    <div class="accordion-body">
+                        <div class="autoFollUpSec">
+                            <p>Automatically schedule the next campaign after the current one ends for
+                                seamless
+                                outreach.</p>
+                        </div>
+                        <div class="autoFolDivider"></div>
+                        <div class="autoFollUpSec">
+                            <div class="boderBpad border-0">
+                                <div class="Campaigntoggle-row">
+                                    <span>Automatically reschedule after completion</span>
+                                    <div class="unToggle-switch">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="timing-options">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rescheduleTiming"
+                                            id="rescheduleTiming1">
+                                        <label class="form-check-label" for="rescheduleTiming1">
+                                            Immediately after completion
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rescheduleTiming"
+                                            id="rescheduleTiming2" checked>
+                                        <label class="form-check-label" for="rescheduleTiming2">
+                                            After
+                                        </label>
+
+                                        <input type="number" class="form-control dayInput" id="number"
+                                            placeholder="0">
+                                        <span class="dayHeadImm">Day</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             </div>
             
           </div>
@@ -3036,4 +4063,7 @@
       </div>
     </div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
 </html>

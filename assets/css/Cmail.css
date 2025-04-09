@@ -20,13 +20,14 @@
 
 div#cmail-dropup {
   display: block;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(241, 243, 244);
+
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px;
   padding: 10px;
   border-radius: 4px;
   min-height: 360px;
   max-height: 400px;
-  width: 350;
+  width: 520;
   font-family: "Google-sans", sans-serif;
   overflow-y: auto;
   z-index: 12;
@@ -177,24 +178,6 @@ textarea:focus {
   padding: 10px;
 }
 
-.g2_tracking.g_accordian {
-  border: 1px solid #bebcbc;
-  background-color: #f6f6f6;
-  border-radius: 4px;
-  min-height: 38px;
-  position: relative;
-  max-width: 538px;
-  margin: 0px 9px 5px;
-}
-
-.g_accordian_title {
-  font-size: 13px;
-  color: rgb(43, 44, 46);
-  font-weight: bold;
-  padding: 10px 13px;
-  cursor: pointer;
-}
-
 .g_accordian_content {
   padding: 10px;
   overflow-y: auto;
@@ -217,12 +200,6 @@ textarea:focus {
   margin-bottom: 10px;
 }
 
-.change-template,
-.g2_tracking,
-.g2_action {
-  margin: 15px 0;
-}
-
 button#configure-button {
   padding: 8px 12px;
   font-size: 14px;
@@ -237,7 +214,6 @@ button#configure-button {
   margin-top: 20px;
 }
 .g2_checkbox {
-  
   padding-right: 10px;
 }
 .blank-header {
@@ -449,13 +425,18 @@ input#days {
 
 iframe {
   position: absolute;
-  width: 480px;
-  height: 510px;
+  width: 515px;
+  height: 710px;
   border: none;
-  bottom: 10px;
-  left: 70px;
-  right: 0px;
-  overflow: hidden;
+  bottom: -104px;
+  right: 25px;
+  overflow: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  margin-bottom: 30px;
+}
+iframe::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 ::-webkit-scrollbar {
