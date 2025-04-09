@@ -510,6 +510,44 @@ function toggleTracking(document) {
   } catch (e) {}
 }
 
+function openAccordion(document) {
+  try {
+    const accordionButton = document.querySelector(
+      '.accordion-button[data-bs-target="#tenX-collapseThree"]'
+    );
+    const accordionCollapse = document.getElementById("tenX-collapseThree");
+
+    if (accordionButton && accordionCollapse) {
+      // Add click event listener to the button
+      accordionButton.addEventListener("click", function () {
+        // Check if the collapse is currently shown
+        console.log("accordionCollapse", accordionCollapse);
+
+        const isShown = accordionCollapse.classList.contains("show");
+
+        if (isShown) {
+          // If shown, hide it
+          accordionCollapse.classList.remove("show");
+          accordionButton.setAttribute("aria-expanded", "false");
+          accordionButton.style.borderWidth = "0";
+          accordionButton.classList.add("collapsed");
+        } else {
+          // If hidden, show it
+          accordionCollapse.classList.add("show");
+          accordionButton.setAttribute("aria-expanded", "true");
+          accordionButton.classList.remove("collapsed");
+        }
+
+        // Scroll down to the bottom of the page
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      });
+    }
+  } catch (error) {}
+}
+
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
   const SendDaysOn = document.querySelector("#EUYaSSendDaysOn");
@@ -530,7 +568,7 @@ function dropupJs(document) {
   const selectMessage = Array.from(document.querySelectorAll(".slectMessage"));
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
   toggleTracking(document);
-
+  openAccordion(document);
   try {
     if (skipHolidays) {
       skipHolidays.addEventListener("change", () => {

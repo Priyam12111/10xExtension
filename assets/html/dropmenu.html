@@ -104,7 +104,6 @@
       }
 
       .innerContentTen .texXInputs input {
-          border: 1px solid #D0D4E4;
           font-size: 14px;
           font-weight: 400;
           background-color: #fff;
@@ -433,7 +432,7 @@
 
       .accordion-button {
           border: 1px solid #D0D4E4;
-          border-radius: 8px !important;
+          border-radius: 8px 0px !important;
           margin: 8px auto;
           padding: 12px 24px;
           font-size: 14px;
@@ -479,9 +478,11 @@
 
       */
       .accordion-button.collapsed {
-          border: 1px solid #D0D4E4;
-          border-radius: 8px !important;
-          padding: 12px 24px;
+        border-top: 1px solid #D0D4E4;
+        border-left: 1px solid #D0D4E4;
+        border-right: 1px solid #D0D4E4;
+        border-radius: 8px 0px !important;
+        padding: 12px 24px;
       }
       .accordion-button {
           border-bottom: 1px solid transparent;
@@ -499,9 +500,8 @@
 
 
       .autoFollUpSec {
-          padding: 17px 22px;
+        padding: 0 22px;
       }
-
       .autoFollUpSec p {
           font-size: 14px;
           font-weight: 400;
@@ -582,7 +582,7 @@
           display: inline-block;
       }
 
-      .norepAuto .stagedropdown-btn {
+      .stagedropdown-btn {
           background-color: white;
           border: 1px solid #D0D4E4;
           padding: 7px 10px;
@@ -815,7 +815,7 @@
 
 
       .craetePlusTimeBtn {
-          padding: 5px 8px !important;
+          padding: 5px 8px 0px !important;
           font-size: 14px !important;
           font-weight: 400 !important;
           color: #1A73E8 !important;
@@ -2233,9 +2233,10 @@
         margin-bottom: 9px;
       }
       .form-check {
-        display: block;
+        display: flex;
         min-height: 1.5rem;
         margin-bottom: 0.125rem;
+        gap: 8px;
       }
       .timesec {
         display: none;
@@ -2261,7 +2262,6 @@
       }
       .g_accordian_content {
         display: none;
-        padding: 10px;
       }
 
       .g_accordian_content.active {
@@ -2294,10 +2294,6 @@
       .g2_send_test button,
       .change-template button {
         width: 100%;
-      }
-
-      .g_accordian_content {
-        padding: 10px;
       }
 
       body {
@@ -2369,10 +2365,8 @@
 
 
       .g_accordian_content {
-        padding: 10px;
         overflow-y: auto;
         overflow-x: hidden;
-        margin-right: 10px;
         font-size: 14px;
       }
 
@@ -2699,14 +2693,31 @@
         position: sticky;
         top: -3px;
       }
-      input[type="Number"] {
+      .timing-options .dayInput {
+        max-width: 70px;
+        min-width: 70px;
+        height: 30px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .timing-options {
         display: flex;
-        width: 25px;
-        text-align: center;
-        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+    </style>
+
+    <style>
+      .Campaigntoggle-row {
+        display: flex;
         align-items: center;
-        margin: auto;
-        padding: 0px 8px;
+        justify-content: space-between;
+        margin: 0 auto 17px;
+      }
+
+      .accordion-body,
+      .g_accordian_content {
+        background-color: #fff;
       }
     </style>
     <div id="cmail-dropup">
@@ -3756,18 +3767,20 @@
                 </h2>
                   <span id="zjDCLmainspread" style="font-weight: normal"></span>
                 </div>
-                <div
-                  class="buttonshowpice trackinBtns"
-                >
-                  <span class="daysShowPice hidden">Send days</span>
-                  <span class="pauseShowPice hidden">Pause between emails</span>
-                </div>
+
                 <div class="g_accordian_content">
-                  
-                  <div style="display: flex">
-                    <h5 class="g_col_label" style="float: none">Time:</h5>
-                    <div style="margin-left: 25px">
-                      <select id="EUYaSGMassDateDropdown" style="margin-bottom: 5px">
+                  <div class="autoFollUpSec">
+                    <p>Customize sending preferences, automation, and tracking for optimized email campaigns.</p>
+                  </div>
+                  <div class="autoFolDivider"></div>
+
+                  <div class="d-flex">
+                    <div class="autoFollUpSec">
+                    <h6 style="color: #000000;">Sending Time</h6>
+                    <div class="d-flex flex-column">
+                    <div >
+                      
+                      <select id="EUYaSGMassDateDropdown" class="stagedropdown-btn reshedul-btn">
                         <option selected="" disabled="" hidden="" value=""></option>
                         <option value="Now" selected="">Now</option>
                         <option value="FiveMinutes" [fiveminutes]="">
@@ -3954,48 +3967,51 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div class="email-settings-container">
-                    <h5 class="label">Speed:</h5>
-                    <div class="settings-content">
-                      <div class="email-limit">
-                        <label for="bqpifMaxEmails">
-                          <span>Send</span>
-                          <input
-                            type="text"
-                            placeholder="Max"
-                            size="4"
-                            id="bqpifMaxEmails"
-                            name="MaxEmails"
-                            value=""
-                            data-oval="daily limit"
-                          />
-                          <span>Emails/day</span>
-                        </label>
-                      </div>
-                      <div class="pause-settings">
-                        <label class="checkbox-label">
-                          <input
-                            type="checkbox"
-                            id="bqpifDelayCheckbox"
-                            name="DelayCheckbox"
-                            data-oval="pause between emails"
-                          />
-                          <span class="checkbox-text">
-                            Pause
-                            <select id="bqpifPauseSeconds" name="PauseSeconds">
-                              <option value="1">5-10 seconds</option>
-                              <option value="2">10-60 seconds</option>
-                              <option value="3">1-5 minutes</option>
-                              <option value="5">5-10 minutes</option>
-                            </select>
-                            between emails
-                          </span>
-                        </label>
+                    <div class="email-settings-container">
+                      <h5 class="label">Speed:</h5>
+                      <div class="settings-content">
+                        <div class="email-limit">
+                          <label for="bqpifMaxEmails">
+                            <span>Send</span>
+                            <input
+                              type="text"
+                              placeholder="Max"
+                              size="4"
+                              id="bqpifMaxEmails"
+                              name="MaxEmails"
+                              value=""
+                              data-oval="daily limit"
+                            />
+                            <span>Emails/day</span>
+                          </label>
+                        </div>
+                        <div class="pause-settings">
+                          <label class="checkbox-label">
+                            <input
+                              type="checkbox"
+                              id="bqpifDelayCheckbox"
+                              name="DelayCheckbox"
+                              data-oval="pause between emails"
+                            />
+                            <span class="checkbox-text">
+                              Pause
+                              <select id="bqpifPauseSeconds" name="PauseSeconds">
+                                <option value="1">5-10 seconds</option>
+                                <option value="2">10-60 seconds</option>
+                                <option value="3">1-5 minutes</option>
+                                <option value="5">5-10 minutes</option>
+                              </select>
+                              between emails
+                            </span>
+                          </label>
+                        </div>
                       </div>
                     </div>
+                    </div>
+                    </div>
                   </div>
+                  
+                  
                 </div>
               </div>
               <div class="accordion-item">
@@ -4063,7 +4079,5 @@
       </div>
     </div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>
+
 </html>
