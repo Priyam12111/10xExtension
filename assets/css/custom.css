@@ -190,8 +190,8 @@
 }
 
 .radioBtnDroup .form-check-input:checked {
-  background-color: #9e01f9;
-  border-color: #9e01f9;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 
 .radioBtnDroup .form-check-input[type="radio"] {
@@ -201,10 +201,10 @@
 }
 
 .radioBtnDroup .form-check-input[type="radio"]:checked {
-  background-color: #9e01f9;
+  background-color: #0d6efd;
   border: 2px solid #ffffff;
   margin-top: 0;
-  box-shadow: 0 0 0 1px #9e01f9;
+  box-shadow: 0 0 0 1px #0d6efd;
   width: 13px;
   height: 13px;
 }
@@ -409,10 +409,10 @@
 }
 
 .tackShowBtn .pinkbtnall {
-  border: 1px solid #9e01f9;
+  border: 1px solid #0d6efd;
   border-radius: 4px;
   background-color: #faf1ff;
-  color: #9e01f9;
+  color: #0d6efd;
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
@@ -442,16 +442,16 @@
 }
 
 .tackCheckLable .form-check-input:checked {
-  background-color: #9e01f9;
-  border-color: #9e01f9;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
   margin-top: 0;
 }
 
 .tackCheckLable .form-check-input[type="radio"]:checked {
-  background-color: #9e01f9;
+  background-color: #0d6efd;
   border: 3px solid #ffffff;
   margin-top: 0;
-  box-shadow: 0 0 0 2px #9e01f9;
+  box-shadow: 0 0 0 2px #0d6efd;
   height: 15px;
   width: 15px;
 }
@@ -521,11 +521,7 @@
 
 .daysTitle {
   font-size: 12px;
-  color: #9e01f9;
-}
-
-.timesec {
-  margin: 8px 11px 16px;
+  color: #0d6efd;
 }
 
 .timesec .inputTimeSec {
@@ -781,25 +777,32 @@ textarea:focus {
 .gooShetAftet {
   position: relative;
 }
-
-.gooShetAftet::after {
-  content: "";
-  background: linear-gradient(
-    0deg,
-    rgba(29, 33, 48, 1) 0%,
-    rgba(96, 16, 154, 1) 35%,
-    rgba(161, 0, 255, 1) 100%
-  );
-  width: 165px;
-  height: 44px;
-  display: inline-block;
-  border-radius: 100%;
-  position: absolute;
-  bottom: 0;
-  right: 34%;
-  filter: blur(60px);
+.googleSheet-header {
+  margin-top: 100px;
+}
+.googleSheetPad #dropdown,
+.googleSheetPad #sheet-dropdown {
+  margin-left: 28px;
+  margin-right: 28px;
+  box-shadow: 0 1px 3px #0000003d;
+  border: none;
+  border-radius: 100px;
+  height: 26px;
+  line-height: 1;
+  border: 1px solid #d0d4e4;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  cursor: pointer;
+  font-size: 14px;
 }
 
+#Sheetarrow {
+  position: absolute;
+  top: 16px;
+  right: 30px;
+}
 .gooShetAftet img {
   position: relative;
   z-index: 2;
@@ -810,16 +813,19 @@ textarea:focus {
 }
 
 .buttonPopoSec a {
-  background: linear-gradient(
-    0deg,
-    rgba(29, 33, 48, 1) 0%,
-    rgba(96, 16, 154, 1) 35%,
-    rgba(161, 0, 255, 1) 100%
-  );
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #1a73e8 !important;
+  padding: 8px 15px;
+  height: 32px;
+  border: 1px solid #d0d5dd;
+  line-height: 1;
+  border-radius: 100px;
+  min-width: 150px;
+  max-width: 150px;
+  white-space: nowrap;
   text-decoration: none;
+  color: white;
 }
 
 .buttonPopoSec {
@@ -866,7 +872,7 @@ textarea:focus {
 .pinkDateSec {
   border: 1px solid #e4b5ff;
   background-color: #f4e2ff;
-  color: #9e01f9;
+  color: #0d6efd;
   padding: 4px 12px;
   border-radius: 4px;
   font-weight: 600;
@@ -1038,6 +1044,7 @@ select.norepselect:focus {
   outline: none;
 }
 #sheet-dropdown {
+  display: none;
   margin-top: 5px;
 }
 #dropdown-list,
@@ -1061,6 +1068,21 @@ select.norepselect:focus {
   bottom: 45px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 15;
+}
+#dropdown-list,
+#sheet-dropdown-list {
+  border-radius: 24px;
+  padding: 16px 18px;
+  margin-top: 50px;
+  box-shadow: 0 10px 13px #00000040;
+  border: 1px solid #d0d4e4;
+  padding: 12px 16px;
+  background-color: white;
+  position: absolute;
+  width: 95%;
+  z-index: 100;
+  right: -6px;
+  top: 25vh;
 }
 #sheet-dropdown-list {
   cursor: pointer;
@@ -1088,28 +1110,103 @@ select.norepselect:focus {
 .header {
   text-align: center;
 }
+
 #suggestion-box {
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
   padding: 16px;
-  max-width: 400px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 14px;
-  color: #323338;
-  transition: all 0.8s ease-in-out;
+  max-width: 480px;
+  font-family: "Inter", sans-serif;
+  color: #2c2f35;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+#suggestion-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    rgba(149, 114, 252, 0.1),
+    rgba(67, 231, 173, 0.1)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+#suggestion-box:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.suggestion-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #4a5568;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.suggestion-title i {
+  color: #667eea;
+  font-size: 1.4em;
 }
 
 #suggestion-box div {
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-#suggestion-box div:last-child {
-  border-bottom: none;
+  padding: 14px 20px;
+  margin: 8px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 #suggestion-box div:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
+  background: rgba(102, 126, 234, 0.08);
+  transform: translateX(8px);
+}
+
+#suggestion-box div::before {
+  content: "✦";
+  color: #667eea;
+  opacity: 0.6;
+  font-size: 0.9em;
+  transition: opacity 0.3s ease;
+}
+
+#suggestion-box div:hover::before {
+  opacity: 1;
+}
+
+#suggestion-box div:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(102, 126, 234, 0.2),
+    transparent
+  );
 }

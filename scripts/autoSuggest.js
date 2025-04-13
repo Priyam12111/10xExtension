@@ -25,44 +25,60 @@ function autocorrectFirstName() {
   if (!selection.rangeCount) return;
   const range = selection.getRangeAt(0);
   const node = range.startContainer;
-  const cursorPosition = range.startOffset;
 
   if (node.nodeType === Node.TEXT_NODE) {
     const text = node.textContent;
-    if (cursorPosition >= 2) {
-      const shortcut = text.substring(cursorPosition - 2, cursorPosition);
-      if (shortcut[0] === "{") {
-        const typedLetter = shortcut[1].toLowerCase();
+    // Get text before the cursor position
+    const beforeCursor = text.substring(0, range.startOffset);
+    // Check for a pattern that starts with '{' and has letters after it (e.g., "{jo")
+    const pattern = /\{([a-zA-Z]*)$/;
+    const match = beforeCursor.match(pattern);
+    if (!match) return;
 
-        const matchingWords = words.filter(
-          (word) => word[0].toLowerCase() === typedLetter
-        );
+    const filterText = match[1].toLowerCase();
+    // Dynamically filter words based on all characters typed after '{'
+    const matchingWords = words.filter((word) =>
+      word.toLowerCase().startsWith(filterText)
+    );
 
-        if (matchingWords.length === 0) {
-          return;
-        } else if (matchingWords.length === 1) {
-          const replacement = `{${matchingWords[0]}}`;
-          const newText =
-            text.substring(0, cursorPosition - 2) +
-            replacement +
-            text.substring(cursorPosition);
-          node.textContent = newText;
+    if (matchingWords.length === 0) {
+      return;
+    } else if (matchingWords.length === 1) {
+      // Auto-complete if exactly one match is found
+      const replacement = `{${matchingWords[0]}}`;
+      const newText =
+        text.substring(0, beforeCursor.length - match[0].length) +
+        replacement +
+        text.substring(range.startOffset);
+      node.textContent = newText;
 
-          const newCursorPosition = cursorPosition - 2 + replacement.length;
-          const newRange = document.createRange();
-          newRange.setStart(node, newCursorPosition);
-          newRange.collapse(true);
-          selection.removeAllRanges();
-          selection.addRange(newRange);
-        } else {
-          showSuggestionBox(matchingWords, node, range, cursorPosition);
-        }
-      }
+      const newCursorPosition =
+        beforeCursor.length - match[0].length + replacement.length;
+      const newRange = document.createRange();
+      newRange.setStart(node, newCursorPosition);
+      newRange.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    } else {
+      // Show suggestion box if more than one match is found
+      showSuggestionBox(
+        matchingWords,
+        node,
+        range,
+        beforeCursor.length,
+        match[0].length
+      );
     }
   }
 }
 
-function showSuggestionBox(suggestions, textNode, range, cursorPosition) {
+function showSuggestionBox(
+  suggestions,
+  textNode,
+  range,
+  cursorPosition,
+  triggerLength
+) {
   const suggestionBox = document.createElement("div");
   suggestionBox.id = "suggestion-box";
   suggestionBox.style.position = "absolute";
@@ -72,6 +88,7 @@ function showSuggestionBox(suggestions, textNode, range, cursorPosition) {
   suggestionBox.style.zIndex = 1000;
   suggestionBox.style.fontSize = "14px";
 
+  // Position the suggestion box based on the current range's location
   const rect = range.getBoundingClientRect();
   suggestionBox.style.top = rect.bottom + window.scrollY + "px";
   suggestionBox.style.left = rect.left + window.scrollX + "px";
@@ -89,14 +106,16 @@ function showSuggestionBox(suggestions, textNode, range, cursorPosition) {
     });
     item.addEventListener("click", () => {
       const replacement = `{${word}}`;
-      const text = textNode.textContent;
+      const fullText = textNode.textContent;
+      // Replace only the part that was typed (triggerLength characters starting with '{')
       const newText =
-        text.substring(0, cursorPosition - 2) +
+        fullText.substring(0, cursorPosition - triggerLength) +
         replacement +
-        text.substring(cursorPosition);
+        fullText.substring(cursorPosition);
       textNode.textContent = newText;
 
-      const newCursorPosition = cursorPosition - 2 + replacement.length;
+      const newCursorPosition =
+        cursorPosition - triggerLength + replacement.length;
       const newRange = document.createRange();
       newRange.setStart(textNode, newCursorPosition);
       newRange.collapse(true);

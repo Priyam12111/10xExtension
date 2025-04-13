@@ -153,8 +153,7 @@ function setEmailDetails(emails, subject, body) {
 async function sendMails() {
   const track = JSON.parse(sessionStorage.getItem("tracking") || "false");
   const DelayCheckbox = sessionStorage.getItem("DelayCheckbox") || 0;
-  const sendingAnimation = createSendingAnimation("Processing...");
-  document.body.appendChild(sendingAnimation);
+  createMsgBox("Processing...", 8000);
 
   try {
     const sender = sessionStorage.getItem("sender");
@@ -195,33 +194,10 @@ async function sendMails() {
       DelayCheckbox
     );
     handleUploadResponse(uploadResponse, schedule, DelayCheckbox);
-    setTimeout(() => sendingAnimation.remove(), 4000);
   } catch (error) {
     console.log("Error:", error);
-    setTimeout(() => sendingAnimation.remove(), 5000);
     createMsgBox("An Error Occurred. Please check the console for details.");
-  } finally {
-    try {
-      sendingAnimation.classList.remove("sending");
-    } catch (e) {
-      console.log(e);
-    }
   }
-}
-
-function createSendingAnimation(msg) {
-  const div = document.createElement("div");
-  div.classList.add("sending-animation-container");
-  div.innerHTML = `
-    <div class="sending-animation">
-      <p class="send-text">${msg || "Sending..."}</p>
-      <div class="loading-dots">
-        <span>.</span><span>.</span><span>.</span>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(div);
-  return div;
 }
 
 async function createMsgBox(msg, duration = 3000) {

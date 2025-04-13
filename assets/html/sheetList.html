@@ -4,68 +4,126 @@
       <div class="gmas-sign googleSheetPad">
         <div class="gooShetAftet">
           <img
-            src="https://drkcrypt.github.io/Dropmenu/assets/images/google-sheet-icon.svg"
+            src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/excel-sheet-logo.svg"
             alt="10xmailer"
             jslog="138226; u014N:xr6bB; 53:WzAsMF0."
             style="width: 60px"
           />
         </div>
-        <h3 class="mb-2">Choose a Google Sheet below.</h3>
+        <div class="InnerContent">
+          <h2 style="font-size: 32px;font-weight: 500;color: #000000;margin: 0 auto 0;">Connect Your Spreadsheet</h2>
+          <p style="font-size: 14px;color: #767676;margin: 0;font-weight: 400;">Easily link your spreadsheet to automate email campaigns.</p>
+        </div>
 
         <!-- Close Button -->
         <button id="close-btn" class="close-btn">
-          <img
-            src="https://static.thenounproject.com/png/953232-200.png"
-            width="30px"
-          />
+          <img src="https://static.thenounproject.com/png/953232-200.png" width="30px" style="margin-right: 10px;">
         </button>
-
-        <div id="dropdown" class="dropdown">
-          <span id="dropdown-placeholder">Select Spreadsheet</span>
-          <input
-            type="search"
-            id="dropdown-search"
-            placeholder="Search sheets..."
-          />
+        <div class="googleSheet-header">
+          <div id="dropdown" class="dropdown">
+            <img
+              src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/excel-small-icon.svg"
+              class="img-fluid"
+              alt=""
+            />
+            <div class="dropdown-header">
+              <span
+                id="dropdown-placeholder"
+                style="display: block; margin-left: 10px"
+                >Select Spreadsheet</span
+              >
+              <span class="arrow" id="Sheetarrow"
+                ><svg
+                  width="11"
+                  height="6"
+                  viewBox="0 0 11 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z"
+                    fill="#323338"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+            <input
+              type="search"
+              id="dropdown-search"
+              placeholder="Search sheets..."
+            />
+          </div>
         </div>
         <ul id="dropdown-list" class="hidden"></ul>
 
-        <div id="sheet-dropdown" class="dropdown hidden">
-          <span id="sheet-dropdown-placeholder">Sheet Name</span>
+        <div id="sheet-dropdown" class="dropdown" style="display: none">
+          <img
+            src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/excel-small-icon.svg"
+            class="img-fluid"
+            alt=""
+          />
+          <span id="sheet-dropdown-placeholder" style="margin-left: 10px"
+            >Sheet Name</span
+          >
           <input
             type="search"
             id="sheet-dropdown-search"
             placeholder="Search sheets..."
             autocomplete="off"
           />
+          <span class="arrow" id="Sheetarrow"
+            ><svg
+              width="11"
+              height="6"
+              viewBox="0 0 11 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z"
+                fill="#323338"
+              ></path>
+            </svg>
+          </span>
         </div>
         <ul id="sheet-dropdown-list" class="hidden"></ul>
-        <div class="checkSheet">
-          <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="keepemails"
-            />
-            <label class="form-check-label" for="keepemails">
+        <div class="ecelCheckBtn">
+          <div class="">
+            <label
+              class="checkBoxAllSec gap-3 checkLabelSecText"
+              id="duplicateEmails"
+            >
+              <span class="sabsnw1">
+                <input
+                  class="form-check-input ms-0"
+                  type="checkbox"
+                  name="keepemails"
+                  id="keepemails"
+                />
+                
+              </span>
               Keep duplicate emails
             </label>
           </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="reportdatacheckbox"
-              checked=""
-            />
-            <label class="form-check-label" for="reportdatalabel">
+          <div class="">
+            <label
+              class="checkBoxAllSec gap-3 checkLabelSecText"
+              id="reportingData"
+            >
+              <span class="sabsnw1">
+                <input
+                  class="form-check-input ms-0"
+                  type="checkbox"
+                  name="reportdatacheckbox"
+                  id="reportdatacheckbox"
+                />
+              </span>
               Update Sheet with reporting data
             </label>
           </div>
         </div>
-        <div id="SpreadsheetSave" class="save-btn buttonPopoSec hidden">
+        </div>
+        <div id="SpreadsheetSave" class="save-btn buttonPopoSec hidden" style="margin-top: 70px;display: block;">
           <a href="#">Connect To Spreadsheet</a>
         </div>
       </div>

@@ -1,0 +1,163 @@
+<div class="tackCheckLable">
+  <div class="satgeSec" style="width: 100%">
+    <div class="boderBpad">
+      <div class="timesec timeS5 accordion">
+        <h6>Stage 5: Second Follow-up</h6>
+        <div class="select-template">
+          <div class="droupSec slectMessage">
+            <span>Templates</span>
+            <!-- <input type="" placeholder=""> -->
+            <span class="arrow" id="arrow">
+              <svg
+                width="11"
+                height="6"
+                viewBox="0 0 11 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z"
+                  fill="#323338"
+                ></path>
+              </svg>
+            </span>
+          </div>
+          <!-- = Dropdown = -->
+          <div class="droupOpenSec hidden" id="listsecOpenMessageS5">
+            <div class="droupSec">
+              <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
+              <input type="text" placeholder="Search" />
+            </div>
+            <ul class="listWidIcons listmesaageshow"></ul>
+          </div>
+          <!-- == -->
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input stage5 d-none"
+            type="checkbox"
+            value=""
+          />
+          <label class="form-check-label" for="stage5">If</label>
+
+          <div class="iconArrowSelect">
+            <select
+              name="No Reply"
+              id="No Reply"
+              class="norepselect stagedropdown-btn"
+            >
+              <option value="No Reply">No Reply</option>
+              <option value="No Open">No Open</option>
+              <option value="No Click">No Click</option>
+              <option value="No Reply or Click">No Reply or Click</option>
+            </select>
+          </div>
+
+          <label class="form-check-label" for="stage5"
+            >Send follow-up after</label
+          >
+          <input
+            type="number"
+            name="quantity"
+            min="1"
+            max="1000"
+            placeholder="0"
+            class="stageNumberinputS5 form-control"
+          />
+          <span>Day</span>
+          <div class="autoFollStage timePickSec mb-0">
+            <span>Set time</span>
+            <div class="setTimeSec time-picker-wrapper">
+              <div class="inputTimeIcons" id="timeInput">
+                <input
+                  class="time-input w-100"
+                  placeholder="00.00"
+                  id="daysS5"
+                  readonly=""
+                />
+                <img
+                  src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
+                  alt=""
+                />
+              </div>
+              <div class="time-picker" id="timePicker">
+                <div class="setTimeText">Send Time Options</div>
+                <div class="time-display">
+                  <span id="hourDisplay" class="highlight">7</span>
+                  <span class="colunTime">:</span>
+                  <span id="minuteDisplay" class="gragyBgTime">00</span>
+                  <div class="timeAmPmSec">
+                    <span class="selTimePMAm activebluetext" id="amBtn"
+                      >AM</span
+                    >
+                    <span class="selTimePMAm" id="pmBtn">PM</span>
+                  </div>
+                </div>
+                <div class="clock" id="clock">
+                  <div class="hand" id="hand"></div>
+                  <div class="center-dot"></div>
+                </div>
+                <div class="buttons">
+                  <span id="cancelBtn">CANCEL</span>
+                  <span id="okBtn">OK</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chosEmailSec">
+            <label for="" class="headMailChose"
+              >Choose how to send your follow-up email</label
+            >
+            <div class="d-flex">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="newThreadDefault"
+                  id="newThread1"
+                />
+                <label class="form-check-label" for="newThread1">
+                  New Thread
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="newThreadDefault"
+                  id="newThread2"
+                  checked=""
+                />
+                <label class="form-check-label" for="newThread2">
+                  Same Thread
+                </label>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"
+          >
+            <img
+              src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
+              class="CreateDrafts"
+            />Create a new Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="autoStageBtn autoStageBtn mb-0">
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-bs-toggle="collapse"
+    data-bs-target="#stageOneSec"
+    aria-expanded="false"
+    id="stage5"
+    aria-controls="stageOneSec"
+  >
+    + Stage 5: Follow-up
+  </button>
+</div>

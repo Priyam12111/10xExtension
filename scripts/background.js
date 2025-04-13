@@ -26,6 +26,7 @@ function authenticateWithGoogle(sender) {
     "https://www.googleapis.com/auth/gmail.modify",
     "https://www.googleapis.com/auth/gmail.compose",
     "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/userinfo.email",
   ].join(" ");
 
   // Encode sender into the state parameter

@@ -46,8 +46,14 @@ function createSheetItems(data, parentNode) {
       <span style="font-size: 16px; font-weight: 500; color: #333;">
         ${sheet.name}
       </span>
-      <span style="font-size: 14px; color: #666; white-space: nowrap; margin-left: auto;">
-        Created: ${new Date(sheet.createdTime).toLocaleString()}
+      <span style="font-size: 14px; color: #86888A; white-space: nowrap; margin-left: auto;">
+        ${new Date(sheet.createdTime)
+          .toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })
+          .replace(/ /g, " ")}
       </span>
     `;
     parentNode.appendChild(sheetItem);
@@ -251,6 +257,8 @@ function LoadsheetJS() {
   dropdownList.addEventListener("click", (e) => {
     const target = e.target.closest("LI, SPAN");
     if (target) {
+      const sheetList = document.querySelector("#sheet-dropdown");
+      sheetList.style.display = "flex";
       const selectedItem =
         target.tagName === "SPAN" ? target.parentElement : target;
       console.log("Selected sheet:", selectedItem.textContent);
@@ -332,27 +340,27 @@ async function createSignUp() {
   modalContainer.setAttribute("aria-hidden", "true");
 
   modalContainer.innerHTML = `
-    <div class="modal-dialog">
-      <div class="modal-content signGmasWidth">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="gMasspopSec"></h1>
-        </div>
-        <div class="modal-body">
-          <div class="gmas-sign">
-            <div>
-              <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/refs/heads/main/assets/images/fav.png" alt="10x mailer" jslog="138226; u014N:xr6bB; 53:WzAsMF0." style="
-    width: 60px;
-">
-            </div>
-            <h3>You must connect 10xsend to your Google account for this to work.</h3>
-            <div class="signGoogLink">
-              <div class="googleSignsec">
-                <img src="https://drkcrypt.github.io/Dropmenu/assets/images/google.svg" alt="10x mailer" width="48" height="48">
-                Sign up with Google
+    <div class="modal fade googleConnSec" id="connectGoogle" tabindex="-1" aria-labelledby="connectGoogleLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body googleInnSec">
+                  <div class="GoogleSecLogo">
+                      <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/google-icon.svg" class="img-fluid" alt="">
+                      <span></span>
+                      <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/10x-logo-green.svg" class="img-fluid" alt="">
+                  </div>
+                  <div class="InnerContent">
+                      <h2>Connect with Google</h2>
+                      <p>Seamlessly connect your Google account to automate and personalize your email campaigns.
+                      </p>
+                  </div>
+                <div class="googlePopBtns">
+                  <button type="button" class="btn btn-primary signGoogLink" style="color: white;padding-left: 2px;">Sign in to Continue</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="padding-left: 2px;">Back</button>
+                </div>
               </div>
-            </div>
           </div>
-        </div>
       </div>
     </div>
   `;

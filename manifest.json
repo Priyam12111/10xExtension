@@ -22,7 +22,11 @@
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
-      "css": ["assets/css/custom.css", "assets/css/Cmail.css"],
+      "css": [
+        "assets/css/custom.css",
+        "assets/css/Cmail.css",
+        "assets/css/style.css"
+      ],
       "js": [
         "scripts/connectSheet.js",
         "scripts/content.js",

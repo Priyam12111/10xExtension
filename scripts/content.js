@@ -107,7 +107,7 @@ function createButton(id) {
   button.style.marginLeft = "0px";
   button.style.position = "relative";
   dropupMenu.style.position = "fixed";
-  dropupMenu.style.display = "none";
+  dropupMenu.style.display = "block";
   dropupMenu.style.zIndex = "9999";
   try {
     fetchAndInjectDropupMenu(dropupMenu);
@@ -116,7 +116,7 @@ function createButton(id) {
   }
 
   document.addEventListener("click", () => {
-    if (dropupMenu.style.display === "block") {
+    if (dropupMenu.firstElementChild.classList.contains("open")) {
       toggleDropupMenu(dropupMenu);
     }
   });
@@ -138,6 +138,7 @@ function fetchAndInjectDropupMenu(dropupMenu) {
     .then((htmlContent) => {
       const iframe = document.createElement("iframe");
       iframe.style.border = "none";
+      // iframe.style.maxHeight = "0px";
       dropupMenu.appendChild(iframe);
 
       const doc = iframe.contentWindow.document;
@@ -149,20 +150,32 @@ function fetchAndInjectDropupMenu(dropupMenu) {
         const doc = iframe.contentWindow.document;
         dropupJs(doc);
         emailFunctionalities(doc);
+        minimise(doc, iframe);
       };
     })
     .catch((error) => {
       console.error("Error loading the HTML:", error);
     });
 }
+const minimise = (document, iframe) => {
+  const minimise = document.querySelector(".minimise");
+  const arrow = window.document.querySelector(".arrow");
 
+  if (minimise) {
+    minimise.addEventListener("click", () => {
+      if (iframe.classList.contains("open")) {
+        arrow.classList.toggle("rotate");
+        iframe.classList.remove("open");
+      }
+    });
+  }
+};
 function toggleDropupMenu(dropupMenu) {
   const arrow = document.querySelector(".arrow");
   if (arrow) {
     arrow.classList.toggle("rotate");
   }
-  dropupMenu.style.display =
-    dropupMenu.style.display === "none" ? "block" : "none";
+  dropupMenu.firstElementChild.classList.toggle("open");
 }
 
 function saveEmailForm(containerContent) {
@@ -287,14 +300,21 @@ function fetchDrafts(
             if (draft.subject.includes("(Auto Followup)")) {
               draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
+                <img src="http://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/eye-icon.svg" style="display:none; float:right; cursor:pointer;" class="eye-btn" alt="" width="14" height="14" />
               `;
+              draftLi.addEventListener("mouseenter", () => {
+                draftLi.querySelector(".eye-btn").style.display = "block";
+              });
 
+              draftLi.addEventListener("mouseleave", () => {
+                draftLi.querySelector(".eye-btn").style.display = "none";
+              });
               listmesaageshow.appendChild(draftLi);
               draftLi.addEventListener("click", (e) => {
                 e.stopPropagation();
                 emailHeader.textContent = subject || "No Subject";
                 emailBody.innerHTML = "<br>" + draft.body + "<br><hr>";
-                slectMessage.textContent = subject || "No Subject";
+                slectMessage.firstElementChild.textContent = subject || "";
                 droupOpenSec.classList.add("hidden");
                 sessionStorage.setItem(`draftBody${index + 1}`, draft.body);
               });
@@ -306,7 +326,7 @@ function fetchDrafts(
       }
     })
     .catch((error) => {
-      console.error("Error fetching drafts:", error);
+      console.log("Error fetching drafts:", error);
     });
 }
 function showDraft(listMessageShow, selectMessage, droUpOpenSec) {
@@ -491,6 +511,7 @@ function setupAccordionToggle(accordionTitles) {
       } else {
         content.classList.toggle("active");
       }
+      title.querySelector(".accordion-button").classList.toggle("activeTitle");
     });
   });
 }
@@ -529,13 +550,19 @@ function openAccordion(document) {
           // If shown, hide it
           accordionCollapse.classList.remove("show");
           accordionButton.setAttribute("aria-expanded", "false");
-          accordionButton.style.borderWidth = "0";
-          accordionButton.classList.add("collapsed");
+          accordionCollapse.style.overflow = "hidden";
+          accordionCollapse.style.maxHeight = "0px";
+          accordionCollapse.style.transition = "max-height 0.5s ease-in-out";
+          setTimeout(() => {
+            accordionButton.style.borderWidth = "1px";
+          }, 1000);
         } else {
           // If hidden, show it
           accordionCollapse.classList.add("show");
           accordionButton.setAttribute("aria-expanded", "true");
-          accordionButton.classList.remove("collapsed");
+          accordionCollapse.style.maxHeight = "500px";
+          accordionCollapse.style.transition = "max-height 0.5s ease-in-out";
+          accordionButton.style.borderWidth = "0";
         }
 
         // Scroll down to the bottom of the page
@@ -550,15 +577,8 @@ function openAccordion(document) {
 
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
-  const SendDaysOn = document.querySelector("#EUYaSSendDaysOn");
   const skipHolidays = document.querySelector("#EUYaSSkipHolidays");
-  const dropdowndays = document.getElementById("listsecOpenDays");
   const triggerdays = document.querySelector(".senddays");
-  const droPosisionDays = document.querySelector(".droPosisionDays");
-  const itemsdays = document.querySelectorAll(
-    ".listdaysShow label.form-check-label"
-  );
-  const checkboxes = droPosisionDays.querySelectorAll(".form-check-input");
   const sendButton = document.getElementById("test-send");
   const testInput = document.getElementById("test-input");
   const dropdownHeader = document.querySelector(".dropdown-header");
@@ -569,6 +589,7 @@ function dropupJs(document) {
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
   toggleTracking(document);
   openAccordion(document);
+
   try {
     if (skipHolidays) {
       skipHolidays.addEventListener("change", () => {
@@ -587,7 +608,6 @@ function dropupJs(document) {
   draftButtons(document, listMessageShow, selectMessage, droUpOpenSec);
   showDraft(listMessageShow, selectMessage, droUpOpenSec);
 
-  setupDaysDropdown(triggerdays, dropdowndays, itemsdays);
   try {
     if (dropdownHeader && dropdownContent) {
       setupDropdown(dropdownHeader, dropdownContent);
@@ -606,34 +626,12 @@ function dropupJs(document) {
       }
     }
   });
-  SendDaysOn.addEventListener("change", () => {
-    triggerdays.classList.toggle("hidden");
-    sessionStorage.setItem("SendDaysOn", SendDaysOn.checked);
-  });
 
-  triggerdays.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdowndays.classList.toggle("hidden");
-  });
-  document.addEventListener("click", (e) => {
-    if (
-      !dropdowndays.contains(e.target) &&
-      !triggerdays.contains(e.target) &&
-      !selectMessage.some((el) => el.contains(e.target))
-    ) {
-      dropdowndays.classList.add("hidden");
-      droUpOpenSec.forEach((section) => section.classList.add("hidden"));
-    }
-  });
-
-  checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      const updatedCheckedDays = Array.from(checkboxes)
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
-      sessionStorage.setItem("checkedDays", JSON.stringify(updatedCheckedDays));
-    });
-  });
+  // document.addEventListener("click", (e) => {
+  //   if (!selectMessage.some((el) => el.contains(e.target))) {
+  //     droUpOpenSec.forEach((section) => section.classList.add("hidden"));
+  //   }
+  // });
 
   if (sendButton && testInput) {
     sendButton.addEventListener("click", () => {
@@ -727,45 +725,147 @@ function updateSchedule(value, scheduleinput) {
   scheduleinput.disabled = true;
 }
 
-const lockOriginalBox = (document, stageBody, valuesArray) => {
-  stageBody.forEach((stage, index) => {
-    document.querySelector(stage).addEventListener("change", () => {
-      setTimeout(() => {
-        const orgTextBox = document.querySelector(`#w3reviewS${index + 1}`);
-        orgTextBox.value = "";
-        const storedValues = valuesArray;
-        storedValues[index] = "";
-        sessionStorage.setItem(
-          `stagetextarea-values`,
-          JSON.stringify(storedValues)
-        );
-        orgTextBox.disabled = true;
-        orgTextBox.classList.add("disabletextarea");
-      }, 0);
-    });
+function timePicker(document, index) {
+  const timeInput = document.querySelector("#timeInput");
+  const timePicker = document.querySelector("#timePicker");
+  const hand = document.querySelector("#hand");
+  const hourDisplay = document.querySelector("#hourDisplay");
+  const minuteDisplay = document.querySelector("#minuteDisplay");
+  const amBtn = document.querySelector("#amBtn");
+  const pmBtn = document.querySelector("#pmBtn");
+  const okBtn = document.querySelector("#okBtn");
+  const cancelBtn = document.querySelector("#cancelBtn");
+  const clock = document.querySelector("#clock");
+
+  let selectedHour = 7;
+  let selectedMinute = 0;
+  let isAM = true;
+  let selectingMinutes = false;
+
+  timeInput.addEventListener("click", (e) => {
+    e.stopPropagation();
+    timePicker.classList.add("show");
+    drawClock();
   });
-};
+
+  cancelBtn.addEventListener("click", () => {
+    timePicker.classList.remove("show");
+  });
+
+  okBtn.addEventListener("click", () => {
+    let hour24;
+    if (isAM) {
+      hour24 = selectedHour === 12 ? 0 : selectedHour;
+    } else {
+      hour24 = selectedHour === 12 ? 12 : selectedHour + 12;
+    }
+
+    const formattedHour = hour24.toString().padStart(2, "0");
+    const formattedMinute = selectedMinute.toString().padStart(2, "0");
+
+    timeInput.firstElementChild.value = `${formattedHour}:${formattedMinute}`;
+    setFollowUpTime(index, timeInput.firstElementChild.value);
+    timePicker.classList.remove("show");
+  });
+
+  amBtn.addEventListener("click", () => {
+    isAM = true;
+    amBtn.classList.add("activebluetext");
+    pmBtn.classList.remove("activebluetext");
+  });
+
+  pmBtn.addEventListener("click", () => {
+    isAM = false;
+    pmBtn.classList.add("activebluetext");
+    amBtn.classList.remove("activebluetext");
+  });
+
+  hourDisplay.addEventListener("click", (e) => {
+    selectingMinutes = false;
+    drawClock();
+  });
+
+  minuteDisplay.addEventListener("click", (e) => {
+    selectingMinutes = true;
+    drawClock();
+  });
+
+  function drawClock() {
+    clock.querySelectorAll(".hour-marker").forEach((e) => e.remove());
+    let max = 12; //selectingMinutes ? 60 : 12;
+    for (let i = 0; i < max; i++) {
+      let val = selectingMinutes ? i * 5 : i + 1;
+
+      // Use 6° per step for minutes, 30° per step for hours
+      const degreePerStep = selectingMinutes ? 6 : 30;
+
+      // Offset the starting position (like 12 o'clock at the top)
+      const offset = selectingMinutes ? 15 : 3;
+
+      const angle = ((val - offset) * degreePerStep * Math.PI) / 180;
+
+      const x = 100 + 80 * Math.cos(angle);
+      const y = 100 + 80 * Math.sin(angle);
+
+      const div = window.document.createElement("div");
+      div.className = "hour-marker";
+      if (
+        (!selectingMinutes && val === selectedHour) ||
+        (selectingMinutes && val === selectedMinute)
+      ) {
+        div.classList.add("selected");
+      }
+      div.textContent = val.toString().padStart(2, "0");
+      div.style.left = `${x}px`;
+      div.style.top = `${y}px`;
+      div.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (selectingMinutes) {
+          selectedMinute = val;
+          minuteDisplay.textContent = val.toString().padStart(2, "0");
+        } else {
+          selectedHour = val;
+          hourDisplay.textContent = val;
+          rotateHand(val);
+        }
+        drawClock();
+      });
+      clock.appendChild(div);
+    }
+    rotateHand(selectingMinutes ? selectedMinute / 5 : selectedHour);
+  }
+
+  const setFollowUpTime = (index, value) => {
+    const followuptime = JSON.parse(
+      sessionStorage.getItem("followuptime") || '["", "", "", "", ""]'
+    );
+    followuptime[index] = value;
+    sessionStorage.setItem("followuptime", JSON.stringify(followuptime));
+  };
+
+  function rotateHand(unit) {
+    const angle = (unit % 12) * 30;
+    hand.style.transform = `rotate(${angle}deg)`;
+  }
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".time-picker-wrapper")) {
+      timePicker.classList.remove("show");
+    }
+  });
+}
 function emailFunctionalities(document) {
   const schedule = document.querySelector("#EUYaSGMassDateDropdown");
   const followUpElement = document.querySelector("#followup");
   const inputDays = document.querySelector("#days");
   const trackingElement = document.querySelector("#iyEIROpenTracking");
   const UrlTrack = document.querySelector("#iyEIROpenClick");
-  const unsubLink = document.querySelector("#unsubLink");
-  const copyunsub = document.querySelector(".copy-content");
-
   const MaxEmails = document.querySelector("#bqpifMaxEmails");
   const DelayCheckbox = document.querySelector("#bqpifDelayCheckbox");
   const PauseSeconds = document.querySelector("#bqpifPauseSeconds");
 
   const scheduleinput = document.querySelector("#EUYaSGMassDateTime");
-  const followuptime1 = document.querySelector("#daysS1");
-  const followuptime2 = document.querySelector("#daysS2");
-  const followuptime3 = document.querySelector("#daysS3");
-  const followuptime4 = document.querySelector("#daysS4");
-  const followuptime5 = document.querySelector("#daysS5");
 
-  const showButtons = document.querySelectorAll(".showP");
   const ClickShowPiece = document.querySelector(".ClickShowPiece");
   const OpenShowPiece = document.querySelector(".OpenShowPiece");
   const pauseShowPice = document.querySelector(".pauseShowPice");
@@ -781,6 +881,21 @@ function emailFunctionalities(document) {
   const stageInputs = [];
   const stagebody = [];
 
+  const followuptime1 = document.querySelector("#daysS1");
+  const followuptime2 = document.querySelector("#daysS2");
+  const followuptime3 = document.querySelector("#daysS3");
+  const followuptime4 = document.querySelector("#daysS4");
+  const followuptime5 = document.querySelector("#daysS5");
+  // Event listeners for Followups
+  [
+    followuptime1,
+    followuptime2,
+    followuptime3,
+    followuptime4,
+    followuptime5,
+  ].forEach((followuptime, index) => {
+    timePicker(followuptime.parentElement.parentElement, index);
+  });
   unsubMarker.addEventListener("change", () => {
     const unsubMarkerState = unsubMarker.checked;
     sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarkerState));
@@ -796,37 +911,10 @@ function emailFunctionalities(document) {
     stagebody.push(`.sendoris${i}`);
   }
 
-  try {
-    lockOriginalBox(document, stagebody, valuesArray);
-  } catch (error) {
-    console.log("Error locking original boxes:", error);
-  }
-
-  const setFollowUpTime = (index, value) => {
-    const followuptime = JSON.parse(
-      sessionStorage.getItem("followuptime") || '["", "", "", "", ""]'
-    );
-    followuptime[index] = value;
-    sessionStorage.setItem("followuptime", JSON.stringify(followuptime));
-  };
-
-  // Event listeners for Followups
-  [
-    followuptime1,
-    followuptime2,
-    followuptime3,
-    followuptime4,
-    followuptime5,
-  ].forEach((followuptime, index) => {
-    followuptime.addEventListener("change", () => {
-      setFollowUpTime(index, followuptime.value);
-    });
-  });
-
   const setTime = document.querySelectorAll(".settime");
   setTime.forEach((time, index) => {
     time.addEventListener("click", () => {
-      const formCheck = document.querySelector(`${times[index]} .form-check`);
+      const formCheck = document.querySelectorAll(`.timeS1 .form-check`)[1];
       if (formCheck) {
         formCheck.classList.toggle("hidden");
       } else {
@@ -899,7 +987,7 @@ function emailFunctionalities(document) {
   }
 
   stages.forEach((stageId, index) => {
-    const stage = document.querySelector(`#${stageId}`);
+    let stage = document.querySelector(`#${stageId}`);
     const timeSelector = document.querySelector(times[index]);
     const stageInput = document.querySelector(stageInputs[index]);
     if (index < stages.length - 1) {
@@ -909,7 +997,10 @@ function emailFunctionalities(document) {
     }
 
     if (stage) {
-      stage.addEventListener("change", () => {
+      stage.addEventListener("click", () => {
+        stage = document.querySelector(`.${stageId}`);
+        stage.click();
+        console.log(stage);
         console.log(`Index: ${index}`);
         if (stage.checked && index > 0) {
           const stageTextareaValues = JSON.parse(
@@ -952,8 +1043,8 @@ function emailFunctionalities(document) {
           } catch (error) {}
         }
 
-        timeSelector.style.display = stage.checked ? "block" : "none";
-        showButtons[index].classList.toggle("hidden", !stage.checked);
+        timeSelector.style.maxHeight = stage.checked ? "500px" : "0px";
+        timeSelector.style.overflow = stage.checked ? "visible" : "hidden";
 
         if (nextStageContainer) {
           nextStageContainer.classList.toggle("hidden", !stage.checked);
