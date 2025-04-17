@@ -1506,7 +1506,7 @@
       font-size: 14px;
       color: #000000;
       font-weight: 500;
-      
+
     }
 
     .satgeSec h5 {
@@ -1698,6 +1698,10 @@
       width: 300px;
     }
 
+    .mesagePosi div {
+      padding: 5px;
+      margin: 1px;
+    }
 
     .radioBtnDroup.dropdown-menu.show {
       display: block;
@@ -2228,11 +2232,12 @@
       transition: max-height 0.5s ease-in-out;
     }
 
-    .activeTitle{
+    .activeTitle {
       overflow: hidden;
       border-width: 0px !important;
       transition: max-height 0.5s ease-in-out;
     }
+
     .g_accordian_content.active {
       display: block;
     }
@@ -2280,7 +2285,7 @@
       border: 1px solid var(--tertiary-color);
       font-family: "Roboto", sans-serif;
       box-sizing: border-box;
-      z-index: 10000;
+      z-index: 990;
       margin-left: 10px;
       background-color: rgb(241, 243, 244);
       padding: 14px;
@@ -2663,6 +2668,14 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .open {
+      max-height: 5000px;
+      overflow: visible;
+      transition: max-height 0.3s ease-in-out;
     }
   </style>
 
@@ -2721,47 +2734,48 @@
       width: fit-content;
       font-family: Arial, sans-serif;
     }
-  
+
     .form-check-label {
       font-size: 14px;
       margin: 0;
     }
-  
+
     .norepselect {
       padding: 4px 8px;
       font-size: 14px;
       border-radius: 4px;
       border: 1px solid #ccc;
     }
-  
+
     .stageNumberinputS1,
     .stageNumberinputS2,
     .stageNumberinputS3,
     .stageNumberinputS4,
-    .stageNumberinputS5{
+    .stageNumberinputS5 {
       width: 50px;
       padding: 4px;
       font-size: 14px;
       border-radius: 4px;
       border: 1px solid #ccc;
     }
-  
+
     .settime {
       font-size: 14px;
       color: #007bff;
       text-decoration: none;
       margin-left: 6px;
     }
-  
+
     .settime:hover {
       text-decoration: underline;
     }
-  
+
     .iconArrowSelect {
       display: flex;
       align-items: center;
     }
-    .time-input{
+
+    .time-input {
       padding: 7px 10px;
       border: 1px solid #D0D4E4;
       border-radius: 8px;
@@ -2771,7 +2785,8 @@
       height: 30px;
       line-height: 1;
     }
-    .inputTimeIcons img{
+
+    .inputTimeIcons img {
       position: absolute;
       top: 7px;
       right: 8px;
@@ -2779,14 +2794,16 @@
       height: 16px;
       cursor: pointer;
     }
+
     .collapse:not(.show) {
       display: block;
       max-height: 0px;
       overflow: hidden;
     }
-    .active{
+
+    .active {
       transition: max-height 0.5s ease-in-out;
-      max-height: 500px;
+      max-height: 2500px;
       overflow: visible;
     }
   </style>
@@ -2799,11 +2816,15 @@
       transition: all 0.3s ease;
       background-color: #fff;
     }
-  
+
     .fancy-select:focus {
       border-color: #0d6efd;
       box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
       outline: none;
+    }
+
+    .fulldivider {
+      height: 45px;
     }
   </style>
   <div id="cmail-dropup">
@@ -2912,11 +2933,9 @@
           </svg>
           Tracking & Analytics
         </h6>
-        
+
       </div>
-      <div
-        class="trackinBtns"
-      >
+      <div class="trackinBtns">
         <span class="OpenShowPiece">Monitor Opens</span>
         <span class="ClickShowPiece">Track Clicks</span>
       </div>
@@ -3013,18 +3032,26 @@
                     <div class="droupSec slectMessage">
                       <span>Templates</span>
                       <!-- <input type="" placeholder=""> -->
-                      <span class="arrow" id="arrow">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z" fill="#323338"></path>
-                        </svg>
-                      </span>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div class="droPosision mesagePosi"
+                          style="display: flex;justify-content: space-between;width: 70px;">
+                          <div class="refresIcon" role="button">
+                            <a href="#">
+                              <img src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg" alt=""
+                                width="14" height="14" />
+                            </a>
+                          </div>
+                          <div class="viewfollowup px-2" role="button">
+                            <img src="https://www.svgrepo.com/show/12044/eye.svg" alt="" width="14" height="14" />
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
+
                     <!-- = Dropdown = -->
                     <div class="droupOpenSec hidden" id="listsecOpenMessageS1">
-                      <div class="droupSec">
-                        <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
-                        <input type="text" placeholder="Search" />
-                      </div>
+
                       <ul class="listWidIcons listmesaageshow"></ul>
                     </div>
                     <!-- == -->
@@ -3032,80 +3059,89 @@
                   <div class="form-check">
                     <input class="form-check-input stage1 d-none" type="checkbox" value="">
                     <label class="form-check-label" for="stage1">If</label>
-                  
+
                     <div class="iconArrowSelect">
-                      <select name="No Reply" id="No Reply" class="orm-select fancy-select norepselect stagedropdown-btn">
+                      <select name="No Reply" id="No Reply"
+                        class="orm-select fancy-select norepselect stagedropdown-btn">
                         <option value="No Reply">No Reply</option>
                         <option value="No Click">No Click</option>
                         <option value="No Reply or Click">No Reply or Click</option>
                       </select>
                     </div>
-                  
+
                     <label class="form-check-label" for="stage1">Send follow-up after</label>
-                    <input type="number" name="quantity" min="1" max="1000" placeholder="0" class="stageNumberinputS1 form-control">
+                    <input type="number" name="quantity" min="1" max="1000" placeholder="0"
+                      class="stageNumberinputS1 form-control">
                     <span>Day</span>
                     <div class="autoFollStage timePickSec mb-0">
                       <span>Set time</span>
                       <div class="setTimeSec time-picker-wrapper">
                         <div class="inputTimeIcons" id="timeInput">
-                            <input class="time-input w-100" placeholder="00.00" id="daysS1" readonly="">
-                            <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg" alt="">
+                          <input class="time-input w-100" placeholder="00.00" id="daysS1" readonly="">
+                          <img
+                            src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
+                            alt="">
 
                         </div>
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                              <span id="hourDisplay" class="highlight">7</span>
-                              <span class="colunTime">:</span>
-                              <span id="minuteDisplay" class="gragyBgTime">00</span>
-                              <div class="timeAmPmSec">
-                                  <span class="selTimePMAm activebluetext"
-                                      id="amBtn">AM</span>
-                                  <span class="selTimePMAm" id="pmBtn">PM</span>
-                              </div>
+                            <span id="hourDisplay" class="highlight">7</span>
+                            <span class="colunTime">:</span>
+                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <div class="timeAmPmSec">
+                              <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
+                              <span class="selTimePMAm" id="pmBtn">PM</span>
+                            </div>
                           </div>
                           <div class="clock" id="clock">
-                              <div class="hand" id="hand"></div>
-                              <div class="center-dot"></div>
+                            <div class="hand" id="hand"></div>
+                            <div class="center-dot"></div>
                           </div>
                           <div class="buttons">
-                              <span id="cancelBtn">CANCEL</span>
-                              <span id="okBtn">OK</span>
+                            <span id="cancelBtn">CANCEL</span>
+                            <span id="okBtn">OK</span>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <!-- start set time sec  -->
+
+                    <!-- End set time sec  -->
                     <div class="chosEmailSec">
                       <label for="" class="headMailChose">Choose how to send your
-                          follow-up
-                          email</label>
+                        follow-up
+                        email</label>
                       <div class="d-flex">
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
-                              <label class="form-check-label" for="newThread1">
-                                  New Thread
-                              </label>
-                          </div>
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2" checked="">
-                              <label class="form-check-label" for="newThread2">
-                                  Same Thread
-                              </label>
-                          </div>
-                          
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
+                          <label class="form-check-label" for="newThread1">
+                            New Thread
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2"
+                            checked="">
+                          <label class="form-check-label" for="newThread2">
+                            Same Thread
+                          </label>
+                        </div>
+
                       </div>
-                      
+
+                    </div>
+                    <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img
+                        src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
+                        class="CreateDrafts">Create a new
+                      Message</button>
                   </div>
-                  <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg" class="CreateDrafts">Create a new
-                    Message</button>
-                  </div>
-    
+
 
                 </div>
               </div>
-              
+
             </div>
-            
+
           </div>
           <div class="autoStageBtn autoStageBtn mb-0">
             <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#stageOneSec"
@@ -3125,18 +3161,25 @@
                     <div class="droupSec slectMessage">
                       <span>Templates</span>
                       <!-- <input type="" placeholder=""> -->
-                      <span class="arrow" id="arrow">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z" fill="#323338"></path>
-                        </svg>
-                      </span>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div class="droPosision mesagePosi"
+                          style="display: flex;justify-content: space-between;width: 70px;">
+                          <div class="refresIcon" role="button">
+                            <a href="#">
+                              <img src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg" alt=""
+                                width="14" height="14" />
+                            </a>
+                          </div>
+                          <div class="viewfollowup px-2" role="button">
+                            <img src="https://www.svgrepo.com/show/12044/eye.svg" alt="" width="14" height="14" />
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
                     <!-- = Dropdown = -->
                     <div class="droupOpenSec hidden" id="listsecOpenMessageS2">
-                      <div class="droupSec">
-                        <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
-                        <input type="text" placeholder="Search" />
-                      </div>
+
                       <ul class="listWidIcons listmesaageshow"></ul>
                     </div>
                     <!-- == -->
@@ -3144,7 +3187,7 @@
                   <div class="form-check">
                     <input class="form-check-input stage2 d-none" type="checkbox" value="">
                     <label class="form-check-label" for="stage2">If</label>
-                  
+
                     <div class="iconArrowSelect">
                       <select name="No Reply" id="No Reply" class="norepselect stagedropdown-btn">
                         <option value="No Reply">No Reply</option>
@@ -3152,71 +3195,76 @@
                         <option value="No Reply or Click">No Reply or Click</option>
                       </select>
                     </div>
-                  
+
                     <label class="form-check-label" for="stage2">Send follow-up after</label>
-                    <input type="number" name="quantity" min="1" max="1000" placeholder="0" class="stageNumberinputS2 form-control">
+                    <input type="number" name="quantity" min="1" max="1000" placeholder="0"
+                      class="stageNumberinputS2 form-control">
                     <span>Day</span>
                     <div class="autoFollStage timePickSec mb-0">
                       <span>Set time</span>
                       <div class="setTimeSec time-picker-wrapper">
                         <div class="inputTimeIcons" id="timeInput">
-                            <input class="time-input w-100" placeholder="00.00" id="daysS2" readonly="">
-                            <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg" alt="">
+                          <input class="time-input w-100" placeholder="00.00" id="daysS2" readonly="">
+                          <img
+                            src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
+                            alt="">
 
                         </div>
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                              <span id="hourDisplay" class="highlight">7</span>
-                              <span class="colunTime">:</span>
-                              <span id="minuteDisplay" class="gragyBgTime">00</span>
-                              <div class="timeAmPmSec">
-                                  <span class="selTimePMAm activebluetext"
-                                      id="amBtn">AM</span>
-                                  <span class="selTimePMAm" id="pmBtn">PM</span>
-                              </div>
+                            <span id="hourDisplay" class="highlight">7</span>
+                            <span class="colunTime">:</span>
+                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <div class="timeAmPmSec">
+                              <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
+                              <span class="selTimePMAm" id="pmBtn">PM</span>
+                            </div>
                           </div>
                           <div class="clock" id="clock">
-                              <div class="hand" id="hand"></div>
-                              <div class="center-dot"></div>
+                            <div class="hand" id="hand"></div>
+                            <div class="center-dot"></div>
                           </div>
                           <div class="buttons">
-                              <span id="cancelBtn">CANCEL</span>
-                              <span id="okBtn">OK</span>
+                            <span id="cancelBtn">CANCEL</span>
+                            <span id="okBtn">OK</span>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="chosEmailSec">
                       <label for="" class="headMailChose">Choose how to send your
-                          follow-up
-                          email</label>
+                        follow-up
+                        email</label>
                       <div class="d-flex">
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
-                              <label class="form-check-label" for="newThread1">
-                                  New Thread
-                              </label>
-                          </div>
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2" checked="">
-                              <label class="form-check-label" for="newThread2">
-                                  Same Thread
-                              </label>
-                          </div>
-                          
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
+                          <label class="form-check-label" for="newThread1">
+                            New Thread
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2"
+                            checked="">
+                          <label class="form-check-label" for="newThread2">
+                            Same Thread
+                          </label>
+                        </div>
+
                       </div>
-                      
-                  </div>
-                  <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg" class="CreateDrafts">Create a new
-                    Message</button>
+
+                    </div>
+                    <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img
+                        src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
+                        class="CreateDrafts">Create a new
+                      Message</button>
                   </div>
 
                 </div>
               </div>
-              
+
             </div>
-            
+
           </div>
           <div class="autoStageBtn autoStageBtn mb-0">
             <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#stageOneSec"
@@ -3230,23 +3278,30 @@
               <div class="boderBpad">
 
                 <div class="timesec timeS3 accordion">
-                  <h6>Stage 3: Second Follow-up</h6>
+                  <h6>Stage 3: Third Follow-up</h6>
                   <div class="select-template">
                     <div class="droupSec slectMessage">
                       <span>Templates</span>
                       <!-- <input type="" placeholder=""> -->
-                      <span class="arrow" id="arrow">
-                        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z" fill="#323338"></path>
-                        </svg>
-                      </span>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div class="droPosision mesagePosi"
+                          style="display: flex;justify-content: space-between;width: 70px;">
+                          <div class="refresIcon" role="button">
+                            <a href="#">
+                              <img src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg" alt=""
+                                width="14" height="14" />
+                            </a>
+                          </div>
+                          <div class="viewfollowup px-2" role="button">
+                            <img src="https://www.svgrepo.com/show/12044/eye.svg" alt="" width="14" height="14" />
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
                     <!-- = Dropdown = -->
                     <div class="droupOpenSec hidden" id="listsecOpenMessageS3">
-                      <div class="droupSec">
-                        <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
-                        <input type="text" placeholder="Search" />
-                      </div>
+
                       <ul class="listWidIcons listmesaageshow"></ul>
                     </div>
                     <!-- == -->
@@ -3254,7 +3309,7 @@
                   <div class="form-check">
                     <input class="form-check-input stage3 d-none" type="checkbox" value="">
                     <label class="form-check-label" for="stage3">If</label>
-                  
+
                     <div class="iconArrowSelect">
                       <select name="No Reply" id="No Reply" class="norepselect stagedropdown-btn">
                         <option value="No Reply">No Reply</option>
@@ -3262,71 +3317,76 @@
                         <option value="No Reply or Click">No Reply or Click</option>
                       </select>
                     </div>
-                  
+
                     <label class="form-check-label" for="stage3">Send follow-up after</label>
-                    <input type="number" name="quantity" min="1" max="1000" placeholder="0" class="stageNumberinputS3 form-control">
+                    <input type="number" name="quantity" min="1" max="1000" placeholder="0"
+                      class="stageNumberinputS3 form-control">
                     <span>Day</span>
                     <div class="autoFollStage timePickSec mb-0">
                       <span>Set time</span>
                       <div class="setTimeSec time-picker-wrapper">
                         <div class="inputTimeIcons" id="timeInput">
-                            <input class="time-input w-100" placeholder="00.00" id="daysS3" readonly="">
-                            <img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg" alt="">
+                          <input class="time-input w-100" placeholder="00.00" id="daysS3" readonly="">
+                          <img
+                            src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
+                            alt="">
 
                         </div>
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                              <span id="hourDisplay" class="highlight">7</span>
-                              <span class="colunTime">:</span>
-                              <span id="minuteDisplay" class="gragyBgTime">00</span>
-                              <div class="timeAmPmSec">
-                                  <span class="selTimePMAm activebluetext"
-                                      id="amBtn">AM</span>
-                                  <span class="selTimePMAm" id="pmBtn">PM</span>
-                              </div>
+                            <span id="hourDisplay" class="highlight">7</span>
+                            <span class="colunTime">:</span>
+                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <div class="timeAmPmSec">
+                              <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
+                              <span class="selTimePMAm" id="pmBtn">PM</span>
+                            </div>
                           </div>
                           <div class="clock" id="clock">
-                              <div class="hand" id="hand"></div>
-                              <div class="center-dot"></div>
+                            <div class="hand" id="hand"></div>
+                            <div class="center-dot"></div>
                           </div>
                           <div class="buttons">
-                              <span id="cancelBtn">CANCEL</span>
-                              <span id="okBtn">OK</span>
+                            <span id="cancelBtn">CANCEL</span>
+                            <span id="okBtn">OK</span>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="chosEmailSec">
                       <label for="" class="headMailChose">Choose how to send your
-                          follow-up
-                          email</label>
+                        follow-up
+                        email</label>
                       <div class="d-flex">
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
-                              <label class="form-check-label" for="newThread1">
-                                  New Thread
-                              </label>
-                          </div>
-                          <div class="form-check">
-                              <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2" checked="">
-                              <label class="form-check-label" for="newThread2">
-                                  Same Thread
-                              </label>
-                          </div>
-                          
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1">
+                          <label class="form-check-label" for="newThread1">
+                            New Thread
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2"
+                            checked="">
+                          <label class="form-check-label" for="newThread2">
+                            Same Thread
+                          </label>
+                        </div>
+
                       </div>
-                      
-                  </div>
-                  <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg" class="CreateDrafts">Create a new
-                    Message</button>
+
+                    </div>
+                    <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"><img
+                        src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
+                        class="CreateDrafts">Create a new
+                      Message</button>
                   </div>
 
                 </div>
               </div>
-              
+
             </div>
-            
+
           </div>
           <div class="autoStageBtn autoStageBtn mb-0">
             <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#stageOneSec"
@@ -3339,82 +3399,58 @@
             <div class="satgeSec" style="width: 100%">
               <div class="boderBpad">
                 <div class="timesec timeS4 accordion">
-                  <h6>Stage 4: Second Follow-up</h6>
+                  <h6>Stage 4: Fourth Follow-up</h6>
                   <div class="select-template">
                     <div class="droupSec slectMessage">
                       <span>Templates</span>
                       <!-- <input type="" placeholder=""> -->
-                      <span class="arrow" id="arrow">
-                        <svg
-                          width="11"
-                          height="6"
-                          viewBox="0 0 11 6"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z"
-                            fill="#323338"
-                          ></path>
-                        </svg>
-                      </span>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div class="droPosision mesagePosi"
+                          style="display: flex;justify-content: space-between;width: 70px;">
+                          <div class="refresIcon" role="button">
+                            <a href="#">
+                              <img src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg" alt=""
+                                width="14" height="14" />
+                            </a>
+                          </div>
+                          <div class="viewfollowup px-2" role="button">
+                            <img src="https://www.svgrepo.com/show/12044/eye.svg" alt="" width="14" height="14" />
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
                     <!-- = Dropdown = -->
                     <div class="droupOpenSec hidden" id="listsecOpenMessageS4">
-                      <div class="droupSec">
-                        <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
-                        <input type="text" placeholder="Search" />
-                      </div>
+
                       <ul class="listWidIcons listmesaageshow"></ul>
                     </div>
                     <!-- == -->
                   </div>
                   <div class="form-check">
-                    <input
-                      class="form-check-input stage4 d-none"
-                      type="checkbox"
-                      value=""
-                    />
+                    <input class="form-check-input stage4 d-none" type="checkbox" value="" />
                     <label class="form-check-label" for="stage4">If</label>
-          
+
                     <div class="iconArrowSelect">
-                      <select
-                        name="No Reply"
-                        id="No Reply"
-                        class="norepselect stagedropdown-btn"
-                      >
+                      <select name="No Reply" id="No Reply" class="norepselect stagedropdown-btn">
                         <option value="No Reply">No Reply</option>
                         <option value="No Click">No Click</option>
                         <option value="No Reply or Click">No Reply or Click</option>
                       </select>
                     </div>
-          
-                    <label class="form-check-label" for="stage4"
-                      >Send follow-up after</label
-                    >
-                    <input
-                      type="number"
-                      name="quantity"
-                      min="1"
-                      max="1000"
-                      placeholder="0"
-                      class="stageNumberinputS4 form-control"
-                    />
+
+                    <label class="form-check-label" for="stage4">Send follow-up after</label>
+                    <input type="number" name="quantity" min="1" max="1000" placeholder="0"
+                      class="stageNumberinputS4 form-control" />
                     <span>Day</span>
                     <div class="autoFollStage timePickSec mb-0">
                       <span>Set time</span>
                       <div class="setTimeSec time-picker-wrapper">
                         <div class="inputTimeIcons" id="timeInput">
-                          <input
-                            class="time-input w-100"
-                            placeholder="00.00"
-                            id="daysS4"
-                            readonly=""
-                          />
+                          <input class="time-input w-100" placeholder="00.00" id="daysS4" readonly="" />
                           <img
                             src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
-                            alt=""
-                          />
+                            alt="" />
                         </div>
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
@@ -3423,9 +3459,7 @@
                             <span class="colunTime">:</span>
                             <span id="minuteDisplay" class="gragyBgTime">00</span>
                             <div class="timeAmPmSec">
-                              <span class="selTimePMAm activebluetext" id="amBtn"
-                                >AM</span
-                              >
+                              <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
                             </div>
                           </div>
@@ -3441,43 +3475,27 @@
                       </div>
                     </div>
                     <div class="chosEmailSec">
-                      <label for="" class="headMailChose"
-                        >Choose how to send your follow-up email</label
-                      >
+                      <label for="" class="headMailChose">Choose how to send your follow-up email</label>
                       <div class="d-flex">
                         <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="newThreadDefault"
-                            id="newThread1"
-                          />
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1" />
                           <label class="form-check-label" for="newThread1">
                             New Thread
                           </label>
                         </div>
                         <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="newThreadDefault"
-                            id="newThread2"
-                            checked=""
-                          />
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2"
+                            checked="" />
                           <label class="form-check-label" for="newThread2">
                             Same Thread
                           </label>
                         </div>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"
-                    >
+                    <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts">
                       <img
                         src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
-                        class="CreateDrafts"
-                      />Create a new Message
+                        class="CreateDrafts" />Create a new Message
                     </button>
                   </div>
                 </div>
@@ -3485,101 +3503,70 @@
             </div>
           </div>
           <div class="autoStageBtn autoStageBtn mb-0">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="collapse"
-              data-bs-target="#stageOneSec"
-              aria-expanded="false"
-              id="stage4"
-              aria-controls="stageOneSec"
-            >
+            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#stageOneSec"
+              aria-expanded="false" id="stage4" aria-controls="stageOneSec">
               + Stage 4: Follow-up
             </button>
           </div>
-          
+
         </div>
         <div class="S5 hidden">
           <div class="tackCheckLable">
             <div class="satgeSec" style="width: 100%">
               <div class="boderBpad">
                 <div class="timesec timeS5 accordion">
-                  <h6>Stage 5: Second Follow-up</h6>
+                  <h6>Stage 5: Last Follow-up</h6>
                   <div class="select-template">
                     <div class="droupSec slectMessage">
                       <span>Templates</span>
                       <!-- <input type="" placeholder=""> -->
-                      <span class="arrow" id="arrow">
-                        <svg
-                          width="11"
-                          height="6"
-                          viewBox="0 0 11 6"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M0.25 0.508179L5.25001 5.49191L10.25 0.508179H0.25Z"
-                            fill="#323338"
-                          ></path>
-                        </svg>
-                      </span>
+                      <div style="display: flex; justify-content: space-between;">
+                        <div class="droPosision mesagePosi"
+                          style="display: flex;justify-content: space-between;width: 70px;">
+                          <div class="refresIcon" role="button">
+                            <a href="#">
+                              <img src="https://drkcrypt.github.io/Dropmenu/assets/images/refresh-icon.svg" alt=""
+                                width="14" height="14" />
+                            </a>
+                          </div>
+                          <div class="viewfollowup px-2" role="button">
+                            <img src="https://www.svgrepo.com/show/12044/eye.svg" alt="" width="14" height="14" />
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
                     <!-- = Dropdown = -->
                     <div class="droupOpenSec hidden" id="listsecOpenMessageS5">
-                      <div class="droupSec">
-                        <span class="searchIcon"><i class="mdi mdi-magnify"></i></span>
-                        <input type="text" placeholder="Search" />
-                      </div>
+
                       <ul class="listWidIcons listmesaageshow"></ul>
                     </div>
                     <!-- == -->
                   </div>
                   <div class="form-check">
-                    <input
-                      class="form-check-input stage5 d-none"
-                      type="checkbox"
-                      value=""
-                    />
+                    <input class="form-check-input stage5 d-none" type="checkbox" value="" />
                     <label class="form-check-label" for="stage5">If</label>
-          
+
                     <div class="iconArrowSelect">
-                      <select
-                        name="No Reply"
-                        id="No Reply"
-                        class="norepselect stagedropdown-btn"
-                      >
+                      <select name="No Reply" id="No Reply" class="norepselect stagedropdown-btn">
                         <option value="No Reply">No Reply</option>
                         <option value="No Click">No Click</option>
                         <option value="No Reply or Click">No Reply or Click</option>
                       </select>
                     </div>
-          
-                    <label class="form-check-label" for="stage5"
-                      >Send follow-up after</label
-                    >
-                    <input
-                      type="number"
-                      name="quantity"
-                      min="1"
-                      max="1000"
-                      placeholder="0"
-                      class="stageNumberinputS5 form-control"
-                    />
+
+                    <label class="form-check-label" for="stage5">Send follow-up after</label>
+                    <input type="number" name="quantity" min="1" max="1000" placeholder="0"
+                      class="stageNumberinputS5 form-control" />
                     <span>Day</span>
                     <div class="autoFollStage timePickSec mb-0">
                       <span>Set time</span>
                       <div class="setTimeSec time-picker-wrapper">
                         <div class="inputTimeIcons" id="timeInput">
-                          <input
-                            class="time-input w-100"
-                            placeholder="00.00"
-                            id="daysS5"
-                            readonly=""
-                          />
+                          <input class="time-input w-100" placeholder="00.00" id="daysS5" readonly="" />
                           <img
                             src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/time-icon.svg"
-                            alt=""
-                          />
+                            alt="" />
                         </div>
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
@@ -3588,9 +3575,7 @@
                             <span class="colunTime">:</span>
                             <span id="minuteDisplay" class="gragyBgTime">00</span>
                             <div class="timeAmPmSec">
-                              <span class="selTimePMAm activebluetext" id="amBtn"
-                                >AM</span
-                              >
+                              <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
                             </div>
                           </div>
@@ -3606,43 +3591,27 @@
                       </div>
                     </div>
                     <div class="chosEmailSec">
-                      <label for="" class="headMailChose"
-                        >Choose how to send your follow-up email</label
-                      >
+                      <label for="" class="headMailChose">Choose how to send your follow-up email</label>
                       <div class="d-flex">
                         <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="newThreadDefault"
-                            id="newThread1"
-                          />
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread1" />
                           <label class="form-check-label" for="newThread1">
                             New Thread
                           </label>
                         </div>
                         <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="newThreadDefault"
-                            id="newThread2"
-                            checked=""
-                          />
+                          <input class="form-check-input" type="radio" name="newThreadDefault" id="newThread2"
+                            checked="" />
                           <label class="form-check-label" for="newThread2">
                             Same Thread
                           </label>
                         </div>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts"
-                    >
+                    <button type="button" class="btn btn-primary craetePlusTimeBtn plusIcon CreateDrafts">
                       <img
                         src="https://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/plus-icon.svg"
-                        class="CreateDrafts"
-                      />Create a new Message
+                        class="CreateDrafts" />Create a new Message
                     </button>
                   </div>
                 </div>
@@ -3650,19 +3619,12 @@
             </div>
           </div>
           <div class="autoStageBtn autoStageBtn mb-0">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="collapse"
-              data-bs-target="#stageOneSec"
-              aria-expanded="false"
-              id="stage5"
-              aria-controls="stageOneSec"
-            >
+            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#stageOneSec"
+              aria-expanded="false" id="stage5" aria-controls="stageOneSec">
               + Stage 5: Follow-up
             </button>
           </div>
-          
+
         </div>
       </div>
 
@@ -3685,7 +3647,7 @@
       </div>
 
       <div class="g_accordian_content">
-        <div class="boderBpad">
+        <div class="fulldivider">
           <div class="autoFollUpSec">
             <p>Customize sending preferences, automation, and tracking for optimized email campaigns.</p>
           </div>
@@ -3714,6 +3676,8 @@
                   <option value="TomorrowEve" [tomorroweve]="">
                     Tomorrow evening at 7pm
                   </option>
+                  <option value="Custom" [custom]="">Custom date/time</option>
+
                 </select>
 
                 <div class="gmass-expand-field hidden">
@@ -3721,11 +3685,13 @@
                     value="" data-oval="schedule set" disabled="" style="width: 85%" />
 
                   <!-- <input class="gmass-calendar-icon" style="height: 30px" type="datetime-local"></input>
-                          -->
+                   -->
                 </div>
-                <button type="button" class="btn btn-primary customDateBtn " data-bs-toggle="modal"
-                  data-bs-target="#customDateSelect">Custom
-                  Date/Time</button>
+                <!-- End Custom Date/Time popup -->
+
+
+                <!-- End Custom Date/Time popup -->
+
               </div>
               <div style="margin-top: 5px; display: none" id="EUYaSSkipWeekendsDiv" class="not-inline-reply-form">
                 <label class="g2_checkbox">
@@ -3819,7 +3785,7 @@
       </h2>
       <div id="tenX-collapseThree" class="accordion-collapse collapse" data-bs-parent="#tenxaccordionFlush">
         <div class="accordion-body">
-          <div class="boderBpad">
+          <div class="fulldivider">
             <div class="autoFollUpSec">
               <p>Automatically schedule the next campaign after the current one ends for
                 seamless

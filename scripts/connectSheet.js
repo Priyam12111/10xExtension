@@ -421,7 +421,7 @@ async function CheckSignedIn() {
 }
 
 const sheetObserver = new MutationObserver(() => {
-  const gmailSearch = document.querySelector("#aso_search_form_anchor");
+  const gmailSearch = document.querySelector(".gb_we");
   if (gmailSearch && !document.querySelector("#sheet-button")) {
     createSignUp();
     CheckSignedIn();
@@ -443,7 +443,10 @@ const sheetObserver = new MutationObserver(() => {
     gmailSearch.style.width = "100%";
     buttonContainer.appendChild(sheetButton);
     buttonContainer.appendChild(report);
-    gmailSearch.parentElement.appendChild(buttonContainer);
+    gmailSearch.parentElement.insertBefore(
+      buttonContainer,
+      gmailSearch.nextSibling
+    );
 
     sheetButton.addEventListener("click", async () => {
       try {

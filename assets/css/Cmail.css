@@ -7,9 +7,10 @@
   color: white;
   border: none;
   border-radius: 5px;
-  background-color: #c42529;
+  /* background-color: #c42529; */
+  background-color: #ffa500;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   transition: background-color 0.3s ease;
@@ -19,21 +20,6 @@
   border-radius: 0px 10px 10px 0px;
 }
 
-div#cmail-dropup {
-  display: block;
-  background-color: rgb(241, 243, 244);
-
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px;
-  padding: 10px;
-  border-radius: 4px;
-  min-height: 360px;
-  max-height: 400px;
-  width: 520;
-  font-family: "Roboto", sans-serif;
-  overflow-y: auto;
-  z-index: 12;
-  width: 390px;
-}
 #cmail-dropup::-webkit-scrollbar {
   width: 8px;
   background-color: #f1f1f1;
@@ -52,11 +38,11 @@ div#cmail-dropup {
   padding: 10px 15px;
   border: none;
   height: 16px;
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   width: fit-content;
-  background-color: #c42529;
+  background-color: #ffa500;
   border-radius: 5px;
   border-radius: 11px 0px 0px 10px;
   margin-left: 7px;
@@ -335,7 +321,7 @@ input#days {
 }
 
 .arrow-btn {
-  background-color: #c42529;
+  background-color: #ffa500;
   cursor: pointer;
   color: white;
   transition: transform 0.3s;
@@ -382,14 +368,20 @@ input#days {
     url("https://cdn.gmass.us/Extension2019Images/icon_import_w.png") center
     center no-repeat;
 }
-
+.gb_we {
+  max-width: 650px !important;
+  padding: 5px !important;
+}
+.gb_v.gb_he.bGJ {
+  margin-left: auto;
+}
 #sheet-button,
 .sheet-button,
 #reportdata {
   height: 38px !important;
   width: 20px !important;
   border-radius: 4px !important;
-  background: #f5f6f6
+  background: white
     url("https://cdn.gmass.us/Extension2019Images/icon_import.png") center
     center no-repeat;
   background-size: 20px auto !important;
@@ -425,7 +417,7 @@ input#days {
   background-size: 40px auto !important;
 }
 
-iframe {
+iframe#dropupMenu {
   position: absolute;
   width: 515px;
   overflow: scroll;
@@ -437,7 +429,7 @@ iframe {
   left: 5vw;
   transition: opacity 0.5s ease;
 }
-iframe {
+iframe#dropupMenu {
   /* Initial State (Collapsed) */
   transform: perspective(1000px) translateZ(-100px) scaleY(0);
   transform-origin: top;
@@ -445,12 +437,12 @@ iframe {
   transition: transform 0.4s cubic-bezier(0.5, 1.5, 0.5, 1), opacity 0.2s;
 }
 
-iframe.open {
+iframe#dropupMenu.open {
   /* Final State (Expanded) */
   transform: perspective(1000px) translateZ(0) scaleY(1);
   opacity: 1;
 }
-iframe::-webkit-scrollbar {
+iframe#dropupMenu::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
 
@@ -664,4 +656,8 @@ iframe::-webkit-scrollbar {
 
 .close-btn:hover {
   color: #f44336;
+}
+
+.gb_v gb_he bGJ {
+  margin-left: auto;
 }

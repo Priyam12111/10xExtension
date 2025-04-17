@@ -23,6 +23,7 @@ function createSendButton() {
     } else {
       sendMails();
       setTimeout(() => {
+        sessionStorage.removeItem("RescheduleTiming");
         sessionStorage.removeItem("DelayCheckbox");
         sessionStorage.removeItem("followuptime");
         sessionStorage.removeItem("stagetextarea-values");
@@ -57,6 +58,7 @@ const createDraft = async (identifier) => {
   const emailBody = window.document.querySelectorAll(
     ".Am.aiL.Al.editable.LW-avf.tS-tW"
   );
+
   let final_subject = subject[subject.length - 1]?.value;
   if (final_subject.includes(identifier)) {
     final_subject = final_subject.replace(identifier, "");
@@ -138,6 +140,7 @@ function fetchAndInjectDropupMenu(dropupMenu) {
     .then((htmlContent) => {
       const iframe = document.createElement("iframe");
       iframe.style.border = "none";
+      iframe.id = "dropupMenu";
       // iframe.style.maxHeight = "0px";
       dropupMenu.appendChild(iframe);
 
@@ -151,12 +154,49 @@ function fetchAndInjectDropupMenu(dropupMenu) {
         dropupJs(doc);
         emailFunctionalities(doc);
         minimise(doc, iframe);
+        rescheduler(doc);
       };
     })
     .catch((error) => {
       console.error("Error loading the HTML:", error);
     });
 }
+
+const rescheduler = (document) => {
+  const rescheduleSlider = document.querySelector(".Campaigntoggle-row input");
+  const timingOptions = document.querySelector(".timing-options");
+  const radios = document.getElementsByName("rescheduleTiming");
+  const afterDays = document.querySelector(".dayInput");
+  const rescheduleTiming2 = document.querySelector("#rescheduleTiming2");
+  if (afterDays) {
+    afterDays.addEventListener("input", () => {
+      if (rescheduleTiming2.checked) {
+        sessionStorage.setItem("RescheduleTiming", afterDays.value);
+      }
+    });
+  }
+  if (radios && radios.length > 0) {
+    radios.forEach?.((radio, index) => {
+      radio.addEventListener("change", () => {
+        if (radio.checked) {
+          if (index === 0) {
+            sessionStorage.setItem("RescheduleTiming", "0");
+          } else {
+            if (!afterDays) return;
+            sessionStorage.setItem("RescheduleTiming", afterDays.value);
+          }
+        }
+      });
+    });
+  }
+
+  if (rescheduleSlider && timingOptions) {
+    rescheduleSlider.addEventListener("click", () => {
+      timingOptions.classList.toggle("open");
+    });
+  }
+};
+
 const minimise = (document, iframe) => {
   const minimise = document.querySelector(".minimise");
   const arrow = window.document.querySelector(".arrow");
@@ -175,7 +215,9 @@ function toggleDropupMenu(dropupMenu) {
   if (arrow) {
     arrow.classList.toggle("rotate");
   }
-  dropupMenu.firstElementChild.classList.toggle("open");
+  if (dropupMenu.firstElementChild) {
+    dropupMenu.firstElementChild.classList.toggle("open");
+  }
 }
 
 function saveEmailForm(containerContent) {
@@ -300,15 +342,8 @@ function fetchDrafts(
             if (draft.subject.includes("(Auto Followup)")) {
               draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
-                <img src="http://raw.githubusercontent.com/DrkCrypt/Dropmenu/c89c0bd91ee593350a301010a21dda91b1816747/assets/10x/eye-icon.svg" style="display:none; float:right; cursor:pointer;" class="eye-btn" alt="" width="14" height="14" />
               `;
-              draftLi.addEventListener("mouseenter", () => {
-                draftLi.querySelector(".eye-btn").style.display = "block";
-              });
 
-              draftLi.addEventListener("mouseleave", () => {
-                draftLi.querySelector(".eye-btn").style.display = "none";
-              });
               listmesaageshow.appendChild(draftLi);
               draftLi.addEventListener("click", (e) => {
                 e.stopPropagation();
@@ -347,7 +382,7 @@ function draftButtons(document, listMessageShow, selectMessage, droUpOpenSec) {
         index,
         true
       );
-      createMsgBox("Drafts Refreshed Successfully");
+      createMsgBox("Refreshing...", 8000);
     });
   });
 }
@@ -578,7 +613,6 @@ function openAccordion(document) {
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
   const skipHolidays = document.querySelector("#EUYaSSkipHolidays");
-  const triggerdays = document.querySelector(".senddays");
   const sendButton = document.getElementById("test-send");
   const testInput = document.getElementById("test-input");
   const dropdownHeader = document.querySelector(".dropdown-header");
@@ -854,6 +888,7 @@ function timePicker(document, index) {
     }
   });
 }
+
 function emailFunctionalities(document) {
   const schedule = document.querySelector("#EUYaSGMassDateDropdown");
   const followUpElement = document.querySelector("#followup");
@@ -868,7 +903,6 @@ function emailFunctionalities(document) {
 
   const ClickShowPiece = document.querySelector(".ClickShowPiece");
   const OpenShowPiece = document.querySelector(".OpenShowPiece");
-  const pauseShowPice = document.querySelector(".pauseShowPice");
 
   const MailConditions = document.querySelectorAll(".norepselect");
   const stagetextarea = document.querySelectorAll(".stagetextarea");
@@ -896,6 +930,7 @@ function emailFunctionalities(document) {
   ].forEach((followuptime, index) => {
     timePicker(followuptime.parentElement.parentElement, index);
   });
+
   unsubMarker.addEventListener("change", () => {
     const unsubMarkerState = unsubMarker.checked;
     sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarkerState));
@@ -941,7 +976,6 @@ function emailFunctionalities(document) {
   });
 
   const updateDelaySetting = () => {
-    pauseShowPice.classList.toggle("hidden", !DelayCheckbox.checked);
     sessionStorage.setItem(
       "DelayCheckbox",
       DelayCheckbox.checked ? PauseSeconds.value : "0"
@@ -1001,6 +1035,7 @@ function emailFunctionalities(document) {
         stage = document.querySelector(`.${stageId}`);
         stage.click();
         console.log(stage);
+
         console.log(`Index: ${index}`);
         if (stage.checked && index > 0) {
           const stageTextareaValues = JSON.parse(
@@ -1117,6 +1152,7 @@ sessionStorage.removeItem("stagetextarea-values");
 sessionStorage.removeItem("sender");
 sessionStorage.removeItem("checkedDays");
 sessionStorage.removeItem("MaxEmails");
+sessionStorage.removeItem("RescheduleTiming");
 
 function hideFollowUpSectionOnClickOutside(followUpSectionContainer) {
   const email_container =

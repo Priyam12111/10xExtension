@@ -105,7 +105,6 @@ function processData(headers, allData) {
   });
   return { storedData, variables };
 }
-
 function setEmailDetails(emails, subject, body) {
   const emailField = document.querySelector(".agP");
   const senderField = document.querySelector(".aGb.mS5Pff");
@@ -116,8 +115,27 @@ function setEmailDetails(emails, subject, body) {
     senderField.textContent == ""
   ) {
     emailField.focus();
+
+    // Add each email as a chip
     emailField.value = `${emails.length}-recipients@10x.in`;
-    // emailField.dispatchEvent(new Event("input", { bubbles: true }));
+
+    // Trigger input event (Gmail listens for this to create chips)
+    const inputEvent = new Event("input", {
+      bubbles: true,
+      cancelable: true,
+    });
+    emailField.dispatchEvent(inputEvent);
+
+    // Trigger keydown for Enter (sometimes needed)
+    const enterEvent = new KeyboardEvent("keydown", {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      which: 13,
+      bubbles: true,
+    });
+    emailField.dispatchEvent(enterEvent);
+
     try {
       document.querySelector(".agJ.aFw").click();
     } catch (error) {
@@ -129,6 +147,7 @@ function setEmailDetails(emails, subject, body) {
         }
       }, 1000);
     }
+
     const emailDescription = `Emails: ${emails.slice(0, 3).join(", ")}${
       emails.length > 3 ? ", ..." : ""
     } | Total: ${emails.length}`;
@@ -136,10 +155,7 @@ function setEmailDetails(emails, subject, body) {
       createMsgBox(emailDescription);
       const subjectField = document.querySelector(".aoT");
       if (subjectField) {
-        subjectField.value +=
-          subjectField.getAttribute("aria-label") === "To recipients"
-            ? `${emails.length}-recipients@10x.in`
-            : subject;
+        subjectField.value += subject;
       }
     }
   }
@@ -291,6 +307,13 @@ function uploadMailData(
     "Sent",
     "Replied",
   ];
+  let rescheduletime =
+    parseInt(sessionStorage.getItem("RescheduleTiming")) || null;
+
+  if (rescheduletime <= 0) {
+    rescheduletime = 1;
+  }
+
   try {
     skipHolidays = JSON.parse(sessionStorage.getItem("skipHolidays") || false);
   } catch (error) {
@@ -381,6 +404,7 @@ function uploadMailData(
       date: "currentdate",
       status: "Ready",
       followuptime: followuptime,
+      RescheduleTiming: rescheduletime,
       tracking: JSON.parse(sessionStorage.getItem("tracking") || false),
       MaxEmails: parseInt(sessionStorage.getItem("MaxEmails") || 0),
       DelayCheckbox: parseInt(DelayCheckbox),
