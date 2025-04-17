@@ -2826,6 +2826,16 @@
     .fulldivider {
       height: 45px;
     }
+    #EUYaSGMassDateTime{
+      width: 69%;
+      max-width: 300px;
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
   </style>
   <div id="cmail-dropup">
     <div class="headerTenX">
@@ -3682,7 +3692,7 @@
 
                 <div class="gmass-expand-field hidden">
                   <input size="30" type="datetime-local" placeholder="DD/MM/YYYY, hh:mm am/pm" id="EUYaSGMassDateTime"
-                    value="" data-oval="schedule set" disabled="" style="width: 85%" />
+                    value="" data-oval="schedule set" disabled="" />
 
                   <!-- <input class="gmass-calendar-icon" style="height: 30px" type="datetime-local"></input>
                    -->
@@ -3701,21 +3711,6 @@
                 </label>
               </div>
               <div class="m-2 d-flex flex-column  gap-4">
-                <div style="margin-top: 5px" class="not-inline-reply-form">
-                  <label class="g2_checkbox">
-                    <span class="sabsnw1">
-                      <input type="checkbox" name="SkipHolidays" id="EUYaSSkipHolidays" [skipholidayson]=""
-                        data-oval="skip holidays" />
-                      <svg style="position: relative; right: 25px;" width="15" height="13" viewBox="0 0 15 13"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M14.6453 1.13281C14.1736 0.661133 13.4089 0.661133 12.9373 1.13281L4.76636 9.30664L2.05933 6.59961C1.58765 6.12793 0.822998 6.12793 0.351318 6.59961C-0.120361 7.07129 -0.120361 7.83594 0.351318 8.30762L3.91089 11.8672C4.30054 12.2568 4.90405 12.333 5.37866 12.0547C5.39624 12.043 5.41382 12.0342 5.42847 12.0225C5.49585 11.9785 5.5603 11.9258 5.6189 11.8672L14.6453 2.84082C15.1169 2.36914 15.1169 1.60449 14.6453 1.13281Z"
-                          fill="white" />
-                      </svg>
-                    </span>
-                    <span class="checkBoxAllSec gap-3 checkLabelSecText">Skip holidays</span>
-                  </label>
-                </div>
                 <div class="d-flex gap-4">
                   <div class=".tenXSec form-check ">
                     <input class="form-check-input" type="radio" name="alldaysSel" id="dayselct1">
