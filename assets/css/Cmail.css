@@ -8,7 +8,7 @@
   border: none;
   border-radius: 5px;
   /* background-color: #c42529; */
-  background-color: #ffa500;
+  background-color: #ff7f00;
   cursor: pointer;
   font-size: 12px;
   font-weight: 500;
@@ -42,7 +42,7 @@
   font-weight: bold;
   cursor: pointer;
   width: fit-content;
-  background-color: #ffa500;
+  background-color: #ff7f00;
   border-radius: 5px;
   border-radius: 11px 0px 0px 10px;
   margin-left: 7px;
@@ -321,7 +321,7 @@ input#days {
 }
 
 .arrow-btn {
-  background-color: #ffa500;
+  background-color: #ff7f00;
   cursor: pointer;
   color: white;
   transition: transform 0.3s;

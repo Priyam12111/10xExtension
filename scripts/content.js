@@ -609,6 +609,38 @@ function openAccordion(document) {
     }
   } catch (error) {}
 }
+function pauseBetweenMails(document) {
+  const DelayCheckbox = document.querySelector("#bqpifDelayCheckbox");
+  const PauseSeconds = document.querySelector("#bqpifPauseSeconds");
+
+  const updatePauseSeconds = () => {
+    if (DelayCheckbox && PauseSeconds) {
+      PauseSeconds.disabled = !DelayCheckbox.checked;
+    }
+  };
+
+  DelayCheckbox.addEventListener("change", updatePauseSeconds);
+  updatePauseSeconds();
+}
+function searchBar(document) {
+  const searchInput = document.querySelectorAll(".droupSec input");
+  if (!searchInput) return;
+  searchInput.forEach((input) => {
+    input.addEventListener("input", () => {
+      console.log(input, input.value);
+      const searchValue = input.value.toLowerCase();
+      const listItems =
+        input.parentElement.nextElementSibling.querySelectorAll("li");
+      listItems.forEach((item) => {
+        item.style.display = item.textContent
+          .toLowerCase()
+          .includes(searchValue)
+          ? "flex"
+          : "none";
+      });
+    });
+  });
+}
 
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
@@ -623,7 +655,8 @@ function dropupJs(document) {
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
   toggleTracking(document);
   openAccordion(document);
-
+  pauseBetweenMails(document);
+  searchBar(document);
   try {
     if (skipHolidays) {
       skipHolidays.addEventListener("change", () => {

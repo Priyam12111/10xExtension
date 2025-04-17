@@ -261,7 +261,12 @@ function LoadsheetJS() {
       sheetList.style.display = "flex";
       const selectedItem =
         target.tagName === "SPAN" ? target.parentElement : target;
-      console.log("Selected sheet:", selectedItem.textContent);
+      console.log(
+        "Selected sheet:",
+        String(selectedItem.textContent)
+          .split("\n")
+          .filter((item) => item.trim() !== "")
+      );
       placeholder.textContent = selectedItem.textContent;
       sessionStorage.setItem(
         "spreadsheetId",
@@ -409,7 +414,7 @@ async function CheckSignedIn() {
     const data = await response.json();
     const isSignedIn = data["isSignedIn"];
 
-    if (!isSignedIn && sender.toLowerCase().includes("")) {
+    if (!isSignedIn && sender && sender.toLowerCase().includes("")) {
       document.querySelector("#signGmass").style.display = "flex";
       console.log("Please sign-in with your authorized email.");
     }
