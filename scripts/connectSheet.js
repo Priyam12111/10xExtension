@@ -427,7 +427,14 @@ async function CheckSignedIn() {
 
 const sheetObserver = new MutationObserver(() => {
   const gmailSearch = document.querySelector(".gb_we");
+
   if (gmailSearch && !document.querySelector("#sheet-button")) {
+    console.log("Searching for Gmail Search Bar...");
+    let sender = document.querySelector(".gb_B.gb_Za.gb_0");
+    if (sender) {
+      sender = sender.getAttribute("aria-label").split("\n");
+      sender = sender[sender.length - 1].replace("(", "").replace(")", "");
+    }
     createSignUp();
     CheckSignedIn();
     createSheetList();
@@ -435,7 +442,10 @@ const sheetObserver = new MutationObserver(() => {
     const buttonContainer = document.createElement("div");
     const sheetButton = document.createElement("div");
     const report = document.createElement("a");
-    report.href = `https://10xsend.in/api/:${sessionStorage.getItem("sender")}`;
+
+    report.href = `https://10xsend.in/:${
+      sessionStorage.getItem("sender") || sender
+    }`;
     report.target = "_blank"; // Open link in a new tab
     report.id = "reportdata";
 

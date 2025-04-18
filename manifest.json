@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "10xsend",
-  "version": "3.2.3",
+  "version": "3.2.5",
   "description": "An advanced Chrome extension for scheduling emails and managing follow-ups efficiently",
   "permissions": ["activeTab", "scripting", "identity"],
   "oauth2": {
