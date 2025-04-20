@@ -2841,6 +2841,11 @@
       background-color: #e9ecef;
       opacity: 0.65;
     }
+    input.highlight::-webkit-outer-spin-button,
+    input.highlight::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   </style>
   <div id="cmail-dropup">
     <div class="headerTenX">
@@ -3104,9 +3109,10 @@
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                            <span id="hourDisplay" class="highlight">7</span>
+                            <input type="number" id="hourDisplay" class="highlight" value="7" min="1" max="12" step="1">
                             <span class="colunTime">:</span>
-                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <input type="number" id="minuteDisplay" class="highlight" value="00" min="0" max="59"
+                              step="1">
                             <div class="timeAmPmSec">
                               <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
@@ -3233,9 +3239,10 @@
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                            <span id="hourDisplay" class="highlight">7</span>
+                            <input type="number" id="hourDisplay" class="highlight" value="7" min="1" max="12" step="1">
                             <span class="colunTime">:</span>
-                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <input type="number" id="minuteDisplay" class="highlight" value="00" min="0" max="59"
+                              step="1">
                             <div class="timeAmPmSec">
                               <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
@@ -3358,9 +3365,10 @@
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                            <span id="hourDisplay" class="highlight">7</span>
+                            <input type="number" id="hourDisplay" class="highlight" value="7" min="1" max="12" step="1">
                             <span class="colunTime">:</span>
-                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <input type="number" id="minuteDisplay" class="highlight" value="00" min="0" max="59"
+                              step="1">
                             <div class="timeAmPmSec">
                               <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
@@ -3481,9 +3489,10 @@
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                            <span id="hourDisplay" class="highlight">7</span>
+                            <input type="number" id="hourDisplay" class="highlight" value="7" min="1" max="12" step="1">
                             <span class="colunTime">:</span>
-                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <input type="number" id="minuteDisplay" class="highlight" value="00" min="0" max="59"
+                              step="1">
                             <div class="timeAmPmSec">
                               <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
@@ -3600,9 +3609,10 @@
                         <div class="time-picker" id="timePicker">
                           <div class="setTimeText">Send Time Options</div>
                           <div class="time-display">
-                            <span id="hourDisplay" class="highlight">7</span>
+                            <input type="number" id="hourDisplay" class="highlight" value="7" min="1" max="12" step="1">
                             <span class="colunTime">:</span>
-                            <span id="minuteDisplay" class="gragyBgTime">00</span>
+                            <input type="number" id="minuteDisplay" class="highlight" value="00" min="0" max="59"
+                              step="1">
                             <div class="timeAmPmSec">
                               <span class="selTimePMAm activebluetext" id="amBtn">AM</span>
                               <span class="selTimePMAm" id="pmBtn">PM</span>
@@ -3732,13 +3742,13 @@
               <div class="m-2 d-flex flex-column  gap-4">
                 <div class="d-flex gap-4">
                   <div class=".tenXSec form-check ">
-                    <input class="form-check-input" type="radio" name="alldaysSel" id="dayselct1">
+                    <input class="form-check-input" type="radio" name="alldaysSel" id="EUYaSSkipHolidays">
                     <label class="form-check-label" for="dayselct1">
                       Weekdays only
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="alldaysSel" id="dayselct2" checked="">
+                    <input class="form-check-input" type="radio" name="alldaysSel" id="EUYaSSkipHolidays2" checked="">
                     <label class="form-check-label" for="dayselct2">
                       All Days
                     </label>

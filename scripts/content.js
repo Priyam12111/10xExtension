@@ -645,6 +645,7 @@ function searchBar(document) {
 function dropupJs(document) {
   const accordionTitles = document.querySelectorAll(".g_accordian_title");
   const skipHolidays = document.querySelector("#EUYaSSkipHolidays");
+  const allDays = document.querySelector("#EUYaSSkipHolidays2");
   const sendButton = document.getElementById("test-send");
   const testInput = document.getElementById("test-input");
   const dropdownHeader = document.querySelector(".dropdown-header");
@@ -660,6 +661,11 @@ function dropupJs(document) {
   try {
     if (skipHolidays) {
       skipHolidays.addEventListener("change", () => {
+        sessionStorage.setItem("skipHolidays", skipHolidays.checked);
+      });
+    }
+    if (allDays) {
+      allDays.addEventListener("change", () => {
         sessionStorage.setItem("skipHolidays", skipHolidays.checked);
       });
     }
@@ -857,6 +863,17 @@ function timePicker(document, index) {
     drawClock();
   });
 
+  minuteDisplay.addEventListener("change", (e) => {
+    const value = parseInt(e.target.value, 10);
+    selectedMinute = value;
+    drawClock();
+  });
+
+  hourDisplay.addEventListener("change", (e) => {
+    const value = parseInt(e.target.value, 10);
+    selectedHour = value;
+    drawClock();
+  });
   function drawClock() {
     clock.querySelectorAll(".hour-marker").forEach((e) => e.remove());
     let max = 12; //selectingMinutes ? 60 : 12;
@@ -885,14 +902,15 @@ function timePicker(document, index) {
       div.textContent = val.toString().padStart(2, "0");
       div.style.left = `${x}px`;
       div.style.top = `${y}px`;
+
       div.addEventListener("click", (e) => {
         e.stopPropagation();
         if (selectingMinutes) {
           selectedMinute = val;
-          minuteDisplay.textContent = val.toString().padStart(2, "0");
+          minuteDisplay.value = val.toString().padStart(2, "0");
         } else {
           selectedHour = val;
-          hourDisplay.textContent = val;
+          hourDisplay.value = val;
           rotateHand(val);
         }
         drawClock();
