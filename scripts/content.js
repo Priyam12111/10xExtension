@@ -654,6 +654,7 @@ function dropupJs(document) {
   const listMessageShow = document.querySelectorAll(".listmesaageshow");
   const selectMessage = Array.from(document.querySelectorAll(".slectMessage"));
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
+  
   toggleTracking(document);
   openAccordion(document);
   pauseBetweenMails(document);
