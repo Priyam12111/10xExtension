@@ -12,7 +12,7 @@ function autocorrectFirstName() {
   try {
     variables = JSON.parse(sessionStorage.getItem("variables"));
     if (!variables) {
-      console.error("No variables found in sessionStorage.");
+      console.log("No variables found in sessionStorage.");
       return;
     }
   } catch (error) {
