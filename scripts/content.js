@@ -618,9 +618,10 @@ function pauseBetweenMails(document) {
       PauseSeconds.disabled = !DelayCheckbox.checked;
     }
   };
-
-  DelayCheckbox.addEventListener("change", updatePauseSeconds);
-  updatePauseSeconds();
+  if (DelayCheckbox) {
+    DelayCheckbox.addEventListener("change", updatePauseSeconds);
+    updatePauseSeconds();
+  }
 }
 function searchBar(document) {
   const searchInput = document.querySelectorAll(".droupSec input");
@@ -654,7 +655,7 @@ function dropupJs(document) {
   const listMessageShow = document.querySelectorAll(".listmesaageshow");
   const selectMessage = Array.from(document.querySelectorAll(".slectMessage"));
   const droUpOpenSec = Array.from(document.querySelectorAll(".droupOpenSec"));
-  
+
   toggleTracking(document);
   openAccordion(document);
   pauseBetweenMails(document);
