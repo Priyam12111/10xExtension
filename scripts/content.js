@@ -382,7 +382,7 @@ function draftButtons(document, listMessageShow, selectMessage, droUpOpenSec) {
         index,
         true
       );
-      createMsgBox("Refreshing...", 8000);
+      createMsgBox("Please wait a moment", 8000);
     });
   });
 }
@@ -981,7 +981,9 @@ function emailFunctionalities(document) {
     followuptime4,
     followuptime5,
   ].forEach((followuptime, index) => {
-    timePicker(followuptime.parentElement.parentElement, index);
+    if (followuptime && followuptime.parentElement) {
+      timePicker(followuptime.parentElement.parentElement, index);
+    }
   });
 
   unsubMarker.addEventListener("change", () => {
