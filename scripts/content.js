@@ -1232,7 +1232,7 @@ const observer = new MutationObserver(() => {
   if (sender && !sessionStorage.getItem("sender")) {
     sender = sender.getAttribute("aria-label").split("\n");
     fullName = sender[0].split(":")[1].trim();
-    sender = sender[sender.length - 1].replace("(", "").replace(")", "");
+    sender = sender[sender.length - 1].replace("(", "").replace(")", "").replace('Google Account: ', '');
     sessionStorage.setItem("fullName", fullName);
     sessionStorage.setItem("sender", sender);
   }
