@@ -118,7 +118,11 @@ function createButton(id) {
   }
 
   document.addEventListener("click", () => {
-    if (dropupMenu.firstElementChild.classList.contains("open")) {
+    if (
+      dropupMenu &&
+      dropupMenu.firstElementChild &&
+      dropupMenu.firstElementChild.classList.contains("open")
+    ) {
       toggleDropupMenu(dropupMenu);
     }
   });
@@ -211,7 +215,7 @@ const minimise = (document, iframe) => {
   }
 };
 function toggleDropupMenu(dropupMenu) {
-  const arrow = document.querySelector(".arrow");
+  const arrow = document.querySelector("svg.arrow");
   if (arrow) {
     arrow.classList.toggle("rotate");
   }
@@ -305,10 +309,13 @@ function fetchDrafts(
   slectMessage,
   droupOpenSec,
   index,
-  reload = false
+  reload = false,
+  size = 50
 ) {
   fetch(
-    `https://10xsend.in/api/drafts?sender=${sessionStorage.getItem("sender")}`,
+    `https://10xsend.in/api/drafts?sender=${sessionStorage.getItem(
+      "sender"
+    )}&&size=${size}`,
     {
       method: "GET",
       headers: {
@@ -320,8 +327,11 @@ function fetchDrafts(
     .then((data) => {
       if (data.drafts && Array.isArray(data.drafts)) {
         const uniqueDrafts = [];
-        const seenIds = new Set();
-
+        const seenIds = new Set(
+          Array.from(listmesaageshow.children).map((li) =>
+            li.getAttribute("data-subject")
+          )
+        );
         data.drafts.forEach((draft) => {
           if (!seenIds.has(draft.subject)) {
             uniqueDrafts.push(draft);
@@ -332,13 +342,14 @@ function fetchDrafts(
         const draftsToShow = uniqueDrafts.slice(0, 50);
         const emailBody = document.querySelectorAll(".email-body")[index];
         const emailHeader = document.querySelectorAll(".email-header")[index];
-        listmesaageshow.innerHTML = "";
+        // listmesaageshow.innerHTML = "";
         if (listmesaageshow.childNodes.length === 0 || reload) {
           draftsToShow.forEach((draft) => {
             const draftLi = document.createElement("li");
             const subject = draft.subject.replace("(Auto Followup)", "");
 
             draftLi.setAttribute("data-body", draft.body);
+            draftLi.setAttribute("data-subject", draft.subject);
             if (draft.subject.includes("(Auto Followup)")) {
               draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
@@ -380,7 +391,8 @@ function draftButtons(document, listMessageShow, selectMessage, droUpOpenSec) {
         selectMessage[index],
         droUpOpenSec[index],
         index,
-        true
+        true,
+        2
       );
       createMsgBox("Please wait a moment", 8000);
     });
@@ -986,13 +998,18 @@ function emailFunctionalities(document) {
     }
   });
 
-  unsubMarker.addEventListener("change", () => {
-    const unsubMarkerState = unsubMarker.checked;
-    sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarkerState));
-  });
-  const unsubMarkerState =
-    JSON.parse(sessionStorage.getItem("unsubMarker")) || false;
-  unsubMarker.checked = unsubMarkerState;
+  if (unsubMarker) {
+    unsubMarker.addEventListener("change", () => {
+      const unsubMarkerState = unsubMarker.checked;
+      sessionStorage.setItem("unsubMarker", JSON.stringify(unsubMarkerState));
+    });
+
+    const unsubMarkerState =
+      JSON.parse(sessionStorage.getItem("unsubMarker")) || false;
+    unsubMarker.checked = unsubMarkerState;
+  } else {
+    console.log("unsubMarker not found");
+  }
   for (let i = 1; i <= 5; i++) {
     stages.push(`stage${i}`);
     times.push(`.timeS${i}`);
@@ -1026,18 +1043,24 @@ function emailFunctionalities(document) {
       }
     });
   });
-  MaxEmails.addEventListener("change", () => {
-    sessionStorage.setItem("MaxEmails", MaxEmails.value);
-  });
-
+  if (MaxEmails) {
+    MaxEmails.addEventListener("change", () => {
+      sessionStorage.setItem("MaxEmails", MaxEmails.value);
+    });
+  } else {
+    console.log("MaxEmails not found");
+  }
   const updateDelaySetting = () => {
     sessionStorage.setItem(
       "DelayCheckbox",
       DelayCheckbox.checked ? PauseSeconds.value : "0"
     );
   };
-  DelayCheckbox.addEventListener("change", updateDelaySetting);
-  PauseSeconds.addEventListener("change", updateDelaySetting);
+
+  if (DelayCheckbox && PauseSeconds) {
+    DelayCheckbox.addEventListener("change", updateDelaySetting);
+    PauseSeconds.addEventListener("change", updateDelaySetting);
+  }
 
   if (schedule) {
     schedule.addEventListener("change", (e) => {
@@ -1233,8 +1256,16 @@ const observer = new MutationObserver(() => {
 
   if (sender && !sessionStorage.getItem("sender")) {
     sender = sender.getAttribute("aria-label").split("\n");
-    fullName = sender[0].split(":")[1].trim();
-    sender = sender[sender.length - 1].replace("(", "").replace(")", "").replace('Google Account: ', '');
+    fullName = sender[0]
+      .split(":")[1]
+      .trim()
+      .replace("Google Account", "")
+      .trim();
+    sender = sender[sender.length - 1]
+      .replace("(", "")
+      .replace(")", "")
+      .replace("Google Account", "")
+      .trim();
     sessionStorage.setItem("fullName", fullName);
     sessionStorage.setItem("sender", sender);
   }

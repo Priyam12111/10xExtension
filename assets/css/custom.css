@@ -1106,6 +1106,8 @@ select.norepselect:focus {
   background: white;
   width: 70vw;
   border-radius: 20px;
+  max-height: 700px;
+  min-height: 550px;
 }
 .header {
   text-align: center;
