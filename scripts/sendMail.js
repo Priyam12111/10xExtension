@@ -1,3 +1,24 @@
+function extractPlaceholders(text) {
+  const regex = /{(\w+)}/g;
+  const placeholders = new Set();
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    placeholders.add(match[1]);
+  }
+  return Array.from(placeholders);
+}
+
+function validatePlaceholdersAgainstKeys(subject, body, dataObj) {
+  const placeholders = new Set([
+    ...extractPlaceholders(subject),
+    ...extractPlaceholders(body)
+  ]);
+
+  return Array.from(placeholders).every(
+    placeholder => Object.prototype.hasOwnProperty.call(dataObj, placeholder)
+  );
+}
+
 function fetchDataFromSheet() {
   if (!sessionStorage.getItem("spreadsheetId")) {
     sheetListJs();
@@ -201,6 +222,16 @@ async function sendMails() {
       schedule === ""
         ? formatIST(new Date(now.getTime() + 1 * 60 * 1000))
         : schedule;
+
+    let variables;
+    try {
+      variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
+    } catch (e) {
+      console.error("Failed to parse variables:", e);
+    }
+    const isValid = validatePlaceholdersAgainstKeys(subject, body, variables)
+
+    if(isValid) {
     const uploadResponse = await uploadMailData(
       sender,
       uploadId,
@@ -210,6 +241,9 @@ async function sendMails() {
       DelayCheckbox
     );
     handleUploadResponse(uploadResponse, schedule, DelayCheckbox);
+  }else {
+    createMsgBox("Error: Please check the dynamic variables.");
+  }
   } catch (error) {
     console.log("Error:", error);
     createMsgBox("An Error Occurred. Please check the console for details.");
@@ -246,7 +280,6 @@ async function createMsgBox(msg, duration = 3000) {
 
 async function sendEmailRequest(sender, uploadId, subject, body, track) {
   const emails = JSON.parse(sessionStorage.getItem("emails") || "[]");
-  const variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
 
   const emailData = emails.map((email, index) => ({
     email,

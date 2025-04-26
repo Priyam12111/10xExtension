@@ -73,6 +73,16 @@ const createDraft = async (identifier) => {
   };
 
   try {
+
+    let variables;
+    try {
+      variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
+    } catch (e) {
+      console.error("Failed to parse variables:", e);
+    }
+    const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables)
+  
+    if(isValid) {
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -89,7 +99,10 @@ const createDraft = async (identifier) => {
       const error = await response.json();
       console.log("Error creating draft:", error);
       return false;
-    }
+    }}
+  else {
+    createMsgBox("Error: Please check the dynamic variables.");
+  }
   } catch (err) {
     console.error("Network or unexpected error:", err);
   }
