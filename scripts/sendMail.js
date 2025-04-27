@@ -1,5 +1,5 @@
 function extractPlaceholders(text) {
-  const regex = /{(\w+)}/g;
+  const regex = /{([^}]+)}/g;;
   const placeholders = new Set();
   let match;
   while ((match = regex.exec(text)) !== null) {
