@@ -91,7 +91,7 @@ function processData(headers, allData) {
   allData.forEach((row) => {
     const isMissingEmail = emailColumns.some((index) => {
       const value = row[index];
-      return typeof value !== "string" || value.trim() === "";
+      return typeof value !== "string" || value?.trim() === "";
     });
 
     if (isMissingEmail) return;
@@ -114,10 +114,10 @@ function processData(headers, allData) {
     headers.forEach((header, index) => {
       if (!emailColumnIndices.has(index)) {
         const value = row[index];
-        if (typeof value === "string" && value.trim() !== "") {
+        if (typeof value === "string" && value?.trim() !== "") {
           variables[header] = variables[header] || [];
           variables[header].push(value);
-        } else if (value.trim() === "") {
+        } else if (value?.trim() === "") {
           variables[header] = variables[header] || [];
           variables[header].push("User");
         }
