@@ -363,7 +363,7 @@ function fetchDrafts(
 
             draftLi.setAttribute("data-body", draft.body);
             draftLi.setAttribute("data-subject", draft.subject);
-            if (draft.subject.includes("(Auto Followup)")) {
+            // if (draft.subject.includes("(Auto Followup)")) {
               draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
               `;
@@ -377,7 +377,7 @@ function fetchDrafts(
                 droupOpenSec.classList.add("hidden");
                 sessionStorage.setItem(`draftBody${index + 1}`, draft.body);
               });
-            }
+            // }
           });
         }
       } else {

@@ -251,3 +251,31 @@ document.addEventListener("input", (event) => {
     autocorrectFirstName();
   }
 });
+
+function handleStageButtonClick(event) {
+  const stageButton = event.target;
+  const stageNumber = stageButton.id.replace('stage', '');
+  
+  // Remove the button
+  stageButton.remove();
+  
+  // Remove the corresponding stage section
+  const stageSection = document.querySelector(`.timesec.timeS${stageNumber}`);
+  if (stageSection) {
+    stageSection.remove();
+  }
+  
+  // Update session storage to reflect the removed stage
+  sessionStorage.removeItem(`stage${stageNumber}`);
+  sessionStorage.removeItem(`draftBody${stageNumber}`);
+}
+
+// Add event listeners for stage buttons
+document.addEventListener('DOMContentLoaded', () => {
+  // Get all stage buttons
+  const stageButtons = document.querySelectorAll('[id^="stage"]');
+  
+  stageButtons.forEach(button => {
+    button.addEventListener('click', handleStageButtonClick);
+  });
+});
