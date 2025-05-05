@@ -188,21 +188,56 @@ function setEmailDetails(emails, subject, body) {
 }
 
 async function sendMails() {
+  // Add confirmation dialog
+  const confirmed = await new Promise((resolve) => {
+    const confirmBox = document.createElement('div');
+    confirmBox.className = 'msg-box';
+    confirmBox.innerHTML = `
+      <p class="msg-title">Confirm Send</p>
+      <p class="msg-text">Are you sure you want to send this email?</p>
+      <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+        <button id="confirmYes" style="padding: 5px 15px; background: #1a73e8; color: white; border: none; border-radius: 4px; cursor: pointer;">Yes</button>
+        <button id="confirmNo" style="padding: 5px 15px; background: #f1f3f4; color: #3c4043; border: none; border-radius: 4px; cursor: pointer;">No</button>
+      </div>
+    `;
+    document.body.appendChild(confirmBox);
+
+    document.getElementById('confirmYes').addEventListener('click', () => {
+      confirmBox.remove();
+      resolve(true);
+    });
+
+    document.getElementById('confirmNo').addEventListener('click', () => {
+      confirmBox.remove();
+      resolve(false);
+    });
+  });
+
+  if (!confirmed) {
+    return;
+  }
+
   const track = JSON.parse(sessionStorage.getItem("tracking") || "false");
   const DelayCheckbox = sessionStorage.getItem("DelayCheckbox") || 0;
   createMsgBox("Processing...", 8000);
 
   try {
     const sender = sessionStorage.getItem("sender");
-    const subject = document.querySelector(".aoT").value + " - " + sender;
+    const subjectInput = document.querySelector(".aoT");
+    const bodyInput = document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW");
+
+    if (!subjectInput || !bodyInput) {
+      createMsgBox("Error: Could not find email subject or body. Please try again.");
+      return;
+    }
+
+    const subject = subjectInput.value + " - " + sender;
     const uploadId = await fetch(
       `https://10xsend.in/api/latest_id?subject=${subject}`
     )
       .then((res) => res.text())
       .then((id) => JSON.parse(id).Latest_id + 1);
-    const body = document.querySelector(
-      ".Am.aiL.Al.editable.LW-avf.tS-tW"
-    ).innerHTML;
+    const body = bodyInput.innerHTML;
 
     console.log("Uploading Mail Data...");
     const formatIST = (date) => {
