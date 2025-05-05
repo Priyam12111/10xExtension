@@ -1115,10 +1115,10 @@ function emailFunctionalities(document) {
     let stage = document.querySelector(`#${stageId}`);
     const timeSelector = document.querySelector(times[index]);
     const stageInput = document.querySelector(stageInputs[index]);
+    let nextStageContainer;
+  
     if (index < stages.length - 1) {
-      var nextStageContainer = document.querySelector(
-        stageContainers[index + 1]
-      );
+      nextStageContainer = document.querySelector(stageContainers[index + 1]);
     }
 
     if (stage) {
@@ -1126,8 +1126,9 @@ function emailFunctionalities(document) {
         stage = document.querySelector(`.${stageId}`);
         stage.click();
         console.log(stage);
-
         console.log(`Index: ${index}`);
+  
+        // Handle validation
         if (stage.checked && index > 0) {
           const stageTextareaValues = JSON.parse(
             sessionStorage.getItem("stagetextarea-values") || "[]"
@@ -1155,6 +1156,7 @@ function emailFunctionalities(document) {
             );
             return;
           }
+  
           try {
             if (
               sessionStorage.getItem(stages[index - 1]) === "0" &&
@@ -1166,15 +1168,35 @@ function emailFunctionalities(document) {
               );
               return;
             }
-          } catch (error) {}
+          } catch (error) {
+            console.error(error);
+          }
+  
+          // ✅ Hide previous stage follow-up button after validation passes
+          const prevFollowUpBtn = document.getElementById(`stage${index}`);
+          if (prevFollowUpBtn) {
+            prevFollowUpBtn.classList.add("hidden"); // Or use: prevFollowUpBtn.style.display = "none";
+          }
         }
-
+  
+        // ⏪ If user unchecks the stage, re-show previous stage follow-up button
+        if (!stage.checked && index > 0) {
+          const prevFollowUpBtn = document.getElementById(`stage${index}`);
+          if (prevFollowUpBtn) {
+            prevFollowUpBtn.classList.remove("hidden"); // Or: prevFollowUpBtn.style.display = "block";
+          }
+        }
+  
+        // Toggle time selector UI
         timeSelector.style.maxHeight = stage.checked ? "500px" : "0px";
         timeSelector.style.overflow = stage.checked ? "visible" : "hidden";
 
+        // Show/hide next stage section
         if (nextStageContainer) {
           nextStageContainer.classList.toggle("hidden", !stage.checked);
         }
+  
+        // Update session storage
         sessionStorage.setItem(
           stageId,
           stage.checked
@@ -1184,11 +1206,14 @@ function emailFunctionalities(document) {
             : ""
         );
       });
+  
+      // Update session storage on input change
       stageInput.addEventListener("change", () => {
         sessionStorage.setItem(stageId, stage.checked ? stageInput.value : "0");
       });
     }
   });
+
   const sendTextConfirm = document.querySelectorAll(".sendoriginal");
   sendTextConfirm.forEach((checkbox, index) => {
     checkbox.addEventListener("change", () => {
