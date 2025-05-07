@@ -1,11 +1,11 @@
 console.log("Executing Content Script");
-function createSendButton() {
+async function createSendButton() {
   const sendButton = document.createElement("div");
   sendButton.setAttribute("role", "button");
   sendButton.textContent = "10xSend";
   sendButton.id = "send-button";
 
-  sendButton.addEventListener("click", (event) => {
+  sendButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
     let Composebox = document.querySelectorAll(".agP");
@@ -13,7 +13,8 @@ function createSendButton() {
       Composebox[Composebox.length - 1].value == "developer@10x.com" ||
       Composebox[0].value == "developer@10x.in"
     ) {
-      if (createDraft(" (Auto Followup)")) {
+      const res = await createDraft(" (Auto Followup)")
+      if(res) {
         createMsgBox("Draft Created Successfully");
       }
       setTimeout(() => {
@@ -41,7 +42,7 @@ function createSendButton() {
       console.log(subject);
 
       if (subject) {
-        createDraft(" (Template)");
+        await createDraft(" (Template)");
       }
       setTimeout(() => {
         const deleteBtn = document.querySelectorAll(".og.T-I-J3");
@@ -53,36 +54,54 @@ function createSendButton() {
 }
 
 const createDraft = async (identifier) => {
-  const url = "https://10xsend.in/api/create_draft";
-  const subject = document.querySelectorAll(".aoT");
-  const emailBody = window.document.querySelectorAll(
-    ".Am.aiL.Al.editable.LW-avf.tS-tW"
-  );
+  const url = "http://localhost:8000/api/create_draft";
+  const subjectInputs = document.querySelectorAll(".aoT");
+  const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
 
-  let final_subject = subject[subject.length - 1]?.value;
-  if (final_subject.includes(identifier)) {
-    final_subject = final_subject.replace(identifier, "");
-  } else {
-    final_subject += identifier;
+  // Get the most recent subject and body
+  const currentSubject = subjectInputs[subjectInputs.length - 1]?.value || "";
+  const currentBody = emailBodies[emailBodies.length - 1]?.innerHTML || "";
+  
+  if (!currentSubject.trim() || !currentBody.trim()) {
+    createMsgBox("Subject and email body cannot be blank", 8000);
+    return false;
   }
+
+  // Process subject with identifier
+  let finalSubject = currentSubject.trim(); // Trim whitespace first
+  
+  // Handle identifier only if we have a subject
+  if (finalSubject) {
+    if (finalSubject.includes(identifier)) {
+      finalSubject = finalSubject.replace(identifier, "").trim();
+  } else {
+      finalSubject += identifier;
+  }
+  }
+
   const draftData = {
-    sender: sessionStorage.getItem("sender"),
+    sender: sessionStorage.getItem("sender") || "",
     recipient: "developer@10x.com",
-    subject: final_subject || "",
-    body: emailBody[emailBody.length - 1]?.innerHTML || "",
+    subject: finalSubject, // Now properly cleaned
+    body: currentBody,
   };
 
   try {
-
     let variables;
     try {
       variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
     } catch (e) {
       console.error("Failed to parse variables:", e);
+      variables = {};
     }
-    const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables)
+
+    const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables);
   
-    if(isValid) {
+    if (!isValid) {
+      createMsgBox("Error: Please check the dynamic variables.");
+      return false;
+    }
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -98,15 +117,14 @@ const createDraft = async (identifier) => {
     } else {
       const error = await response.json();
       console.log("Error creating draft:", error);
+      createMsgBox("Failed to create draft: " + (error.message || "Unknown error"));
       return false;
-    }}
-  else {
-    createMsgBox("Error: Please check the dynamic variables.");
   }
   } catch (err) {
     console.error("Network or unexpected error:", err);
-  }
+    createMsgBox("Network error while creating draft");
   return false;
+  }
 };
 function createButton(id) {
   const button = document.createElement("button");
@@ -405,7 +423,7 @@ function draftButtons(document, listMessageShow, selectMessage, droUpOpenSec) {
         droUpOpenSec[index],
         index,
         true,
-        2
+        10
       );
       createMsgBox("Please wait a moment", 8000);
     });
@@ -1288,7 +1306,7 @@ function hideFollowUpSectionOnClickOutside(followUpSectionContainer) {
   document.addEventListener("click", handler);
 }
 
-const observer = new MutationObserver(() => {
+const observer = new MutationObserver(async () => {
   const composeToolbars = document.querySelectorAll(".gU.Up");
   let sender = document.querySelector(".gb_B.gb_Za.gb_0");
 
@@ -1308,10 +1326,10 @@ const observer = new MutationObserver(() => {
     sessionStorage.setItem("sender", sender);
   }
 
-  composeToolbars.forEach((composeToolbar) => {
+  composeToolbars.forEach(async (composeToolbar) => {
     if (!composeToolbar.querySelector("#cmail-button")) {
       const { button, dropupMenu } = createButton("cmail-button");
-      const sendButton = createSendButton();
+      const sendButton = await createSendButton();
 
       composeToolbar.appendChild(sendButton);
       composeToolbar.appendChild(button);
