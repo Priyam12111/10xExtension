@@ -270,10 +270,25 @@ function appendConnectButton() {
   connect.id = "connect-button";
   connect.className = "aB gQ pE";
   connect.textContent = "Connect";
-  connect.addEventListener("click", () => {
-    createMsgBox("Fetching data from Google Sheet...");
-    fetchDataFromSheet();
+  connect.addEventListener("click", async () => {
+    try {
+      const isSignedIn = await CheckSignedIn();
+      if (isSignedIn) {
+        createMsgBox("Checking Permissions of Google Sheet...");
+        await sheetListJs();
+        document
+          .querySelector(".sheet-list-container")
+          .classList.toggle("hidden");
+      }
+    } catch (error) {
+      console.error("Error handling sheet button click:", error);
+    }
   });
+
+  // connect.addEventListener("click", () => {
+  //   createMsgBox("Fetching data from Google Sheet...");
+  //   fetchDataFromSheet();
+  // });
 
   const targetElement = document.querySelector(".baT");
   const existingConnectButton = targetElement.querySelector("#connect-button");
