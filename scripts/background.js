@@ -22,6 +22,7 @@ function authenticateWithGoogle(sender) {
   const redirectUri = "https://10xsend.in/api/oauth/callback";
 
   const scopes = [
+    "https://www.googleapis.com/auth/drive.metadata.readonly",
     "https://www.googleapis.com/auth/gmail.modify",
     "https://www.googleapis.com/auth/gmail.compose",
     "https://www.googleapis.com/auth/spreadsheets",
