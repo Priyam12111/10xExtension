@@ -54,7 +54,7 @@ async function createSendButton() {
 }
 
 const createDraft = async (identifier) => {
-  const url = "http://localhost:8000/api/create_draft";
+  const url = "https://10xsend.in/api/create_draft";
   const subjectInputs = document.querySelectorAll(".aoT");
   const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
 
