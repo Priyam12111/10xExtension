@@ -497,7 +497,7 @@ function handleUploadResponse(response, schedule, DelayCheckbox) {
       }
     });
   } else {
-    var msg = `Mail has been scheduled successfulyy`;
+    var msg = `Mail has been scheduled successfully`;
     console.log("Upload Failed:", response);
   }
   createMsgBox(msg, 5000);
