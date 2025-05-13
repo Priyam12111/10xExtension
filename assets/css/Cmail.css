@@ -368,7 +368,7 @@ input#days {
     url("https://cdn.gmass.us/Extension2019Images/icon_import_w.png") center
     center no-repeat;
 }
-.gb_we {
+.gb_we, .gb_xe {
   max-width: 650px !important;
   padding: 5px !important;
 }
