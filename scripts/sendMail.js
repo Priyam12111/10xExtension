@@ -393,11 +393,10 @@ function uploadMailData(
   let MailConditions;
   try {
     MailConditions = JSON.parse(
-      sessionStorage.getItem("MailConditions") || [false, false, false]
-    );
+      sessionStorage.getItem("MailConditions")) || [false, false, false, false, false]
   } catch (error) {
     console.log(error);
-    MailConditions = [false, false, false];
+    MailConditions = [false, false, false, false, false];
   }
   document.querySelectorAll(".form-check-input")[3];
   const draftBodies = [
