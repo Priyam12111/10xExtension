@@ -279,3 +279,85 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', handleStageButtonClick);
   });
 });
+
+function handleBackspace(event) {
+  if (event.key !== "Backspace") return;
+
+  const activeElement = document.activeElement;
+
+  // === SUBJECT LINE ===
+if (activeElement && activeElement.classList.contains("aoT")) {
+  const input = activeElement;
+  const cursorPos = input.selectionStart;
+  if (cursorPos === 0) return;
+
+  const text = input.value;
+  const textBeforeCursor = text.slice(0, cursorPos);
+
+  // Match a token like {something something} right before cursor
+  const matches = [...textBeforeCursor.matchAll(/\{[^}]*\}/g)];
+
+  if (matches.length > 0) {
+    const lastMatch = matches[matches.length - 1];
+    const matchEnd = lastMatch.index + lastMatch[0].length;
+
+    // Only delete if the match ends exactly at the cursor
+    if (matchEnd === cursorPos) {
+      event.preventDefault();
+      const matchStart = lastMatch.index;
+
+      const newText =
+        text.slice(0, matchStart) + text.slice(cursorPos);
+      input.value = newText;
+      input.setSelectionRange(matchStart, matchStart);
+    }
+  }
+  return;
+}
+
+  // === EMAIL BODY (contenteditable div) ===
+  const selection = window.getSelection();
+  if (!selection.rangeCount) return;
+
+  const range = selection.getRangeAt(0);
+  const node = range.startContainer;
+  if (!node || node.nodeType !== Node.TEXT_NODE) return;
+
+  const cursorPos = range.startOffset;
+  if (cursorPos === 0) return;
+
+  const text = node.textContent;
+  const textBeforeCursor = text.slice(0, cursorPos);
+  const pattern = /\{[^}]+\}$/
+  const match = textBeforeCursor.match(pattern);
+
+  if (match) {
+    event.preventDefault();
+    const matchStart = cursorPos - match[0].length;
+    node.textContent =
+      text.slice(0, matchStart) + text.slice(cursorPos);
+
+    const newRange = document.createRange();
+    newRange.setStart(node, matchStart);
+    newRange.collapse(true);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+  }
+}
+
+// === Gmail loads content dynamically; wait for DOM to be ready ===
+function waitForGmailReady(callback) {
+  const interval = setInterval(() => {
+    const subjectInput = document.querySelector(".aoT");
+    const bodyDiv = document.querySelector("[aria-label='Message Body']");
+    if (subjectInput && bodyDiv) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 500);
+}
+
+// Attach the listener after Gmail UI is loaded
+waitForGmailReady(() => {
+  document.addEventListener("keydown", handleBackspace, true);
+});
