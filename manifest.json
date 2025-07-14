@@ -1,16 +1,15 @@
 {
   "manifest_version": 3,
   "name": "10xsend",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "description": "An advanced Chrome extension for scheduling emails and managing follow-ups efficiently",
   "permissions": ["activeTab", "scripting", "identity"],
   "oauth2": {
     "client_id": "1028647389622-ae8028g4n8det2fcd32q8qlq4368oqc0.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/drive.metadata.readonly",
       "https://www.googleapis.com/auth/gmail.modify",
       "https://www.googleapis.com/auth/gmail.compose",
-      "https://www.googleapis.com/auth/spreadsheets"
+      "https://www.googleapis.com/auth/drive.file"
     ]
   },
   "background": {
