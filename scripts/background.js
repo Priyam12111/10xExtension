@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 function authenticateWithGoogle(sender) {
   const clientId =
-    "192976552580-83uct0pkm3aiba89nv4o2r30c5ai82pc.apps.googleusercontent.com";
+    "1028647389622-ae8028g4n8det2fcd32q8qlq4368oqc0.apps.googleusercontent.com";
   const redirectUri = "https://10xsend.in/api/oauth/callback";
 
   const scopes = [
