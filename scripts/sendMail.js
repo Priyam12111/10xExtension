@@ -1,5 +1,5 @@
 function extractPlaceholders(text) {
-  const regex = /{([^}]+)}/g;;
+  const regex = /{([^}]+)}/g;
   const placeholders = new Set();
   let match;
   while ((match = regex.exec(text)) !== null) {
@@ -11,17 +11,17 @@ function extractPlaceholders(text) {
 function validatePlaceholdersAgainstKeys(subject, body, dataObj) {
   const placeholders = new Set([
     ...extractPlaceholders(subject),
-    ...extractPlaceholders(body)
+    ...extractPlaceholders(body),
   ]);
 
-  return Array.from(placeholders).every(
-    placeholder => Object.prototype.hasOwnProperty.call(dataObj, placeholder)
+  return Array.from(placeholders).every((placeholder) =>
+    Object.prototype.hasOwnProperty.call(dataObj, placeholder)
   );
 }
 
 function fetchDataFromSheet() {
   if (!sessionStorage.getItem("spreadsheetId")) {
-    sheetListJs();
+    getSheetList();
   }
   const sheetList = document.querySelector(".sheet-list-container");
   const spreadsheetId = sessionStorage.getItem("spreadsheetId");
@@ -69,7 +69,7 @@ function fetchDataFromSheet() {
       }
     })
     .catch((error) => {
-      createMsgBox("Error fetching data. Please try again.");
+      openNotification("Error fetching data. Please try again.");
       console.log("Error fetching data:", error);
     });
 }
@@ -173,7 +173,7 @@ function setEmailDetails(emails, subject, body) {
       emails.length > 3 ? ", ..." : ""
     } | Total: ${emails.length}`;
     if (senderField.textContent == "") {
-      createMsgBox(emailDescription);
+      openNotification(emailDescription);
       const subjectField = document.querySelector(".aoT");
       if (subjectField) {
         subjectField.value += subject;
@@ -190,8 +190,8 @@ function setEmailDetails(emails, subject, body) {
 async function sendMails() {
   // Add confirmation dialog
   const confirmed = await new Promise((resolve) => {
-    const confirmBox = document.createElement('div');
-    confirmBox.className = 'msg-box';
+    const confirmBox = document.createElement("div");
+    confirmBox.className = "msg-box";
     confirmBox.innerHTML = `
       <p class="msg-title">Confirm Send</p>
       <p class="msg-text">Are you sure you want to send this email?</p>
@@ -202,12 +202,12 @@ async function sendMails() {
     `;
     document.body.appendChild(confirmBox);
 
-    document.getElementById('confirmYes').addEventListener('click', () => {
+    document.getElementById("confirmYes").addEventListener("click", () => {
       confirmBox.remove();
       resolve(true);
     });
 
-    document.getElementById('confirmNo').addEventListener('click', () => {
+    document.getElementById("confirmNo").addEventListener("click", () => {
       confirmBox.remove();
       resolve(false);
     });
@@ -219,15 +219,19 @@ async function sendMails() {
 
   const track = JSON.parse(sessionStorage.getItem("tracking") || "false");
   const DelayCheckbox = sessionStorage.getItem("DelayCheckbox") || 0;
-  createMsgBox("Processing...", 8000);
+  openNotification("Processing...", 8000);
 
   try {
     const sender = sessionStorage.getItem("sender");
     const subjectInput = document.querySelector(".aoT");
-    const bodyInput = document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW");
+    const bodyInput = document.querySelector(
+      ".Am.aiL.Al.editable.LW-avf.tS-tW"
+    );
 
     if (!subjectInput || !bodyInput) {
-      createMsgBox("Error: Could not find email subject or body. Please try again.");
+      openNotification(
+        "Error: Could not find email subject or body. Please try again."
+      );
       return;
     }
 
@@ -264,28 +268,30 @@ async function sendMails() {
     } catch (e) {
       console.error("Failed to parse variables:", e);
     }
-    const isValid = validatePlaceholdersAgainstKeys(subject, body, variables)
+    const isValid = validatePlaceholdersAgainstKeys(subject, body, variables);
 
-    if(isValid) {
-    const uploadResponse = await uploadMailData(
-      sender,
-      uploadId,
-      subject,
-      body,
-      current_schedule,
-      DelayCheckbox
-    );
-    handleUploadResponse(uploadResponse, schedule, DelayCheckbox);
-  }else {
-    createMsgBox("Error: Please check the dynamic variables.");
-  }
+    if (isValid) {
+      const uploadResponse = await uploadMailData(
+        sender,
+        uploadId,
+        subject,
+        body,
+        current_schedule,
+        DelayCheckbox
+      );
+      handleUploadResponse(uploadResponse, schedule, DelayCheckbox);
+    } else {
+      openNotification("Error: Please check the dynamic variables.");
+    }
   } catch (error) {
     console.log("Error:", error);
-    createMsgBox("An Error Occurred. Please check the console for details.");
+    openNotification(
+      "An Error Occurred. Please check the console for details."
+    );
   }
 }
 
-async function createMsgBox(msg, duration = 3000) {
+async function openNotification(msg, duration = 5000) {
   return new Promise((resolve) => {
     const msgBox = document.createElement("div");
     msgBox.classList.add("msg-box");
@@ -392,8 +398,13 @@ function uploadMailData(
   const range = sessionStorage.getItem("range") || false;
   let MailConditions;
   try {
-    MailConditions = JSON.parse(
-      sessionStorage.getItem("MailConditions")) || [false, false, false, false, false]
+    MailConditions = JSON.parse(sessionStorage.getItem("MailConditions")) || [
+      false,
+      false,
+      false,
+      false,
+      false,
+    ];
   } catch (error) {
     console.log(error);
     MailConditions = [false, false, false, false, false];
@@ -499,7 +510,7 @@ function handleUploadResponse(response, schedule, DelayCheckbox) {
     var msg = `Mail has been scheduled successfully`;
     console.log("Upload Failed:", response);
   }
-  createMsgBox(msg, 5000);
+  openNotification(msg, 5000);
 }
 
 function sendTestMail(testEmail) {
@@ -538,13 +549,13 @@ function sendTestMail(testEmail) {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success:", data);
-      createMsgBox(
+      openNotification(
         `Test mail sent successfully to ${testEmail}. Check your inbox!`
       );
     })
     .catch((error) => {
       console.log("Error:", error);
-      createMsgBox(
+      openNotification(
         `Test mail failed to send to ${testEmail}. Please try again or check your internet connection.`
       );
     });

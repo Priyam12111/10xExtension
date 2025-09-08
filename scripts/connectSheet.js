@@ -58,8 +58,11 @@ function createSheetItems(data, parentNode) {
     `;
     parentNode.appendChild(sheetItem);
 
-    return sheetItem;
+    sheetItem.append(img, name, date);
+    fragment.appendChild(sheetItem);
   });
+
+  parentNode.appendChild(fragment);
 }
 
 function createSheetNames(data, parentNode) {
@@ -120,7 +123,7 @@ async function fetchAndDisplaySheetNames() {
   createSheetNames(sheetNameResponseData["sheetNames"], sheet_dropdown_list);
 }
 
-async function sheetListJs() {
+async function getSheetList() {
   try {
     const response = await fetch(
       "https://10xsend.in/api/list-sheets?sender=" +
@@ -286,7 +289,7 @@ function LoadsheetJS() {
   });
 
   SpreadsheetSave.addEventListener("click", () => {
-    console.log("Saving...");
+    openNotification("Please hold on while we retrieve your emails...");
     const newHeaders = [
       "Start Date",
       "End Date",
@@ -374,7 +377,7 @@ async function createSignUp() {
 
   document.querySelector(".signGoogLink").addEventListener("click", () => {
     try {
-      createMsgBox("Initiating Google Sign-In process...");
+      openNotification("Initiating Google Sign-In process...");
       chrome.runtime.sendMessage({
         action: "authenticate",
         sender: sessionStorage.getItem("sender"),
@@ -467,8 +470,8 @@ const sheetObserver = new MutationObserver(() => {
       try {
         const isSignedIn = await CheckSignedIn();
         if (isSignedIn) {
-          createMsgBox("Checking Permissions of Google Sheet...");
-          await sheetListJs();
+          openNotification("Checking Permissions of Google Sheet...");
+          await getSheetList();
           document
             .querySelector(".sheet-list-container")
             .classList.toggle("hidden");

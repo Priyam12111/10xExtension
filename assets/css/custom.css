@@ -782,20 +782,22 @@ textarea:focus {
 }
 .googleSheetPad #dropdown,
 .googleSheetPad #sheet-dropdown {
-  margin-left: 28px;
-  margin-right: 28px;
-  box-shadow: 0 1px 3px #0000003d;
-  border: none;
-  border-radius: 100px;
+  margin: 0 28px;
+  width: 90%;
   height: 26px;
-  line-height: 1;
-  border: 1px solid #d0d4e4;
   padding: 12px 20px;
+
   display: flex;
   align-items: center;
-  background-color: white;
   cursor: pointer;
+
   font-size: 14px;
+  line-height: 1;
+
+  border: 1px solid #d0d4e4;
+  border-radius: 100px;
+  background: #fff;
+  box-shadow: 0 1px 3px #0000003d;
 }
 
 #Sheetarrow {
@@ -826,10 +828,6 @@ textarea:focus {
   white-space: nowrap;
   text-decoration: none;
   color: white;
-}
-
-.buttonPopoSec {
-  margin: 30px auto 0;
 }
 
 .googleShPosi {
@@ -1043,10 +1041,7 @@ select.norepselect:focus {
   border: none;
   outline: none;
 }
-#sheet-dropdown {
-  display: none;
-  margin-top: 5px;
-}
+
 #dropdown-list,
 #sheet-dropdown-list {
   max-height: fit-content;
@@ -1071,22 +1066,22 @@ select.norepselect:focus {
 }
 #dropdown-list,
 #sheet-dropdown-list {
-  border-radius: 24px;
-  padding: 16px 18px;
-  margin-top: 50px;
-  box-shadow: 0 10px 13px #00000040;
-  border: 1px solid #d0d4e4;
-  padding: 12px 16px;
-  background-color: white;
   position: absolute;
-  width: 95%;
-  z-index: 100;
-  right: -6px;
+  padding: 10px;
   top: 25vh;
+  z-index: 100;
+  width: 90%;
+  left: 25px;
+  margin-top: 50px;
+  padding: 12px 16px;
+  border: 1px solid #d0d4e4;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 10px 13px #00000040;
 }
 #sheet-dropdown-list {
   cursor: pointer;
-  top: 240px;
+  top: 248px;
 }
 #dropdown-list li {
   padding: 10px;

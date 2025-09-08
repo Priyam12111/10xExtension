@@ -13,9 +13,9 @@ async function createSendButton() {
       Composebox[Composebox.length - 1].value == "developer@10x.com" ||
       Composebox[0].value == "developer@10x.in"
     ) {
-      const res = await createDraft(" (Auto Followup)")
-      if(res) {
-        createMsgBox("Draft Created Successfully");
+      const res = await createDraft(" (Auto Followup)");
+      if (res) {
+        openNotification("Draft Created Successfully");
       }
       setTimeout(() => {
         const deleteBtn = document.querySelectorAll(".og.T-I-J3");
@@ -56,27 +56,29 @@ async function createSendButton() {
 const createDraft = async (identifier) => {
   const url = "https://10xsend.in/api/create_draft";
   const subjectInputs = document.querySelectorAll(".aoT");
-  const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
+  const emailBodies = window.document.querySelectorAll(
+    ".Am.aiL.Al.editable.LW-avf.tS-tW"
+  );
 
   // Get the most recent subject and body
   const currentSubject = subjectInputs[subjectInputs.length - 1]?.value || "";
   const currentBody = emailBodies[emailBodies.length - 1]?.innerHTML || "";
-  
+
   if (!currentSubject.trim() || !currentBody.trim()) {
-    createMsgBox("Subject and email body cannot be blank", 8000);
+    openNotification("Subject and email body cannot be blank", 8000);
     return false;
   }
 
   // Process subject with identifier
   let finalSubject = currentSubject.trim(); // Trim whitespace first
-  
+
   // Handle identifier only if we have a subject
   if (finalSubject) {
     if (finalSubject.includes(identifier)) {
       finalSubject = finalSubject.replace(identifier, "").trim();
-  } else {
+    } else {
       finalSubject += identifier;
-  }
+    }
   }
 
   const draftData = {
@@ -95,10 +97,14 @@ const createDraft = async (identifier) => {
       variables = {};
     }
 
-    const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables);
-  
+    const isValid = validatePlaceholdersAgainstKeys(
+      draftData.subject,
+      draftData.body,
+      variables
+    );
+
     if (!isValid) {
-      createMsgBox("Error: Please check the dynamic variables.");
+      openNotification("Error: Please check the dynamic variables.");
       return false;
     }
 
@@ -117,13 +123,15 @@ const createDraft = async (identifier) => {
     } else {
       const error = await response.json();
       console.log("Error creating draft:", error);
-      createMsgBox("Failed to create draft: " + (error.message || "Unknown error"));
+      openNotification(
+        "Failed to create draft: " + (error.message || "Unknown error")
+      );
       return false;
-  }
+    }
   } catch (err) {
     console.error("Network or unexpected error:", err);
-    createMsgBox("Network error while creating draft");
-  return false;
+    openNotification("Network error while creating draft");
+    return false;
   }
 };
 function createButton(id) {
@@ -274,8 +282,8 @@ function appendConnectButton() {
     try {
       const isSignedIn = await CheckSignedIn();
       if (isSignedIn) {
-        createMsgBox("Checking Permissions of Google Sheet...");
-        await sheetListJs();
+        openNotification("Checking Permissions of Google Sheet...");
+        await getSheetList();
         document
           .querySelector(".sheet-list-container")
           .classList.toggle("hidden");
@@ -286,7 +294,7 @@ function appendConnectButton() {
   });
 
   // connect.addEventListener("click", () => {
-  //   createMsgBox("Fetching data from Google Sheet...");
+  //   openNotification("Fetching data from Google Sheet...");
   //   fetchDataFromSheet();
   // });
 
@@ -397,19 +405,19 @@ function fetchDrafts(
             draftLi.setAttribute("data-body", draft.body);
             draftLi.setAttribute("data-subject", draft.subject);
             // if (draft.subject.includes("(Auto Followup)")) {
-              draftLi.innerHTML = `
+            draftLi.innerHTML = `
                 <span>${subject || "No Subject"}</span>
               `;
 
-              listmesaageshow.appendChild(draftLi);
-              draftLi.addEventListener("click", (e) => {
-                e.stopPropagation();
-                emailHeader.textContent = subject || "No Subject";
-                emailBody.innerHTML = "<br>" + draft.body + "<br><hr>";
-                slectMessage.firstElementChild.textContent = subject || "";
-                droupOpenSec.classList.add("hidden");
-                sessionStorage.setItem(`draftBody${index + 1}`, draft.body);
-              });
+            listmesaageshow.appendChild(draftLi);
+            draftLi.addEventListener("click", (e) => {
+              e.stopPropagation();
+              emailHeader.textContent = subject || "No Subject";
+              emailBody.innerHTML = "<br>" + draft.body + "<br><hr>";
+              slectMessage.firstElementChild.textContent = subject || "";
+              droupOpenSec.classList.add("hidden");
+              sessionStorage.setItem(`draftBody${index + 1}`, draft.body);
+            });
             // }
           });
         }
@@ -440,7 +448,7 @@ function draftButtons(document, listMessageShow, selectMessage, droUpOpenSec) {
         true,
         10
       );
-      createMsgBox("Please wait a moment", 8000);
+      openNotification("Please wait a moment", 8000);
     });
   });
 }
@@ -541,7 +549,7 @@ function populateVariablesList(dropdownContent, variables) {
       Fields.appendChild(listItem);
       listItem.addEventListener("click", () => {
         navigator.clipboard.writeText(`{${key}}`);
-        createMsgBox(`Copied ${key} to clipboard`);
+        openNotification(`Copied ${key} to clipboard`);
       });
     });
   } else {
@@ -1149,7 +1157,7 @@ function emailFunctionalities(document) {
     const timeSelector = document.querySelector(times[index]);
     const stageInput = document.querySelector(stageInputs[index]);
     let nextStageContainer;
-  
+
     if (index < stages.length - 1) {
       nextStageContainer = document.querySelector(stageContainers[index + 1]);
     }
@@ -1160,7 +1168,7 @@ function emailFunctionalities(document) {
         stage.click();
         console.log(stage);
         console.log(`Index: ${index}`);
-  
+
         // Handle validation
         if (stage.checked && index > 0) {
           const stageTextareaValues = JSON.parse(
@@ -1175,7 +1183,7 @@ function emailFunctionalities(document) {
             !stageTextareaValues[index - 1]
           ) {
             stage.checked = false;
-            createMsgBox(
+            openNotification(
               "You need to select the previous stage's body or fill the previous stage's body text"
             );
             return;
@@ -1184,19 +1192,19 @@ function emailFunctionalities(document) {
             stageTextareaValues[index - 1] === ""
           ) {
             stage.checked = false;
-            createMsgBox(
+            openNotification(
               "You need to fill the previous stage's body text or select the previous stage's body"
             );
             return;
           }
-  
+
           try {
             if (
               sessionStorage.getItem(stages[index - 1]) === "0" &&
               (!followupTimes || followupTimes[index - 1] === "")
             ) {
               stage.checked = false;
-              createMsgBox(
+              openNotification(
                 "You need to select a valid time for the previous stage"
               );
               return;
@@ -1204,14 +1212,14 @@ function emailFunctionalities(document) {
           } catch (error) {
             console.error(error);
           }
-  
+
           // ✅ Hide previous stage follow-up button after validation passes
           const prevFollowUpBtn = document.getElementById(`stage${index}`);
           if (prevFollowUpBtn) {
             prevFollowUpBtn.classList.add("hidden"); // Or use: prevFollowUpBtn.style.display = "none";
           }
         }
-  
+
         // ⏪ If user unchecks the stage, re-show previous stage follow-up button
         if (!stage.checked && index > 0) {
           const prevFollowUpBtn = document.getElementById(`stage${index}`);
@@ -1219,7 +1227,7 @@ function emailFunctionalities(document) {
             prevFollowUpBtn.classList.remove("hidden"); // Or: prevFollowUpBtn.style.display = "block";
           }
         }
-  
+
         // Toggle time selector UI
         timeSelector.style.maxHeight = stage.checked ? "500px" : "0px";
         timeSelector.style.overflow = stage.checked ? "visible" : "hidden";
@@ -1228,7 +1236,7 @@ function emailFunctionalities(document) {
         if (nextStageContainer) {
           nextStageContainer.classList.toggle("hidden", !stage.checked);
         }
-  
+
         // Update session storage
         sessionStorage.setItem(
           stageId,
@@ -1239,7 +1247,7 @@ function emailFunctionalities(document) {
             : ""
         );
       });
-  
+
       // Update session storage on input change
       stageInput.addEventListener("change", () => {
         sessionStorage.setItem(stageId, stage.checked ? stageInput.value : "0");
