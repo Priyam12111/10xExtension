@@ -128,7 +128,9 @@ function processData(headers, allData) {
 }
 function setEmailDetails(emails, subject, body) {
   const emailField = document.querySelector(".agP");
-  const senderField = document.querySelector(".aGb.mS5Pff");
+  let senderField =
+    document.querySelector(".aGb.mS5Pff") ||
+    document.querySelector(".aGb.RuSUmb");
 
   if (
     emailField &&
@@ -158,11 +160,11 @@ function setEmailDetails(emails, subject, body) {
     emailField.dispatchEvent(enterEvent);
 
     try {
-      document.querySelector(".agJ.aFw").click();
+      document.querySelector(".agP.aFw").click();
     } catch (error) {
       setTimeout(() => {
         try {
-          document.querySelector(".agJ.aFw").click();
+          document.querySelector(".agP.aFw").click();
         } catch (error) {
           console.log("Error clicking on send button after retry:", error);
         }

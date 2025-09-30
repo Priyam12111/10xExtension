@@ -56,6 +56,7 @@ async function createSendButton() {
 const createDraft = async (identifier) => {
   const url = "https://10xsend.in/api/create_draft";
   const subjectInputs = document.querySelectorAll(".aoT");
+  // const subjectInputs = document.querySelectorAll(".aoD");
   const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
 
   // Get the most recent subject and body
@@ -1323,7 +1324,7 @@ function hideFollowUpSectionOnClickOutside(followUpSectionContainer) {
 
 const observer = new MutationObserver(async () => {
   const composeToolbars = document.querySelectorAll(".gU.Up");
-  let sender = document.querySelector(".gb_B.gb_Za.gb_0");
+  let sender = document.querySelector(".gb_B.gb_0a.gb_1");
 
   if (sender && !sessionStorage.getItem("sender")) {
     sender = sender.getAttribute("aria-label").split("\n");
