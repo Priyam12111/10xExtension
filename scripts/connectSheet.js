@@ -426,7 +426,7 @@ async function CheckSignedIn() {
 }
 
 const sheetObserver = new MutationObserver(() => {
-  const gmailSearch = document.querySelector(".gb_ze");
+  const gmailSearch = document.querySelector(".gb_Ae");
 
   if (gmailSearch && !document.querySelector("#sheet-button")) {
     console.log("Searching for Gmail Search Bar...");
