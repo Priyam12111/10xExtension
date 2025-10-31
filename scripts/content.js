@@ -5,24 +5,44 @@ async function createSendButton() {
   sendButton.textContent = "10xSend";
   sendButton.id = "send-button";
 
+  // small helper so we only close when we really want to
+  const closeLatestCompose = () => {
+    try {
+      const deleteBtn = document.querySelectorAll(".og.T-I-J3");
+      if (deleteBtn.length) {
+        deleteBtn[deleteBtn.length - 1].click();
+      }
+    } catch (e) {
+      console.warn("Could not close compose:", e);
+    }
+  };
+
   sendButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
+
     let Composebox = document.querySelectorAll(".agP");
-    if (
-      Composebox[Composebox.length - 1].value == "developer@10x.com" ||
-      Composebox[0].value == "developer@10x.in"
-    ) {
-      const res = await createDraft(" (Auto Followup)")
-      if(res) {
+    const isAutoFollowupAddress =
+      Composebox[Composebox.length - 1]?.value == "developer@10x.com" ||
+      Composebox[0]?.value == "developer@10x.in";
+
+    if (isAutoFollowupAddress) {
+      // AUTO-FOLLOWUP DRAFT SAVE
+      const res = await createDraft(" (Auto Followup)");
+      if (res) {
         createMsgBox("Draft Created Successfully");
+        // ✅ Close only on success
+        setTimeout(closeLatestCompose, 1000);
+      } else {
+        // ❌ Keep compose open on failure
+        createMsgBox("Draft not saved. Keeping the window open.", 6000);
       }
-      setTimeout(() => {
-        const deleteBtn = document.querySelectorAll(".og.T-I-J3");
-        deleteBtn[deleteBtn.length - 1].click();
-      }, 1000);
     } else {
+      // NORMAL SEND FLOW
+      // (unchanged) kick off your sending logic
       sendMails();
+
+      // clear sessionStorage after some time (unchanged)
       setTimeout(() => {
         sessionStorage.removeItem("RescheduleTiming");
         sessionStorage.removeItem("DelayCheckbox");
@@ -38,95 +58,148 @@ async function createSendButton() {
           }
         );
       }, 20000);
-      const subject = document.querySelector(".aoT").value;
-      console.log(subject);
+
+      // Try saving a "(Template)" draft of what was just sent
+      const subject = document.querySelector(".aoT")?.value?.trim();
+      let saved = false;
 
       if (subject) {
-        await createDraft(" (Template)");
+        saved = await createDraft(" (Template)");
+      } else {
+        // If there’s no subject, don’t attempt save and don’t close
+        createMsgBox("No subject found. Not saving as Template.", 6000);
       }
-      setTimeout(() => {
-        const deleteBtn = document.querySelectorAll(".og.T-I-J3");
-        deleteBtn[deleteBtn.length - 1].click();
-      }, 5000);
+
+      if (saved) {
+        // ✅ Close only when the draft save succeeded
+        setTimeout(closeLatestCompose, 5000);
+      } else {
+        // ❌ Keep compose open on failure / missing subject/body
+        createMsgBox("Template not saved. Keeping the window open.", 6000);
+      }
     }
   });
+
   return sendButton;
 }
 
-const createDraft = async (identifier) => {
+// Simple fast hash (djb2)
+function hashString(str) {
+  let hash = 5381;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash) + str.charCodeAt(i);
+    hash = hash & hash; // 32-bit
+  }
+  return (hash >>> 0).toString(36);
+}
+
+const createDraft = (identifier) => {
   const url = "https://10xsend.in/api/create_draft";
   const subjectInputs = document.querySelectorAll(".aoT");
-  // const subjectInputs = document.querySelectorAll(".aoD");
   const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
 
-  // Get the most recent subject and body
+  // Latest compose fields
   const currentSubject = subjectInputs[subjectInputs.length - 1]?.value || "";
   const currentBody = emailBodies[emailBodies.length - 1]?.innerHTML || "";
-  
+
+  console.log("currentSubject", currentSubject, "currentBody", currentBody);
+
   if (!currentSubject.trim() || !currentBody.trim()) {
     createMsgBox("Subject and email body cannot be blank", 8000);
-    return false;
+    return false; // don't close, as requested
   }
 
-  // Process subject with identifier
-  let finalSubject = currentSubject.trim(); // Trim whitespace first
-  
-  // Handle identifier only if we have a subject
+  // Normalize subject + tag
+  let finalSubject = currentSubject.trim();
   if (finalSubject) {
     if (finalSubject.includes(identifier)) {
       finalSubject = finalSubject.replace(identifier, "").trim();
-  } else {
+    } else {
       finalSubject += identifier;
-  }
+    }
   }
 
+  const sender = sessionStorage.getItem("sender") || "";
   const draftData = {
-    sender: sessionStorage.getItem("sender") || "",
+    sender,
     recipient: "developer@10x.com",
-    subject: finalSubject, // Now properly cleaned
+    subject: finalSubject,
     body: currentBody,
   };
 
+  // Validate variables before sending
+  let variables = {};
   try {
-    let variables;
-    try {
-      variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
-    } catch (e) {
-      console.error("Failed to parse variables:", e);
-      variables = {};
-    }
+    variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
+  } catch (e) {
+    console.error("Failed to parse variables:", e);
+  }
+  const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables);
+  if (!isValid) {
+    createMsgBox("Error: Please check the dynamic variables.");
+    return false; // don't close
+  }
 
-    const isValid = validatePlaceholdersAgainstKeys(draftData.subject, draftData.body, variables);
-  
-    if (!isValid) {
-      createMsgBox("Error: Please check the dynamic variables.");
-      return false;
-    }
+  // --- Fire-and-forget logic with de-dup ---
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(draftData),
+  // Build a short key that uniquely represents this send attempt
+  // (subject + small slice of body + sender). Adjust as needed.
+  const bodySlice = currentBody.slice(0, 1024); // limit to reduce key size
+  const dedupeKey = `draft:${hashString(`${sender}|${finalSubject}|${bodySlice}`)}`;
+
+  // If already in-flight, don't send again
+  if (sessionStorage.getItem(dedupeKey) === "inflight") {
+    // We already fired the request; allow caller to proceed/close
+    createMsgBox("Saving draft… (already in progress)");
+    return true;
+  }
+
+  // Mark as in-flight
+  sessionStorage.setItem(dedupeKey, "inflight");
+
+  // Optional: idempotency header for backend de-dup (safe even if backend ignores it)
+  const idemKey = `${Date.now()}-${dedupeKey}`;
+
+  // Start request but DO NOT await it
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Idempotency-Key": idemKey,
+    },
+    // keepalive ensures the request keeps going even if the page changes state
+    keepalive: true,
+    body: JSON.stringify(draftData),
+  })
+    .then(async (response) => {
+      // Clear in-flight
+      sessionStorage.removeItem(dedupeKey);
+
+      if (response.ok) {
+        const result = await response.json().catch(() => ({}));
+        console.log("Draft Saved Successfully", result);
+        createMsgBox("Draft saved successfully.");
+      } else {
+        let msg = "Unknown error";
+        try {
+          const err = await response.json();
+          msg = err?.message || JSON.stringify(err);
+        } catch {}
+        console.log("Error creating draft:", msg);
+        createMsgBox("Failed to create draft: " + msg);
+      }
+    })
+    .catch((err) => {
+      sessionStorage.removeItem(dedupeKey);
+      console.error("Network or unexpected error:", err);
+      createMsgBox("Network error while creating draft");
     });
 
-    if (response.ok) {
-      const result = await response.json();
-      console.log("Draft Saved Successfully", result);
-      return true;
-    } else {
-      const error = await response.json();
-      console.log("Error creating draft:", error);
-      createMsgBox("Failed to create draft: " + (error.message || "Unknown error"));
-      return false;
-  }
-  } catch (err) {
-    console.error("Network or unexpected error:", err);
-    createMsgBox("Network error while creating draft");
-  return false;
-  }
+  // Immediately return true so caller can close the compose without waiting
+  createMsgBox("Saving draft…"); // small feedback while it fires
+  return true;
 };
+
 function createButton(id) {
   const button = document.createElement("button");
   const dropupMenu = document.createElement("div");
@@ -314,34 +387,78 @@ function toggleContainerDisplay(container, containerContent) {
     });
   }
 }
+
 function composeDraft() {
-  document.querySelector(".T-I.T-I-KE.L3").click();
+  const now = Date.now();
+  if (composeDraft._last && now - composeDraft._last < 600) {
+    createMsgBox("Opening draft…");
+    return;
+  }
+  composeDraft._last = now;
+
+  if (composeDraft._opening) {
+    createMsgBox("Opening draft…");
+    return;
+  }
+  composeDraft._opening = true;
+  setTimeout(() => (composeDraft._opening = false), 2500);
+
+  const beforeCloseBtns = document.querySelectorAll(".og.T-I-J3");
+  const beforeCount = beforeCloseBtns.length;
+
+  const composeBtn = document.querySelector(".T-I.T-I-KE.L3");
+  if (composeBtn) composeBtn.click();
+
   setTimeout(() => {
-    let SubjectBox = document.querySelectorAll(".aoT");
-    let sendButtons = document.querySelectorAll("#send-button");
-    sendButtons[sendButtons.length - 1].textContent = `Save`;
-    const gmailSend = document.querySelectorAll(
-      ".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3"
-    );
-    const emailBody = window.document.querySelectorAll(
-      ".Am.aiL.Al.editable.LW-avf.tS-tW"
-    );
+    const closeBtns = Array.from(document.querySelectorAll(".og.T-I-J3"));
+    const newCount = closeBtns.length;
+    const extras = newCount - beforeCount - 1; // keep only latest
+
+    if (extras > 0) {
+      for (let i = 0; i < extras; i++) {
+        const idxToClose = closeBtns.length - 2 - i; // second-last, third-last...
+        if (closeBtns[idxToClose]) closeBtns[idxToClose].click();
+      }
+    }
+  }, 200);
+
+  // fill subject/body like before (unchanged behavior)
+  setTimeout(() => {
+    const SubjectBox = document.querySelectorAll(".aoT");
+    const sendButtons = document.querySelectorAll("#send-button");
+    if (sendButtons.length) {
+      sendButtons[sendButtons.length - 1].textContent = `Save`;
+    }
+
+    const gmailSend = document.querySelectorAll(".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3");
+    const emailBody = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
     const TTLS = document.querySelectorAll(".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3");
     const lastTTL = TTLS[TTLS.length - 1];
-    lastTTL.style.pointerEvents = "none";
-    lastTTL.style.width = "10px";
-    lastTTL.style.minWidth = "0px";
-    gmailSend[gmailSend.length - 1].textContent = ":";
 
-    SubjectBox[SubjectBox.length - 1].value = "Auto Page Template 1";
-    emailBody[
-      emailBody.length - 1
-    ].innerHTML = `<p>Replace this entire message (including this line) with your template, and set a Subject to later identify this template.<br><br>Compose the message to be used as your auto follow-up template. You can use <strong>fonts, colors, images, attachments, and any personalization variables</strong> from your original campaign message.<br><br>The address in the To field is a special address to save auto follow-up templates, so don't change that.<br><br>When you're done, <strong>click the GMass button just to save the auto follow-up template</strong> into your account. No emails will be sent when you hit the GMass button.<br><br>Then go back to your original campaign, <strong>refresh the Auto Followup dropdown</strong> and select this message. <a target="_blog" href="https://www.gmass.co/blog/rich-content-auto-follow-up-email-sequence/">More instructions here</a>, including a <a href="https://youtu.be/zBHzOe0BDf0" target="_blog">video</a> of this process.</p>`;
+    if (lastTTL) {
+      lastTTL.style.pointerEvents = "none";
+      lastTTL.style.width = "10px";
+      lastTTL.style.minWidth = "0px";
+    }
+    if (gmailSend.length) {
+      gmailSend[gmailSend.length - 1].textContent = ":";
+    }
+
+    if (SubjectBox.length) {
+      SubjectBox[SubjectBox.length - 1].value = "Auto Page Template 1";
+    }
+    if (emailBody.length) {
+      emailBody[emailBody.length - 1].innerHTML = `<p>Replace this entire message (including this line) with your template, and set a Subject to later identify this template.<br><br>Compose the message to be used as your auto follow-up template. You can use <strong>fonts, colors, images, attachments, and any personalization variables</strong> from your original campaign message.<br><br>The address in the To field is a special address to save auto follow-up templates, so don't change that.<br><br>When you're done, <strong>click the GMass button just to save the auto follow-up template</strong> into your account. No emails will be sent when you hit the GMass button.<br><br>Then go back to your original campaign, <strong>refresh the Auto Followup dropdown</strong> and select this message. <a target="_blog" href="https://www.gmass.co/blog/rich-content-auto-follow-up-email-sequence/">More instructions here</a>, including a <a href="https://youtu.be/zBHzOe0BDf0" target="_blog">video</a> of this process.</p>`;
+    }
   }, 10);
+
   setTimeout(() => {
-    let Composebox = document.querySelectorAll(".agP");
-    Composebox[Composebox.length - 1].value = "developer@10x.com";
-    Composebox[Composebox.length - 1].setAttribute("readonly", "true");
+    const Composebox = document.querySelectorAll(".agP");
+    if (Composebox.length) {
+      const lastTo = Composebox[Composebox.length - 1];
+      lastTo.value = "developer@10x.com";
+      lastTo.setAttribute("readonly", "true");
+    }
   }, 1000);
 }
 
@@ -733,8 +850,16 @@ function dropupJs(document) {
   } catch (e) {}
   try {
     if (createDrafts) {
+      let _cdLastClick = 0;
       createDrafts.forEach((draft) => {
-        draft.addEventListener("click", () => composeDraft());
+        draft.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const now = Date.now();
+          if (now - _cdLastClick < 600) return; // debounce rapid double clicks
+          _cdLastClick = now;
+          composeDraft(); // will also enforce single-open internally
+        });
       });
     }
   } catch (e) {}
