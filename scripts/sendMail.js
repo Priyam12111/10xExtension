@@ -215,9 +215,7 @@ async function sendMails() {
     });
   });
 
-  if (!confirmed) {
-    return;
-  }
+    if (!confirmed) return false;
 
   const track = JSON.parse(sessionStorage.getItem("tracking") || "false");
   const DelayCheckbox = sessionStorage.getItem("DelayCheckbox") || 0;
@@ -226,64 +224,69 @@ async function sendMails() {
   try {
     const sender = sessionStorage.getItem("sender");
     const subjectInput = document.querySelector(".aoT");
-    const bodyInput = document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW");
+    const bodyInput = document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW")
+      || document.querySelector('.Am.Al[contenteditable="true"]');
 
     if (!subjectInput || !bodyInput) {
-      createMsgBox("Error: Could not find email subject or body. Please try again.");
-      return;
+      createMsgBox("Error: Could not find email subject or body. Please try again.", 8000);
+      console.warn("Missing subject or body element. Aborting sendMail.");
+      return false;
     }
 
     const subject = subjectInput.value + " - " + sender;
-    const uploadId = await fetch(
-      `https://10xsend.in/api/latest_id?subject=${subject}`
-    )
+
+    const uploadId = await fetch(`https://10xsend.in/api/latest_id?subject=${encodeURIComponent(subject)}`)
       .then((res) => res.text())
       .then((id) => JSON.parse(id).Latest_id + 1);
+
     const body = bodyInput.innerHTML;
 
-    console.log("Uploading Mail Data...");
-    const formatIST = (date) => {
-      return new Intl.DateTimeFormat("en-IN", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
+    const formatIST = (date) =>
+      new Intl.DateTimeFormat("en-IN", {
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", hour12: true,
         timeZone: "Asia/Kolkata",
       }).format(date);
-    };
+
     const now = new Date();
     const schedule = sessionStorage.getItem("schedule") || "";
-    let current_schedule =
-      schedule === ""
-        ? formatIST(new Date(now.getTime() + 1 * 60 * 1000))
-        : schedule;
+    const current_schedule = schedule === "" ? formatIST(new Date(now.getTime() + 60 * 1000)) : schedule;
 
-    let variables;
+    let variables = {};
     try {
       variables = JSON.parse(sessionStorage.getItem("variables") || "{}");
     } catch (e) {
       console.error("Failed to parse variables:", e);
+      createMsgBox("Error: Invalid personalization variables JSON.", 8000);
+      return false;
     }
-    const isValid = validatePlaceholdersAgainstKeys(subject, body, variables)
 
-    if(isValid) {
+    const isValid = validatePlaceholdersAgainstKeys(subject, body, variables);
+    if (!isValid) {
+      createMsgBox("Error: Please check the dynamic variables.", 8000);
+      return false;
+    }
+
+    // Call your uploader and treat non-OK as failure
     const uploadResponse = await uploadMailData(
-      sender,
-      uploadId,
-      subject,
-      body,
-      current_schedule,
-      DelayCheckbox
+      sender, uploadId, subject, body, current_schedule, DelayCheckbox
     );
-    handleUploadResponse(uploadResponse, schedule, DelayCheckbox);
-  }else {
-    createMsgBox("Error: Please check the dynamic variables.");
-  }
+
+    const ok = handleUploadResponse(uploadResponse, schedule, DelayCheckbox) !== false;
+    // ^ if your handler doesn’t return, just set ok based on response fields
+
+    if (!ok) {
+      createMsgBox("Send failed — keeping the window open.", 8000);
+      return false;
+    }
+
+    createMsgBox("Queued successfully.");
+    return true;
+
   } catch (error) {
-    console.log("Error:", error);
-    createMsgBox("An Error Occurred. Please check the console for details.");
+    console.error("Error during sendMail:", error);
+    createMsgBox("An error occurred. Please check the console for details.", 8000);
+    return false;
   }
 }
 

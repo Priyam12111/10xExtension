@@ -21,62 +21,54 @@ async function createSendButton() {
     event.preventDefault();
     event.stopPropagation();
 
-    let Composebox = document.querySelectorAll(".agP");
+    const toBoxes = document.querySelectorAll(".agP");
+    const lastTo = toBoxes[toBoxes.length - 1]?.value?.toLowerCase() || "";
     const isAutoFollowupAddress =
-      Composebox[Composebox.length - 1]?.value == "developer@10x.com" ||
-      Composebox[0]?.value == "developer@10x.in";
+      lastTo === "developer@10x.com" || lastTo === "developer@10x.in";
 
     if (isAutoFollowupAddress) {
       // AUTO-FOLLOWUP DRAFT SAVE
       const res = await createDraft(" (Auto Followup)");
       if (res) {
         createMsgBox("Draft Created Successfully");
-        // ✅ Close only on success
         setTimeout(closeLatestCompose, 1000);
       } else {
-        // ❌ Keep compose open on failure
         createMsgBox("Draft not saved. Keeping the window open.", 6000);
       }
+      return;
+    }
+
+    // NORMAL SEND FLOW
+    const sendOk = await sendMails();
+    if (!sendOk) return; // keep compose open on error/validation fail
+
+    // Clear sessionStorage after a bit
+    setTimeout(() => {
+      sessionStorage.removeItem("RescheduleTiming");
+      sessionStorage.removeItem("DelayCheckbox");
+      sessionStorage.removeItem("followuptime");
+      sessionStorage.removeItem("stagetextarea-values");
+      sessionStorage.removeItem("sender");
+      sessionStorage.removeItem("MaxEmails");
+      sessionStorage.removeItem("schedule");
+      ["stage1", "stage2", "stage3", "stage4", "stage5"].forEach((stage, i) => {
+        sessionStorage.removeItem(stage);
+        sessionStorage.removeItem(`draftBody${i + 1}`);
+      });
+    }, 20000);
+
+    // Optional template save ONLY after successful send
+    const subject = document.querySelector(".aoT")?.value?.trim();
+    if (!subject) {
+      createMsgBox("No subject found. Not saving as Template.", 6000);
+      return; // keep open
+    }
+    const saved = await createDraft(" (Template)");
+
+    if (saved) {
+      setTimeout(closeLatestCompose, 5000); // close only if template saved
     } else {
-      // NORMAL SEND FLOW
-      // (unchanged) kick off your sending logic
-      sendMails();
-
-      // clear sessionStorage after some time (unchanged)
-      setTimeout(() => {
-        sessionStorage.removeItem("RescheduleTiming");
-        sessionStorage.removeItem("DelayCheckbox");
-        sessionStorage.removeItem("followuptime");
-        sessionStorage.removeItem("stagetextarea-values");
-        sessionStorage.removeItem("sender");
-        sessionStorage.removeItem("MaxEmails");
-        sessionStorage.removeItem("schedule");
-        ["stage1", "stage2", "stage3", "stage4", "stage5"].forEach(
-          (stage, index) => {
-            sessionStorage.removeItem(stage);
-            sessionStorage.removeItem(`draftBody${index + 1}`);
-          }
-        );
-      }, 20000);
-
-      // Try saving a "(Template)" draft of what was just sent
-      const subject = document.querySelector(".aoT")?.value?.trim();
-      let saved = false;
-
-      if (subject) {
-        saved = await createDraft(" (Template)");
-      } else {
-        // If there’s no subject, don’t attempt save and don’t close
-        createMsgBox("No subject found. Not saving as Template.", 6000);
-      }
-
-      if (saved) {
-        // ✅ Close only when the draft save succeeded
-        setTimeout(closeLatestCompose, 5000);
-      } else {
-        // ❌ Keep compose open on failure / missing subject/body
-        createMsgBox("Template not saved. Keeping the window open.", 6000);
-      }
+      createMsgBox("Template not saved. Keeping the window open.", 6000);
     }
   });
 
@@ -93,7 +85,7 @@ function hashString(str) {
   return (hash >>> 0).toString(36);
 }
 
-const createDraft = (identifier) => {
+const createDraft = async (identifier) => {
   const url = "https://10xsend.in/api/create_draft";
   const subjectInputs = document.querySelectorAll(".aoT");
   const emailBodies = window.document.querySelectorAll(".Am.aiL.Al.editable.LW-avf.tS-tW");
