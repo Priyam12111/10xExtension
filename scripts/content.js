@@ -20,6 +20,18 @@ async function createSendButton() {
   sendButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
+    const label = (sendButton.textContent || "").trim().toLowerCase();
+
+    if (label === "save") {
+      const res = await createDraft(" (Auto Followup)");
+      if (res) {
+        createMsgBox("Draft saved successfully");
+        setTimeout(closeLatestCompose, 1000);
+      } else {
+        createMsgBox("Draft not saved. Keeping the window open.", 6000);
+      }
+      return; // ⬅️ DO NOT fall through to sendMails()
+    }
 
     const toBoxes = document.querySelectorAll(".agP");
     const lastTo = toBoxes[toBoxes.length - 1]?.value?.toLowerCase() || "";
@@ -453,6 +465,92 @@ function composeDraft() {
     }
   }, 1000);
 }
+function openDraftForEditing(draft) {
+  const now = Date.now();
+  if (openDraftForEditing._last && now - openDraftForEditing._last < 600) {
+    createMsgBox("Opening draft…");
+    return;
+  }
+  openDraftForEditing._last = now;
+
+  if (openDraftForEditing._opening) {
+    createMsgBox("Opening draft…");
+    return;
+  }
+  openDraftForEditing._opening = true;
+  setTimeout(() => (openDraftForEditing._opening = false), 2500);
+
+  const beforeCloseBtns = document.querySelectorAll(".og.T-I-J3");
+  const beforeCount = beforeCloseBtns.length;
+
+  const composeBtn = document.querySelector(".T-I.T-I-KE.L3");
+  if (composeBtn) composeBtn.click();
+
+  setTimeout(() => {
+    const closeBtns = Array.from(document.querySelectorAll(".og.T-I-J3"));
+    const newCount = closeBtns.length;
+    const extras = newCount - beforeCount - 1;
+
+    if (extras > 0) {
+      for (let i = 0; i < extras; i++) {
+        const idxToClose = closeBtns.length - 2 - i;
+        if (closeBtns[idxToClose]) closeBtns[idxToClose].click();
+      }
+    }
+  }, 200);
+
+  // ⚙️ Put compose into "Save template" mode, but fill with this draft
+  setTimeout(() => {
+    const SubjectBox = document.querySelectorAll(".aoT");
+    const sendButtons = document.querySelectorAll("#send-button");
+    const gmailSend = document.querySelectorAll(".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3");
+    const emailBody = window.document.querySelectorAll(
+      ".Am.aiL.Al.editable.LW-avf.tS-tW"
+    );
+    const TTLS = gmailSend;
+    const lastTTL = TTLS[TTLS.length - 1];
+
+    // 🔶 our orange button → Save (same as composeDraft)
+    if (sendButtons.length) {
+      sendButtons[sendButtons.length - 1].textContent = "Save";
+    }
+
+    // 🔵 native Gmail Send → disabled + ":" (same as composeDraft)
+    if (lastTTL) {
+      lastTTL.style.pointerEvents = "none";
+      lastTTL.style.width = "10px";
+      lastTTL.style.minWidth = "0px";
+    }
+    if (gmailSend.length) {
+      gmailSend[gmailSend.length - 1].textContent = ":";
+    }
+
+    const defaultSubject = "Auto Page Template 1";
+    const defaultBody = `<p>Replace this entire message (including this line) with your template, and set a Subject to later identify this template.<br><br>Compose the message to be used as your auto follow-up template. You can use <strong>fonts, colors, images, attachments, and any personalization variables</strong> from your original campaign message.<br><br>The address in the To field is a special address to save auto follow-up templates, so don't change that.<br><br>When you're done, <strong>click the GMass button just to save the auto follow-up template</strong> into your account. No emails will be sent when you hit the GMass button.<br><br>Then go back to your original campaign, <strong>refresh the Auto Followup dropdown</strong> and select this message. <a target="_blog" href="https://www.gmass.co/blog/rich-content-auto-follow-up-email-sequence/">More instructions here</a>, including a <a href="https://youtu.be/zBHzOe0BDf0" target="_blog">video</a> of this process.</p>`;
+
+    // 🧾 SUBJECT: use draft.subject if present, else default
+    if (SubjectBox.length) {
+      SubjectBox[SubjectBox.length - 1].value =
+        (draft && draft.subject) || defaultSubject;
+    }
+
+    // ✉ BODY: use draft.body if present, else default
+    if (emailBody.length) {
+      emailBody[emailBody.length - 1].innerHTML =
+        (draft && draft.body) || defaultBody;
+    }
+  }, 10);
+
+  // 📧 TO: EXACTLY like composeDraft → developer@10x.com (this is the key!)
+  setTimeout(() => {
+    const Composebox = document.querySelectorAll(".agP");
+    if (Composebox.length) {
+      const lastTo = Composebox[Composebox.length - 1];
+      lastTo.value = "developer@10x.com";
+      lastTo.setAttribute("readonly", "true");
+    }
+  }, 1000);
+}
 
 function viewAllDrafts(slectMessage, droupOpenSec) {
   slectMessage.addEventListener("click", () => {
@@ -468,63 +566,108 @@ function fetchDrafts(
   reload = false,
   size = 50
 ) {
-  fetch(
-    `https://10xsend.in/api/drafts?sender=${sessionStorage.getItem(
-      "sender"
-    )}&&size=${size}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
+  const sender = sessionStorage.getItem("sender") || "";
+  if (!sender) {
+    console.warn("No sender in sessionStorage; not fetching drafts.");
+    return;
+  }
+
+  fetch(`https://10xsend.in/api/drafts?sender=${encodeURIComponent(sender)}&size=${size}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  })
     .then((response) => response.json())
     .then((data) => {
-      if (data.drafts && Array.isArray(data.drafts)) {
-        const uniqueDrafts = [];
-        const seenIds = new Set(
-          Array.from(listmesaageshow.children).map((li) =>
-            li.getAttribute("data-subject")
-          )
-        );
-        data.drafts.forEach((draft) => {
-          if (!seenIds.has(draft.subject)) {
-            uniqueDrafts.push(draft);
-            seenIds.add(draft.subject);
-          }
-        });
-
-        const draftsToShow = uniqueDrafts.slice(0, 50);
-        const emailBody = document.querySelectorAll(".email-body")[index];
-        const emailHeader = document.querySelectorAll(".email-header")[index];
-        // listmesaageshow.innerHTML = "";
-        if (listmesaageshow.childNodes.length === 0 || reload) {
-          draftsToShow.forEach((draft) => {
-            const draftLi = document.createElement("li");
-            const subject = draft.subject.replace("(Auto Followup)", "");
-
-            draftLi.setAttribute("data-body", draft.body);
-            draftLi.setAttribute("data-subject", draft.subject);
-            // if (draft.subject.includes("(Auto Followup)")) {
-              draftLi.innerHTML = `
-                <span>${subject || "No Subject"}</span>
-              `;
-
-              listmesaageshow.appendChild(draftLi);
-              draftLi.addEventListener("click", (e) => {
-                e.stopPropagation();
-                emailHeader.textContent = subject || "No Subject";
-                emailBody.innerHTML = "<br>" + draft.body + "<br><hr>";
-                slectMessage.firstElementChild.textContent = subject || "";
-                droupOpenSec.classList.add("hidden");
-                sessionStorage.setItem(`draftBody${index + 1}`, draft.body);
-              });
-            // }
-          });
-        }
-      } else {
+      if (!data.drafts || !Array.isArray(data.drafts)) {
         console.log("No drafts found in the response");
+        return;
+      }
+
+      const uniqueDrafts = [];
+      const seenIds = new Set(
+        Array.from(listmesaageshow.children).map((li) =>
+          li.getAttribute("data-subject")
+        )
+      );
+
+      data.drafts.forEach((draft) => {
+        if (!seenIds.has(draft.subject)) {
+          uniqueDrafts.push(draft);
+          seenIds.add(draft.subject);
+        }
+      });
+
+      const draftsToShow = uniqueDrafts.slice(0, size);
+
+      const emailBodyEls = document.querySelectorAll(".email-body");
+      const emailHeaderEls = document.querySelectorAll(".email-header");
+      const emailBody = emailBodyEls[index];
+      const emailHeader = emailHeaderEls[index];
+
+      if (!emailBody || !emailHeader) {
+        console.warn("email-body/email-header not found for index", index);
+        return;
+      }
+
+      // On reload, clear existing items so you don’t stack duplicates
+      if (listmesaageshow.children.length === 0 || reload) {
+        if (reload) {
+          listmesaageshow.innerHTML = "";
+        }
+
+        draftsToShow.forEach((draft) => {
+          const draftLi = document.createElement("li");
+          const subject = (draft.subject || "").replace("(Auto Followup)", "");
+
+          draftLi.setAttribute("data-body", draft.body || "");
+          draftLi.setAttribute("data-subject", draft.subject || "");
+          draftLi.innerHTML = `<span>${subject || "No Subject"}</span>`;
+
+          listmesaageshow.appendChild(draftLi);
+
+          draftLi.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            // 1️⃣ Show preview
+            emailHeader.textContent = subject || "No Subject";
+            emailBody.innerHTML = "<br>" + (draft.body || "") + "<br><hr>";
+            slectMessage.firstElementChild.textContent = subject || "";
+            droupOpenSec.classList.add("hidden");
+            sessionStorage.setItem(`draftBody${index + 1}`, draft.body || "");
+
+            // 2️⃣ Add/Edit button inside this preview
+            const container = emailBody.closest(".email-container");
+            if (!container) return;
+
+            let editBtn = container.querySelector(".draft-preview-edit-btn");
+            if (!editBtn) {
+              editBtn = window.document.createElement("button");
+              editBtn.type = "button";
+              editBtn.className = "draft-preview-edit-btn";
+              editBtn.textContent = "Edit";
+
+              // Simple styling – feel free to move to CSS
+              editBtn.style.position = "absolute";
+              editBtn.style.top = "12px";
+              editBtn.style.right = "16px";
+              editBtn.style.padding = "6px 12px";
+              editBtn.style.borderRadius = "4px";
+              editBtn.style.border = "none";
+              editBtn.style.cursor = "pointer";
+              editBtn.style.zIndex = "9999";
+
+              container.style.position = "relative";
+              container.appendChild(editBtn);
+            }
+            editBtn.onclick = (ev) => {
+              ev.stopPropagation();
+              openDraftForEditing({
+                subject: draft.subject,
+                body: draft.body,
+              });
+            };
+          });
+        });
       }
     })
     .catch((error) => {
@@ -1463,6 +1606,20 @@ const observer = new MutationObserver(async () => {
     if (!composeToolbar.querySelector("#cmail-button")) {
       const { button, dropupMenu } = createButton("cmail-button");
       const sendButton = await createSendButton();
+
+      // 🔥 After button insertion, override text if in edit mode
+      if (sessionStorage.getItem("draftEditMode") === "true") {
+          sendButton.textContent = "Save";
+
+          // also disable Gmail send + remove 10x behaviour
+          const gmailSend = composeToolbar.querySelector(".T-I.J-J5-Ji.aoO.v7.T-I-atl.L3");
+          if (gmailSend) {
+              gmailSend.style.pointerEvents = "none";
+              gmailSend.style.width = "10px";
+              gmailSend.style.minWidth = "0px";
+              gmailSend.textContent = ":";
+          }
+      }
 
       composeToolbar.appendChild(sendButton);
       composeToolbar.appendChild(button);
