@@ -1,19 +1,101 @@
 console.log("Executing Sheet Script");
+
+/* -------------------- LOADER HELPERS (added) -------------------- */
+function ensureSheetLoaderStyles() {
+  if (document.getElementById("sheet-loader-style")) return;
+
+  const style = document.createElement("style");
+  style.id = "sheet-loader-style";
+  style.textContent = `
+    .sheet-loader-inline{
+      width:14px;height:14px;
+      border:2px solid rgba(0,0,0,0.2);
+      border-top-color: rgba(0,0,0,0.7);
+      border-radius:50%;
+      display:inline-block;
+      animation: sheetSpin 0.7s linear infinite;
+      vertical-align: middle;
+    }
+    @keyframes sheetSpin { to { transform: rotate(360deg); } }
+
+    /* used on the gmail top button */
+    .sheet-button.loading{
+      pointer-events:none;
+      opacity:0.75;
+    }
+
+    /* used inside modal/list if needed */
+    .sheet-list-loading{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      font-size:14px;
+      color:#444;
+      border-bottom:1px solid #eee;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function setButtonLoading(btn, isLoading, idleText = "Sheets") {
+  if (!btn) return;
+
+  // store original once
+  if (!btn.dataset.originalHtml) {
+    btn.dataset.originalHtml = btn.innerHTML || idleText;
+  }
+
+  if (isLoading) {
+    btn.classList.add("loading");
+    btn.innerHTML = `<span class="sheet-loader-inline" aria-label="Loading"></span>`;
+  } else {
+    btn.classList.remove("loading");
+    btn.innerHTML = btn.dataset.originalHtml;
+  }
+}
+
+function setContainerLoading(containerEl, isLoading, text = "Loading...") {
+  if (!containerEl) return;
+
+  // create loader node once
+  let loader = containerEl.querySelector(".sheet-list-loading");
+  if (!loader) {
+    loader = document.createElement("div");
+    loader.className = "sheet-list-loading";
+    loader.innerHTML = `
+      <span class="sheet-loader-inline" aria-label="Loading"></span>
+      <span class="sheet-list-loading-text"></span>
+    `;
+    containerEl.prepend(loader);
+  }
+
+  loader.querySelector(".sheet-list-loading-text").textContent = text;
+  loader.style.display = isLoading ? "flex" : "none";
+}
+/* --------------------------------------------------------------- */
+
 async function createSheetList() {
+  ensureSheetLoaderStyles();
+
   const sheetListContainer = document.createElement("div");
   sheetListContainer.className = "sheet-list-container hidden";
   const sheetListHtmlUrl = chrome.runtime.getURL("assets/html/sheetlist.html");
 
   try {
+    // show loader while fetching HTML
+    setContainerLoading(sheetListContainer, true, "Preparing sheet picker...");
+
     const response = await fetch(sheetListHtmlUrl);
     if (!response.ok) {
-      throw new Error(
-        `Failed to fetch sheet list HTML: ${response.statusText}`
-      );
+      throw new Error(`Failed to fetch sheet list HTML: ${response.statusText}`);
     }
     const html = await response.text();
     sheetListContainer.innerHTML = html;
     document.body.appendChild(sheetListContainer);
+
+    // if sheetlist.html already has its own loader area you can remove this line
+    setContainerLoading(sheetListContainer, false);
   } catch (error) {
     console.error("Error creating sheet list:", error);
   }
@@ -89,21 +171,27 @@ function createSheetNames(data, parentNode) {
     return sheetItem;
   });
 }
+
 async function fetchAndDisplaySheetNames() {
   let sheetNameResponseData;
+  const container = document.querySelector(".sheet-list-container");
+
   try {
+    setContainerLoading(container, true, "Loading sheet tabs...");
     console.log(
       "https://10xsend.in/api/get-sheet-names?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")) +
         "&spreadsheetId=" +
         sessionStorage.getItem("spreadsheetId")
     );
+
     const sheetNameResponse = await fetch(
       "https://10xsend.in/api/get-sheet-names?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")) +
         "&spreadsheetId=" +
         sessionStorage.getItem("spreadsheetId")
     );
+
     if (!sheetNameResponse.ok) {
       throw new Error(
         "Sheet Name Network response was not ok " + sheetNameResponse.statusText
@@ -114,14 +202,20 @@ async function fetchAndDisplaySheetNames() {
   } catch (error) {
     sheetNameResponseData = { sheetNames: ["Sheet1"] };
     console.error("Error fetching sheet names:", error);
+  } finally {
+    setContainerLoading(container, false);
   }
+
   const sheet_dropdown_list = document.querySelector("#sheet-dropdown-list");
   sheet_dropdown_list.innerHTML = "";
   createSheetNames(sheetNameResponseData["sheetNames"], sheet_dropdown_list);
 }
 
 async function sheetListJs() {
+  const container = document.querySelector(".sheet-list-container");
   try {
+    setContainerLoading(container, true, "Loading your Google Sheets...");
+
     const response = await fetch(
       "https://10xsend.in/api/list-sheets?sender=" +
         encodeURIComponent(sessionStorage.getItem("sender")),
@@ -145,6 +239,8 @@ async function sheetListJs() {
     createSheetItems(data["result"], sheetList);
   } catch (error) {
     console.error("Error fetching sheet list:", error);
+  } finally {
+    setContainerLoading(container, false);
   }
 }
 
@@ -173,9 +269,7 @@ function LoadsheetJS() {
   const searchInput = document.getElementById("dropdown-search");
   const dropdownList = document.getElementById("dropdown-list");
   const sheet_dropdown = document.getElementById("sheet-dropdown");
-  const sheet_placeholder = document.getElementById(
-    "sheet-dropdown-placeholder"
-  );
+  const sheet_placeholder = document.getElementById("sheet-dropdown-placeholder");
   const sheet_searchInput = document.getElementById("sheet-dropdown-search");
   const sheet_dropdownList = document.getElementById("sheet-dropdown-list");
 
@@ -201,8 +295,7 @@ function LoadsheetJS() {
     const target = e.target.closest("LI, SPAN");
     SpreadsheetSave.style.display = "block";
     if (target) {
-      const selectedItem =
-        target.tagName === "SPAN" ? target.parentElement : target;
+      const selectedItem = target.tagName === "SPAN" ? target.parentElement : target;
       console.log("Selected tab:", selectedItem.textContent);
       sheet_placeholder.textContent = selectedItem.textContent;
       sessionStorage.setItem("range", selectedItem.dataset.id);
@@ -212,6 +305,7 @@ function LoadsheetJS() {
       sheet_dropdownList.classList.add("hidden");
     }
   });
+
   const SpreadsheetSave = document.getElementById("SpreadsheetSave");
   const sheetListContainer = document.querySelector(".sheet-list-container");
   const mainContainer = document.querySelector(".main");
@@ -240,6 +334,7 @@ function LoadsheetJS() {
     console.log("Close Button Clicked");
     sheetListContainer.classList.toggle("hidden");
   });
+
   document.addEventListener("click", (e) => {
     if (!dropdown.contains(e.target)) {
       searchInput.value = "";
@@ -259,23 +354,22 @@ function LoadsheetJS() {
     if (target) {
       const sheetList = document.querySelector("#sheet-dropdown");
       sheetList.style.display = "flex";
-      const selectedItem =
-        target.tagName === "SPAN" ? target.parentElement : target;
+      const selectedItem = target.tagName === "SPAN" ? target.parentElement : target;
+
       console.log(
         "Selected sheet:",
         String(selectedItem.textContent)
           .split("\n")
           .filter((item) => item.trim() !== "")
       );
+
       placeholder.textContent = selectedItem.textContent;
-      sessionStorage.setItem(
-        "spreadsheetId",
-        selectedItem.dataset.id.replace(/[()]/g, "")
-      );
+      sessionStorage.setItem("spreadsheetId", selectedItem.dataset.id.replace(/[()]/g, ""));
       searchInput.value = "";
       searchInput.style.display = "none";
       placeholder.style.display = "block";
       dropdownList.classList.add("hidden");
+
       try {
         fetchAndDisplaySheetNames();
       } catch (error) {
@@ -301,14 +395,10 @@ function LoadsheetJS() {
     sheetListContainer.classList.add("hidden");
 
     try {
-      const bodyField = document.querySelector(
-        ".Am.aiL.Al.editable.LW-avf.tS-tW"
-      );
+      const bodyField = document.querySelector(".Am.aiL.Al.editable.LW-avf.tS-tW");
       if (!bodyField) {
         const compose = document.querySelector(".T-I.T-I-KE.L3");
-        if (compose) {
-          compose.click();
-        }
+        if (compose) compose.click();
       }
 
       setTimeout(() => {
@@ -325,8 +415,6 @@ function LoadsheetJS() {
 
   mainContainer.addEventListener("click", (event) => {
     event.stopPropagation();
-    // placeholder.textContent = "Select Spreadsheet";
-    // sheet_placeholder.textContent = "Select Sheet";
     placeholder.style.display = "block";
     sheet_placeholder.style.display = "block";
     searchInput.style.display = "none";
@@ -398,6 +486,7 @@ async function createSignUp() {
 
   return modalContainer;
 }
+
 async function CheckSignedIn() {
   try {
     const sender = sessionStorage.getItem("sender");
@@ -439,6 +528,7 @@ const sheetObserver = new MutationObserver(() => {
       sender = sender.getAttribute("aria-label").split("\n");
       sender = sender[sender.length - 1].replace("(", "").replace(")", "");
     }
+
     createSignUp();
     CheckSignedIn();
     createSheetList();
@@ -447,38 +537,47 @@ const sheetObserver = new MutationObserver(() => {
     const sheetButton = document.createElement("div");
     const report = document.createElement("a");
 
-    report.href = `https://10xsend.in/:${
-      sessionStorage.getItem("sender") || sender
-    }`;
-    report.target = "_blank"; // Open link in a new tab
+    report.href = `https://10xsend.in/:${sessionStorage.getItem("sender") || sender}`;
+    report.target = "_blank";
     report.id = "reportdata";
 
     sheetButton.id = "sheet-button";
     sheetButton.className = "sheet-button";
     sheetButton.title = "Connect to an email list in a Google Sheet.";
 
+    // (optional) give button a default label if your CSS relies on background icon only
+    if (!sheetButton.innerHTML?.trim()) sheetButton.innerHTML = "Sheets";
+
     buttonContainer.className = "button-container";
     gmailSearch.parentElement.style.display = "flex";
     gmailSearch.style.width = "100%";
     buttonContainer.appendChild(sheetButton);
     buttonContainer.appendChild(report);
-    gmailSearch.parentElement.insertBefore(
-      buttonContainer,
-      gmailSearch.nextSibling
-    );
+    gmailSearch.parentElement.insertBefore(buttonContainer, gmailSearch.nextSibling);
 
     sheetButton.addEventListener("click", async () => {
+      ensureSheetLoaderStyles();
+      setButtonLoading(sheetButton, true, "Sheets");
+
       try {
         const isSignedIn = await CheckSignedIn();
         if (isSignedIn) {
           createMsgBox("Checking Permissions of Google Sheet...");
+
+          // show list container (if it exists) and show loader inside it while fetching
+          const container = document.querySelector(".sheet-list-container");
+          if (container) setContainerLoading(container, true, "Loading your Google Sheets...");
+
           await sheetListJs();
-          document
-            .querySelector(".sheet-list-container")
-            .classList.toggle("hidden");
+
+          if (container) setContainerLoading(container, false);
+
+          document.querySelector(".sheet-list-container")?.classList.toggle("hidden");
         }
       } catch (error) {
         console.error("Error handling sheet button click:", error);
+      } finally {
+        setButtonLoading(sheetButton, false, "Sheets");
       }
     });
 
