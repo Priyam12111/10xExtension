@@ -5,54 +5,115 @@ async function createSendButton() {
   sendButton.textContent = "10xSend";
   sendButton.id = "send-button";
 
-  // small helper so we only close when we really want to
-  const closeLatestCompose = () => {
+  const getComposeRootFromEvent = (event) => {
+    return event?.target?.closest?.('div[role="dialog"]') || document;
+  };
+
+  const closeCompose = (composeRoot) => {
     try {
-      const deleteBtn = document.querySelectorAll(".og.T-I-J3");
-      if (deleteBtn.length) {
-        deleteBtn[deleteBtn.length - 1].click();
+      const closeBtn =
+        composeRoot.querySelector('img[aria-label="Close"]')?.closest('[role="button"]') ||
+        composeRoot.querySelector('div[aria-label="Close"]') ||
+        composeRoot.querySelector('button[aria-label="Close"]');
+
+      if (closeBtn) {
+        closeBtn.click();
+        return;
       }
+
+      // 2) Fallback to old selector (may close latest compose, not perfect)
+      const deleteBtn = document.querySelectorAll(".og.T-I-J3");
+      if (deleteBtn.length) deleteBtn[deleteBtn.length - 1].click();
     } catch (e) {
       console.warn("Could not close compose:", e);
     }
   };
 
+  // Read recipient emails from Gmail chips (more reliable than `.agP`.value)
+  const getRecipientEmails = (composeRoot) => {
+    // Gmail chips often have an `email` attribute on spans/divs
+    const chips = composeRoot.querySelectorAll("span[email], div[email]");
+    const emails = [];
+    chips.forEach((el) => {
+      const em = (el.getAttribute("email") || "").trim().toLowerCase();
+      if (em) emails.push(em);
+    });
+
+    // Fallback: try `.agP` inputs if no chips found
+    if (!emails.length) {
+      const toInputs = composeRoot.querySelectorAll(".agP");
+      toInputs.forEach((inp) => {
+        const v = (inp?.value || "").trim().toLowerCase();
+        if (v) emails.push(v);
+      });
+    }
+
+    return emails;
+  };
+
+  const isAutoFollowup = (composeRoot) => {
+    const emails = getRecipientEmails(composeRoot);
+    // check any recipient (not just last)
+    return emails.includes("developer@10x.com") || emails.includes("developer@10x.in");
+  };
+
+  // Wrapper so a thrown error doesn't kill click handler
+  const safeCreateDraft = async (tag) => {
+    try {
+      const ok = await createDraft(tag);
+      return !!ok;
+    } catch (e) {
+      console.error("createDraft crashed:", e);
+      createMsgBox("Draft error: " + (e?.message || "unknown"), 6000);
+      return false;
+    }
+  };
+
+  // ------- click handler -------
   sendButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
+
+    const composeRoot = getComposeRootFromEvent(event);
+
+    // IMPORTANT: Use the button text on THIS element
     const label = (sendButton.textContent || "").trim().toLowerCase();
 
+    // --- SAVE MODE ---
     if (label === "save") {
-      const res = await createDraft(" (Auto Followup)");
-      if (res) {
-        createMsgBox("Draft saved successfully");
-        setTimeout(closeLatestCompose, 1000);
+      const ok = await safeCreateDraft(" (Auto Followup)");
+      if (ok) {
+        // createDraft already shows "Saving..." / success messages
+        setTimeout(() => closeCompose(composeRoot), 1000);
       } else {
+        // Don't overwrite more specific message from createDraft
         createMsgBox("Draft not saved. Keeping the window open.", 6000);
       }
-      return; // ⬅️ DO NOT fall through to sendMails()
+      return;
     }
 
-    const toBoxes = document.querySelectorAll(".agP");
-    const lastTo = toBoxes[toBoxes.length - 1]?.value?.toLowerCase() || "";
-    const isAutoFollowupAddress =
-      lastTo === "developer@10x.com" || lastTo === "developer@10x.in";
-
-    if (isAutoFollowupAddress) {
-      // AUTO-FOLLOWUP DRAFT SAVE
-      const res = await createDraft(" (Auto Followup)");
-      if (res) {
-        createMsgBox("Draft Created Successfully");
-        setTimeout(closeLatestCompose, 1000);
+    // --- AUTO FOLLOWUP MODE ---
+    if (isAutoFollowup(composeRoot)) {
+      const ok = await safeCreateDraft(" (Auto Followup)");
+      if (ok) {
+        setTimeout(() => closeCompose(composeRoot), 1000);
       } else {
         createMsgBox("Draft not saved. Keeping the window open.", 6000);
       }
       return;
     }
 
-    // NORMAL SEND FLOW
-    const sendOk = await sendMails();
-    if (!sendOk) return; // keep compose open on error/validation fail
+    // --- NORMAL SEND FLOW ---
+    let sendOk = false;
+    try {
+      sendOk = await sendMails();
+    } catch (e) {
+      console.error("sendMails crashed:", e);
+      createMsgBox("Send failed: " + (e?.message || "unknown"), 6000);
+      return; // keep open
+    }
+
+    if (!sendOk) return; // keep compose open
 
     // Clear sessionStorage after a bit
     setTimeout(() => {
@@ -70,15 +131,15 @@ async function createSendButton() {
     }, 20000);
 
     // Optional template save ONLY after successful send
-    const subject = document.querySelector(".aoT")?.value?.trim();
+    const subject = composeRoot.querySelector(".aoT")?.value?.trim();
     if (!subject) {
       createMsgBox("No subject found. Not saving as Template.", 6000);
       return; // keep open
     }
-    const saved = await createDraft(" (Template)");
 
-    if (saved) {
-      setTimeout(closeLatestCompose, 5000); // close only if template saved
+    const templateOk = await safeCreateDraft(" (Template)");
+    if (templateOk) {
+      setTimeout(() => closeCompose(composeRoot), 5000);
     } else {
       createMsgBox("Template not saved. Keeping the window open.", 6000);
     }
@@ -86,6 +147,7 @@ async function createSendButton() {
 
   return sendButton;
 }
+
 
 // Simple fast hash (djb2)
 function hashString(str) {
