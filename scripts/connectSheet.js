@@ -38,7 +38,7 @@ function ensureSheetLoaderStyles() {
   document.head.appendChild(style);
 }
 
-function setButtonLoading(btn, isLoading, idleText = "Sheets") {
+function setButtonLoading(btn, isLoading, idleText = "") {
   if (!btn) return;
 
   // store original once
