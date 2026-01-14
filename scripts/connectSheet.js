@@ -212,9 +212,11 @@ async function fetchAndDisplaySheetNames() {
 }
 
 async function sheetListJs() {
-  const container = document.querySelector(".sheet-list-container");
+  const sheetList = document.querySelector("#dropdown-list"); // UL
+  const L = window.LoaderUI;
+
   try {
-    setContainerLoading(container, true, "Loading your Google Sheets...");
+    L?.list?.(sheetList, true, "Loading your Google Sheets...");
 
     const response = await fetch(
       "https://10xsend.in/api/list-sheets?sender=" +
@@ -234,13 +236,15 @@ async function sheetListJs() {
 
     const data = await response.json();
 
-    const sheetList = document.querySelector("#dropdown-list");
     sheetList.innerHTML = "";
     createSheetItems(data["result"], sheetList);
   } catch (error) {
     console.error("Error fetching sheet list:", error);
+    if (sheetList) {
+      sheetList.innerHTML = `<li style="padding:10px;">Failed to load spreadsheets</li>`;
+    }
   } finally {
-    setContainerLoading(container, false);
+    L?.list?.(sheetList, false);
   }
 }
 
@@ -544,10 +548,6 @@ const sheetObserver = new MutationObserver(() => {
     sheetButton.id = "sheet-button";
     sheetButton.className = "sheet-button";
     sheetButton.title = "Connect to an email list in a Google Sheet.";
-
-    // (optional) give button a default label if your CSS relies on background icon only
-    if (!sheetButton.innerHTML?.trim()) sheetButton.innerHTML = "Sheets";
-
     buttonContainer.className = "button-container";
     gmailSearch.parentElement.style.display = "flex";
     gmailSearch.style.width = "100%";

@@ -27,6 +27,7 @@
         "assets/css/style.css"
       ],
       "js": [
+        "scripts/loader.js",
         "scripts/connectSheet.js",
         "scripts/content.js",
         "scripts/sendMail.js",
